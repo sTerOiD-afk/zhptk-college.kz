@@ -27,22 +27,27 @@
             scroll-behavior: smooth;
         }
 
-        /* --- НОВЫЙ УЛУЧШЕННЫЙ ФОН --- */
+        /* --- НОВЫЙ АНИМИРОВАННЫЙ ФОН --- */
         .cyber-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; 
-            background: radial-gradient(circle at 0% 0%, #0f172a 0%, #020617 100%);
+            background: linear-gradient(-45deg, #020617, #0f172a, #1a1025, #082f49);
+            background-size: 400% 400%;
+            animation: gradientBG 20s ease infinite;
         }
+        
         .aurora {
             position: absolute; width: 150%; height: 150%;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.08), transparent 50%);
-            top: -25%; left: -25%; animation: rotate 30s linear infinite;
+            background: radial-gradient(circle at 50% 50%, rgba(0, 242, 254, 0.05), transparent 50%);
+            top: -25%; left: -25%; animation: rotate 40s linear infinite;
         }
-        .orb-1 { position: absolute; width: 500px; height: 500px; background: var(--primary); filter: blur(180px); opacity: 0.15; top: -100px; right: -100px; animation: float 15s infinite alternate; }
-        .orb-2 { position: absolute; width: 400px; height: 400px; background: var(--secondary); filter: blur(150px); opacity: 0.1; bottom: -50px; left: -50px; animation: float 12s infinite alternate-reverse; }
 
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes float { 0% { transform: translate(0,0); } 100% { transform: translate(50px, 80px); } }
 
         /* --- HEADER & NAV --- */
         nav {
@@ -50,6 +55,7 @@
             background: rgba(2, 6, 23, 0.8); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border); display: flex;
             justify-content: center; align-items: center; z-index: 1000; gap: 20px;
+            flex-wrap: wrap;
         }
         nav a { color: #94a3b8; text-decoration: none; font-weight: 700; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; padding: 10px 15px; }
         nav a:hover { color: var(--accent); background: var(--glass); border-radius: 12px; }
@@ -63,6 +69,40 @@
             border-radius: 40px; padding: 50px; backdrop-filter: blur(25px); margin-bottom: 60px;
             position: relative; overflow: hidden;
         }
+
+        /* --- ПРАВИЛА ВНУТРЕННЕГО РАСПОРЯДКА --- */
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+        .rule-card {
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 25px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .rule-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            background: rgba(0, 122, 255, 0.05);
+        }
+        .rule-icon {
+            width: 50px; height: 50px;
+            background: var(--glass);
+            border-radius: 15px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .rule-card h3 { margin: 0; color: #fff; font-size: 1.3rem; }
+        .rule-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #cbd5e1; }
+        .rule-list li { margin-bottom: 10px; padding-left: 25px; position: relative; line-height: 1.5; }
+        .rule-list li::before { content: '•'; position: absolute; left: 0; color: var(--primary); font-size: 1.5rem; line-height: 1; top: -2px; }
 
         /* --- ИСТОРИЯ --- */
         .timeline { border-left: 2px solid var(--primary); margin: 30px 0 30px 20px; padding-left: 30px; }
@@ -93,6 +133,10 @@
         .ext-link i { font-size: 2.5rem; color: var(--accent); }
         .ext-link:hover { border-color: var(--accent); transform: translateY(-5px); background: rgba(0, 242, 254, 0.05); }
 
+        /* --- ПАРТНЕРЫ --- */
+        .partner-pill { background: var(--glass); padding: 10px 20px; border-radius: 20px; border: 1px solid var(--border); font-size: 0.9rem; transition: 0.3s; }
+        .partner-pill:hover { background: var(--primary); color: #fff; border-color: var(--primary); }
+
         /* --- PRICE & REQUISITES --- */
         .hero-banner {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
@@ -115,20 +159,19 @@
         .bot-input { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
         .bot-input input { background: var(--glass); border: 1px solid var(--border); color: white; padding: 12px; border-radius: 20px; flex: 1; outline: none; }
 
-        footer { text-align: center; padding: 60px 20px; opacity: 0.4; font-size: 0.8rem; }
+        footer { text-align: center; padding: 60px 20px; opacity: 0.6; font-size: 0.8rem; line-height: 1.6; }
     </style>
 </head>
 <body>
 
     <div class="cyber-bg">
         <div class="aurora"></div>
-        <div class="orb-1"></div>
-        <div class="orb-2"></div>
     </div>
 
     <nav>
         <a href="#about">История</a>
         <a href="#specialties">Профессии</a>
+        <a href="#rules">Правила</a>
         <a href="#docs">Документы</a>
         <a href="#links">Ресурсы</a>
     </nav>
@@ -139,7 +182,7 @@
                 <h1 style="font-size: 4.5rem; margin:0; font-weight: 800; font-family: 'Space Grotesk';">ЖВПТК <span style="color: var(--accent)">2026</span></h1>
                 <p style="color: var(--accent); letter-spacing: 4px; font-weight: 700; margin-bottom: 30px;">ZHEZKAZGAN HIGHER POLYTECHNIC COLLEGE</p>
                 
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 40px; margin-bottom: 40px;">
                     <div>
                         <h3 style="color: var(--primary);"><i class="fas fa-rocket"></i> Миссия</h3>
                         <p>Подготовка конкурентоспособных кадров через интеграцию образования, науки и производства на базе международного опыта.</p>
@@ -231,8 +274,8 @@
             </div>
         </div>
 
-        <div class="card-main" style="border-top: 4px solid gold;">
-            <h2 style="color: gold; text-align: center;"><i class="fas fa-shield-halved"></i> Кодекс чести студента</h2>
+        <div class="card-main" style="border-top: 4px solid gold; margin-bottom: 30px;">
+            <h2 style="color: gold; text-align: center; margin-top: 0;"><i class="fas fa-shield-halved"></i> Кодекс чести студента</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; font-size: 0.9rem;">
                 <p><i class="fas fa-star" style="color:gold"></i> Быть патриотом Казахстана и носителем культуры.</p>
                 <p><i class="fas fa-star" style="color:gold"></i> Соблюдать академическую честность (без плагиата).</p>
@@ -241,9 +284,68 @@
             </div>
         </div>
 
+        <section id="rules">
+            <h2 class="section-title" style="margin-bottom: 20px;">Внутренний распорядок</h2>
+            <p style="text-align: center; color: #94a3b8; max-width: 800px; margin: 0 auto;">Правила определяют нормы поведения студентов и работников колледжа для успешной учебы и эффективной организации процессов. Запрещаются насилие, создание полит. и религиозных организаций, противоправные действия.</p>
+            
+            <div class="rules-grid">
+                <div class="rule-card">
+                    <div class="rule-icon"><i class="fas fa-user-graduate"></i></div>
+                    <h3>Права студентов</h3>
+                    <ul class="rule-list">
+                        <li>Получать образование по гос. стандартам.</li>
+                        <li>Пользоваться библиотекой, интернетом, спортзалом и столовой.</li>
+                        <li>Участвовать в жизни колледжа и свободно выражать мнение.</li>
+                        <li>Получать поощрения за успехи и проживать в общежитии.</li>
+                    </ul>
+                </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h3>Обязанности студентов</h3>
+                    <ul class="rule-list">
+                        <li>Посещать занятия и приходить за 15 минут до начала.</li>
+                        <li>Соблюдать ТБ и беречь имущество колледжа.</li>
+                        <li>Соблюдать деловой (классический) стиль одежды.</li>
+                        <li>Предоставлять документы при пропуске занятий.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card">
+                    <div class="rule-icon"><i class="fas fa-clock"></i></div>
+                    <h3>Учебный процесс</h3>
+                    <ul class="rule-list">
+                        <li>Учебный год с 1 сентября (2 семестра).</li>
+                        <li>6-дневная учебная неделя, время: 09:00 – 18:00.</li>
+                        <li>Продолжительность занятия — 45 минут.</li>
+                        <li>Курение, драки и правонарушения строго запрещены.</li>
+                    </ul>
+                </div>
+
+                <div class="rule-card" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div>
+                        <h3 style="color: #10b981; margin-bottom: 15px;"><i class="fas fa-award"></i> Поощрения</h3>
+                        <ul class="rule-list">
+                            <li>Благодарность, письмо родителям.</li>
+                            <li>Именная стипендия, ценный подарок.</li>
+                            <li>Занесение на Доску почета.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: #ef4444; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle"></i> Взыскания</h3>
+                        <ul class="rule-list">
+                            <li>Замечание, выговор, строгий выговор.</li>
+                            <li>Возмещение стоимости за ущерб имуществу.</li>
+                            <li>Исключение из колледжа.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <div class="hero-banner">
             <h2 style="font-size: 3rem; margin:0; font-family: 'Space Grotesk';">Приемная кампания 2026</h2>
-            <div style="display:flex; justify-content: space-around; flex-wrap: wrap; margin-top: 40px;">
+            <div style="display:flex; justify-content: space-around; flex-wrap: wrap; margin-top: 40px; gap: 20px;">
                 <div><span style="opacity:0.8">ОЧНОЕ ОТДЕЛЕНИЕ</span><br><b style="font-size: 3rem;">140 000 ₸</b></div>
                 <div><span style="opacity:0.8">ЗАОЧНОЕ ОТДЕЛЕНИЕ</span><br><b style="font-size: 3rem;">90 000 ₸</b></div>
             </div>
@@ -278,6 +380,7 @@
     <footer>
         <p>© 2026 Жезказганский высший политехнический колледж</p>
         <p>КГКП УО области Ұлытау | г. Жезказган, ул. Байконурова, 19 | 76-19-23</p>
+        <p style="margin-top: 15px;"><span style="color: var(--primary); font-weight: 700;">Разработано при участии студентов группы ПО-22</span></p>
     </footer>
 
     <script>
