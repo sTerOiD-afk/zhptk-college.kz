@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ЖВПТК 2026 — Официальный портал</title>
+    <title>ЖВПТК 2026 — Премиальный портал</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Manrope:wght@300;500;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #007aff;
             --secondary: #6366f1;
             --accent: #00f2fe;
             --dark: #050505;
+            --surface: #0f172a;
             --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
         }
 
         * { box-sizing: border-box; transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
         body {
-            font-family: 'Space Grotesk', sans-serif;
+            font-family: 'Manrope', sans-serif;
             background: var(--dark);
             color: #e2e8f0;
             margin: 0;
@@ -26,110 +27,108 @@
             scroll-behavior: smooth;
         }
 
-        /* --- BACKGROUND --- */
+        /* --- УЛУЧШЕННЫЙ АНИМИРОВАННЫЙ ФОН --- */
         .cyber-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -1; background: radial-gradient(circle at 50% 50%, #0f172a 0%, #050505 100%);
+            z-index: -1; background: radial-gradient(circle at 50% 50%, #0f172a 0%, #000 100%);
         }
         .orb {
-            position: absolute; width: 400px; height: 400px;
+            position: absolute; width: 600px; height: 600px;
             background: linear-gradient(45deg, var(--primary), var(--accent));
-            filter: blur(120px); border-radius: 50%; opacity: 0.15;
-            animation: float 15s infinite alternate;
+            filter: blur(150px); border-radius: 50%; opacity: 0.12;
+            animation: float 20s infinite alternate;
         }
-        @keyframes float { 0% { transform: translate(0,0); } 100% { transform: translate(100px, 150px); } }
+        @keyframes float { 0% { transform: translate(-10%, -10%); } 100% { transform: translate(20%, 30%); } }
 
-        /* --- NAVIGATION --- */
+        /* --- HEADER & NAV --- */
         nav {
-            position: fixed; top: 0; width: 100%; height: 70px;
-            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(15px);
+            position: fixed; top: 0; width: 100%; height: 80px;
+            background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border); display: flex;
-            justify-content: center; align-items: center; z-index: 1000; gap: 25px;
+            justify-content: center; align-items: center; z-index: 1000; gap: 20px;
         }
-        nav a { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.75rem; letter-spacing: 1px; text-transform: uppercase; }
-        nav a:hover { color: var(--accent); }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; padding: 10px 15px; }
+        nav a:hover { color: var(--accent); background: var(--glass); border-radius: 10px; }
 
-        .container { max-width: 1200px; margin: auto; padding: 100px 20px; }
-        .section-title { font-size: 2.2rem; text-align: center; margin-bottom: 40px; color: var(--accent); text-transform: uppercase; letter-spacing: 2px; }
+        .container { max-width: 1200px; margin: auto; padding: 120px 20px; }
+        .section-title { font-size: 2.8rem; text-align: center; margin-bottom: 50px; font-weight: 800; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
 
-        /* --- ABOUT & HISTORY --- */
+        /* --- КАРТОЧКИ --- */
         .card-main {
             background: var(--glass); border: 1px solid var(--border);
-            border-radius: 30px; padding: 40px; backdrop-filter: blur(10px); margin-bottom: 50px;
+            border-radius: 40px; padding: 50px; backdrop-filter: blur(15px); margin-bottom: 60px;
+            position: relative; overflow: hidden;
         }
-        .history-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 20px; margin-top: 30px; border-top: 1px solid var(--border); padding-top: 30px;
-        }
-        .history-node b { color: var(--accent); font-size: 1.2rem; display: block; margin-bottom: 5px; }
-        .history-node span { font-size: 0.85rem; opacity: 0.8; }
+        .card-main::before { content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%; background: var(--primary); }
 
-        /* --- SPECIALTIES --- */
-        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; }
-        .spec-card {
+        /* --- ИСТОРИЯ (TIMELINE) --- */
+        .timeline { border-left: 1px solid var(--border); margin-left: 20px; padding-left: 30px; position: relative; }
+        .t-item { margin-bottom: 30px; position: relative; }
+        .t-item::before { content: ""; position: absolute; left: -36px; top: 5px; width: 10px; height: 10px; background: var(--accent); border-radius: 50%; box-shadow: 0 0 15px var(--accent); }
+        .t-item b { font-size: 1.2rem; color: var(--accent); }
+
+        /* --- СПЕЦИАЛЬНОСТИ --- */
+        .grid-3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; }
+        .spec-box {
             background: var(--glass); border: 1px solid var(--border);
-            border-radius: 25px; padding: 25px;
+            border-radius: 30px; padding: 30px; position: relative;
         }
-        .spec-card h3 { color: var(--primary); margin-top: 0; font-size: 1.4rem; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        .spec-list { list-style: none; padding: 0; }
-        .spec-list li { 
-            padding: 12px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 10px; font-size: 0.95rem;
-        }
-        .spec-list li:hover { background: rgba(0, 122, 255, 0.1); color: var(--accent); transform: translateX(8px); }
-        .spec-list li i { color: var(--primary); width: 20px; }
+        .spec-box:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(0, 122, 255, 0.05); }
+        .spec-box h3 { font-size: 1.5rem; margin-top: 0; color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .spec-list { list-style: none; padding: 0; margin-top: 20px; }
+        .spec-list li { padding: 15px; border-radius: 15px; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 0.95rem; margin-bottom: 5px; }
+        .spec-list li:hover { background: var(--glass); color: var(--accent); }
 
-        /* --- PARTNERS --- */
-        .partner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px; }
-        .partner-box {
-            background: rgba(255,255,255,0.02); border: 1px solid var(--border);
-            padding: 15px 20px; border-radius: 15px; font-size: 0.9rem; border-left: 4px solid var(--secondary);
-        }
+        /* --- ПОРЯДОК ДОКУМЕНТОВ --- */
+        .doc-step { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 25px; background: rgba(255,255,255,0.02); padding: 20px; border-radius: 20px; }
+        .doc-num { background: var(--primary); min-width: 35px; height: 35px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-weight: 800; }
 
-        /* --- PRICE & FOOTER --- */
-        .price-hero {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 50px; border-radius: 40px; text-align: center; margin: 60px 0;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        /* --- ПАРТНЕРЫ --- */
+        .partner-pill { background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 15px 25px; border-radius: 50px; font-size: 0.85rem; display: inline-block; margin: 5px; }
+        .partner-pill:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* --- PRICE & REQUISITES --- */
+        .hero-banner {
+            background: linear-gradient(135deg, #007aff 0%, #6366f1 100%);
+            border-radius: 40px; padding: 60px; text-align: center; margin: 80px 0;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
-        .details-badge {
-            background: rgba(0,0,0,0.3); padding: 15px; border-radius: 15px;
-            font-family: monospace; font-size: 0.9rem; color: #10b981; margin-top: 20px; display: inline-block;
-        }
+        .req-box { background: rgba(0,0,0,0.4); padding: 20px; border-radius: 20px; font-family: 'Space Grotesk', monospace; font-size: 0.9rem; color: #10b981; margin-top: 30px; display: inline-block; border: 1px dashed rgba(255,255,255,0.2); }
 
         /* --- MODAL --- */
-        .modal-overlay {
+        .modal {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
-            display: none; justify-content: center; align-items: center; z-index: 3000;
+            background: rgba(0,0,0,0.95); backdrop-filter: blur(15px);
+            display: none; justify-content: center; align-items: center; z-index: 5000;
         }
-        .modal-content {
-            background: #111; border: 1px solid var(--accent); width: 90%; max-width: 500px;
-            padding: 40px; border-radius: 30px; text-align: left;
+        .modal-card {
+            background: #111; border: 1px solid var(--primary); width: 90%; max-width: 550px;
+            padding: 50px; border-radius: 40px; position: relative;
         }
-        .modal-tag { background: var(--primary); color: white; padding: 5px 15px; border-radius: 20px; font-size: 0.8rem; margin-top: 15px; display: inline-block; }
+        .modal-close { position: absolute; top: 30px; right: 30px; cursor: pointer; font-size: 1.8rem; opacity: 0.5; }
 
-        /* --- AI CHAT --- */
-        #chat-btn {
-            position: fixed; bottom: 30px; right: 30px; width: 65px; height: 65px;
+        /* --- CHAT BOT --- */
+        #bot-trigger {
+            position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px;
             background: var(--primary); border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; cursor: pointer; z-index: 4000;
-            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.4); font-size: 1.5rem; color: white; border: none;
+            align-items: center; justify-content: center; cursor: pointer; z-index: 6000;
+            box-shadow: 0 15px 40px rgba(0, 122, 255, 0.5); font-size: 1.8rem; border: none; color: white;
         }
-        .chat-box {
-            position: fixed; bottom: 110px; right: 30px; width: 350px; height: 450px;
-            background: #111; border: 1px solid var(--border); border-radius: 24px;
-            display: none; flex-direction: column; z-index: 4000; overflow: hidden;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        .bot-window {
+            position: fixed; bottom: 125px; right: 40px; width: 380px; height: 500px;
+            background: #0a0a0a; border: 1px solid var(--border); border-radius: 30px;
+            display: none; flex-direction: column; z-index: 6000; overflow: hidden;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
         }
-        .chat-head { background: var(--primary); padding: 15px; font-weight: 700; display: flex; justify-content: space-between; }
-        .chat-msgs { flex: 1; padding: 15px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; font-size: 0.9rem; }
-        .msg { padding: 10px 15px; border-radius: 15px; max-width: 85%; line-height: 1.4; }
-        .msg.bot { background: var(--glass); align-self: flex-start; }
+        .bot-header { background: var(--primary); padding: 20px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+        .bot-msgs { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; font-size: 0.9rem; }
+        .msg { padding: 12px 18px; border-radius: 20px; max-width: 80%; line-height: 1.4; }
+        .msg.bot { background: var(--glass); border: 1px solid var(--border); align-self: flex-start; }
         .msg.user { background: var(--primary); align-self: flex-end; }
-        .chat-input-area { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
-        .chat-input-area input { background: var(--glass); border: 1px solid var(--border); color: white; padding: 10px; border-radius: 20px; flex: 1; outline: none; }
+        .bot-input { padding: 20px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+        .bot-input input { background: var(--glass); border: 1px solid var(--border); color: white; padding: 12px 20px; border-radius: 30px; flex: 1; outline: none; }
 
-        footer { text-align: center; padding: 60px; opacity: 0.5; font-size: 0.8rem; border-top: 1px solid var(--border); }
+        footer { text-align: center; padding: 80px 20px; opacity: 0.5; font-size: 0.8rem; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
@@ -137,151 +136,191 @@
     <div class="cyber-bg"><div class="orb"></div></div>
 
     <nav>
-        <a href="#about">История</a>
+        <a href="#about">О Колледже</a>
         <a href="#specialties">Профессии</a>
-        <a href="#partners">Партнеры</a>
         <a href="#admission">Поступление</a>
+        <a href="#ethics">Кодекс Чести</a>
     </nav>
 
     <div class="container">
         <section id="about">
             <div class="card-main">
-                <h1 style="font-size: 3.5rem; margin: 0; font-weight: 700;">ЖВПТК <span style="color: var(--accent)">2026</span></h1>
-                <p style="color: var(--accent); margin-bottom: 25px; font-weight: 500;">КГКП «Жезказганский высший политехнический колледж»</p>
+                <h1 style="font-size: 4rem; margin:0; font-weight: 800;">ЖВПТК <span style="color: var(--accent)">2026</span></h1>
+                <p style="color: var(--accent); letter-spacing: 3px; font-weight: 700;">ZHEZKAZGAN HIGHER POLYTECHNIC COLLEGE</p>
                 
-                <p>ЖВПТК — это учебное заведение с 69-летним опытом, выпустившее более 60 поколений квалифицированных кадров. Мы являемся гарантом доступного и качественного профессионального обучения международного уровня.</p>
-                
-                <div class="history-grid">
-                    <div class="history-node"><b>1953</b> <span>Основан как вечерний строительный техникум</span></div>
-                    <div class="history-node"><b>1997</b> <span>Создание аграрно-технического колледжа (слияние 3-х СУЗов)</span></div>
-                    <div class="history-node"><b>2005</b> <span>Переименован в Жезказганский политехнический колледж</span></div>
-                    <div class="history-node"><b>2021</b> <span>Получен статус Высшего политехнического колледжа</span></div>
+                <p style="font-size: 1.1rem; margin: 30px 0; line-height: 1.8; opacity: 0.9;">
+                    Общий стаж образовательной деятельности — 69 лет. Мы — КГКП управления образования области Ұлытау, действующее под эгидой Министерства просвещения РК.
+                </p>
+
+                <div class="timeline">
+                    <div class="t-item"><b>1953</b> <span>Джезказганский вечерний строительный техникум</span></div>
+                    <div class="t-item"><b>1997</b> <span>Аграрно-технический колледж (объединение 3-х СУЗов)</span></div>
+                    <div class="t-item"><b>2005</b> <span>Жезказганский политехнический колледж (ЖПТК)</span></div>
+                    <div class="t-item"><b>2021</b> <span>Жезказганский высший политехнический колледж (ЖВПТК)</span></div>
                 </div>
 
-                <div style="margin-top: 40px; border-left: 3px solid var(--primary); padding-left: 20px;">
-                    <h4 style="color: var(--primary); margin-bottom: 10px;">Наша миссия</h4>
-                    <p style="font-style: italic; opacity: 0.9;">«Создавая образовательную, исследовательскую и инновационную среду, колледж обеспечивает эффективное и качественное обучение, соответствующее мировым стандартам».</p>
+                <div style="margin-top: 50px; background: rgba(0,122,255,0.05); padding: 30px; border-radius: 30px;">
+                    <h3 style="color: var(--accent); margin-top: 0;"><i class="fas fa-eye"></i> Видение 2026</h3>
+                    <p>Стать лидером инновационного ТиПО через дуальное обучение, автоматизацию процессов и создание тренировочных лагерей WorldSkills.</p>
                 </div>
             </div>
         </section>
 
-        <h2 class="section-title" id="specialties">Направления и сроки обучения</h2>
+        <h2 class="section-title" id="specialties">Направления обучения</h2>
         <div class="grid-3">
-            <div class="spec-card">
-                <h3>Энергетика и Ресурсы</h3>
+            <div class="spec-box">
+                <h3><i class="fas fa-microchip"></i> Технологии</h3>
                 <ul class="spec-list">
-                    <li onclick="openModal('Газоснабжение', 'Проектирование и эксплуатация систем газораспределения.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-burn"></i> Газоснабжение</li>
-                    <li onclick="openModal('Электроснабжение', 'Монтаж и наладка промышленного электрооборудования.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-bolt"></i> Электроснабжение</li>
-                    <li onclick="openModal('Теплоэнергетика', 'Работа с теплосетями и оборудованием ТЭЦ.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-thermometer-half"></i> Теплоэнергетика</li>
+                    <li onclick="openM('Программирование', 'Разработка ПО и кибербезопасность.', '3г. 10м. / 2г. 10м.')">ПО и IT-системы</li>
+                    <li onclick="openM('Инфо-безопасность', 'Защита данных и аудит систем.', '3г. 10м. / 2г. 10м.')">Информбезопасность</li>
+                    <li onclick="openM('Газоснабжение', 'Проектирование газовых сетей.', '3г. 10м. / 2г. 10м.')">Газификация</li>
                 </ul>
             </div>
-            <div class="spec-card">
-                <h3>Транспорт и IT</h3>
+            <div class="spec-box">
+                <h3><i class="fas fa-industry"></i> Инженерия</h3>
                 <ul class="spec-list">
-                    <li onclick="openModal('Ж/Д Транспорт', 'Управление движением и перевозками.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-train"></i> Перевозки (Ж/Д)</li>
-                    <li onclick="openModal('Ремонт авто', 'Техническое обслуживание современного транспорта.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-car"></i> Автотранспорт</li>
-                    <li onclick="openModal('Кибербезопасность', 'Защита данных и борьба с киберугрозами.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-user-shield"></i> Инфо-безопасность</li>
-                    <li onclick="openModal('IT-системы', 'Разработка ПО и администрирование систем.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-code"></i> Программирование</li>
+                    <li onclick="openM('Электроснабжение', 'Монтаж пром. электрооборудования.', '3г. 10м. / 2г. 10м.')">Электроснабжение</li>
+                    <li onclick="openM('Теплоэнергетика', 'Системы ТЭЦ и тепловые сети.', '3г. 10м. / 2г. 10м.')">Теплоэнергетика</li>
+                    <li onclick="openM('Архитектура', 'Архитектурное проектирование.', '3г. 10м. / 2г. 10м.')">Архитектура</li>
                 </ul>
             </div>
-            <div class="spec-card">
-                <h3>Безопасность и Дизайн</h3>
+            <div class="spec-box">
+                <h3><i class="fas fa-truck"></i> Транспорт</h3>
                 <ul class="spec-list">
-                    <li onclick="openModal('Защита в ЧС', 'Подготовка специалистов для структур МЧС.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-fire-extinguisher"></i> Защита в ЧС</li>
-                    <li onclick="openModal('Архитектура', 'Проектирование зданий и дизайн среды.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-drafting-pencil"></i> Архитектура</li>
-                    <li onclick="openModal('Строительство', 'Возведение зданий и сооружений.', '3 г. 10 мес. (9 кл) / 2 г. 10 мес. (11 кл)')"><i class="fas fa-hard-hat"></i> Строительство</li>
+                    <li onclick="openM('Ж/Д Транспорт', 'Управление перевозками на Ж/Д.', '3г. 10м. / 2г. 10м.')">Ж/Д Перевозки</li>
+                    <li onclick="openM('Автосервис', 'Ремонт и обслуживание автотранспорта.', '3г. 10м. / 2г. 10м.')">Автомобильный транспорт</li>
+                    <li onclick="openM('Логистика', 'Операционное управление логистикой.', '2г. 10м. / 1г. 10м.')">Логистика</li>
                 </ul>
             </div>
         </div>
 
-        <h2 class="section-title" id="partners" style="margin-top: 80px;">Меморандумы и сотрудничество</h2>
-        <div class="partner-grid">
-            <div class="partner-box">ТОО "Kazakhmys Distribution" (Теплоэнергетика)</div>
-            <div class="partner-box">ТОО "Kazakhmys Distribution" (Электрические сети)</div>
-            <div class="partner-box">ТОО "Tranco Express" & ТОО "TrancoJezz"</div>
-            <div class="partner-box">ГУ "СП и АСР" (Служба пожаротушения)</div>
-            <div class="partner-box">ТОО "Самға" (Инновационные технологии)</div>
-            <div class="partner-box">ТОО "FlexComp" (IT-разработки)</div>
-            <div class="partner-box">ТОО "Нур-Караганда" (Строительство)</div>
-            <div class="partner-box">ИП "Болдырев В.А." (Проектирование)</div>
+        <h2 class="section-title" id="admission" style="margin-top: 100px;">Порядок подачи документов</h2>
+        <div class="card-main">
+            <div class="doc-step">
+                <div class="doc-num">1</div>
+                <div><b>Онлайн-заявка:</b> Подайте заявление через портал <b>SmartNation</b> (college.smartnation.kz).</div>
+            </div>
+            <div class="doc-step">
+                <div class="doc-num">2</div>
+                <div><b>Оригинал документа:</b> Аттестат или диплом (подлинник).</div>
+            </div>
+            <div class="doc-step">
+                <div class="doc-num">3</div>
+                <div><b>Медицинская справка:</b> Форма 075-У со снимком флюорографии.</div>
+            </div>
+            <div class="doc-step">
+                <div class="doc-num">4</div>
+                <div><b>Фотографии:</b> 6 штук размером 3х4 см.</div>
+            </div>
+            <div class="doc-step">
+                <div class="doc-num">5</div>
+                <div><b>Удостоверение:</b> Копия документа личности (или свидетельство о рождении).</div>
+            </div>
         </div>
 
-        <div class="price-hero" id="admission">
-            <h2 style="margin: 0; font-size: 2.5rem;">Приемная кампания 2026</h2>
-            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; margin-top: 30px;">
-                <div><small>ДНЕВНОЕ</small><br><strong>140 000 ₸</strong></div>
-                <div><small>ЗАОЧНОЕ</small><br><strong>90 000 ₸</strong></div>
+        <h2 class="section-title" id="ethics">Кодекс Чести студента ЖВПТК</h2>
+        <div class="card-main" style="border-color: #ffd700;">
+            <ul style="list-style: none; padding: 0;">
+                <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: #ffd700;"></i> <b>Достоинство:</b> Поддерживать авторитет колледжа своими делами и поведением.</li>
+                <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: #ffd700;"></i> <b>Знания:</b> Стремиться к высшему профессионализму и инновационному мышлению.</li>
+                <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: #ffd700;"></i> <b>Уважение:</b> Соблюдать нормы академической честности и уважать труд педагогов.</li>
+                <li style="margin-bottom: 15px;"><i class="fas fa-check-circle" style="color: #ffd700;"></i> <b>Дисциплина:</b> Беречь имущество колледжа и соблюдать правила внутреннего распорядка.</li>
+            </ul>
+        </div>
+
+        <h2 class="section-title">Стратегическое партнерство</h2>
+        <div class="card-main" style="text-align: center;">
+            <p style="margin-bottom: 30px;">Меморандумы о взаимопонимании и подготовке кадров подписаны с:</p>
+            <div class="partner-pill">ТОО "Kazakhmys Distribution" (Тепло)</div>
+            <div class="partner-pill">ТОО "Kazakhmys Distribution" (Электро)</div>
+            <div class="partner-pill">ТОО "Tranco Express"</div>
+            <div class="partner-pill">ТОО "TrancoJezz"</div>
+            <div class="partner-pill">ГУ "СП и АСР" (МЧС)</div>
+            <div class="partner-pill">ТОО "Самға"</div>
+            <div class="partner-pill">ТОО "FlexComp"</div>
+            <div class="partner-pill">ТОО "Нур-Караганда"</div>
+            <div class="partner-pill">ИП "Болдырев В.А."</div>
+        </div>
+
+        <div class="hero-banner">
+            <h2 style="font-size: 3rem; margin:0;">Поступление 2026</h2>
+            <div style="display:flex; justify-content: space-around; flex-wrap: wrap; margin-top: 40px;">
+                <div><span style="opacity:0.7">ДНЕВНОЕ</span><br><b style="font-size: 2.5rem;">140 000 ₸</b></div>
+                <div><span style="opacity:0.7">ЗАОЧНОЕ</span><br><b style="font-size: 2.5rem;">90 000 ₸</b></div>
             </div>
-            <div class="details-badge">БИН: 990140001302 | ИИК: KZ876017171000000065</div>
+            <div class="req-box">
+                БИН: 990140001302 | ИИК: KZ876017171000000065 | Лицензия № KZ44LAA00025405
+            </div>
         </div>
     </div>
 
-    <div class="modal-overlay" id="modal-overlay" onclick="closeModal()">
-        <div class="modal-content" onclick="event.stopPropagation()">
-            <h2 id="m-title" style="color: var(--accent); margin-top: 0;"></h2>
-            <p id="m-desc" style="opacity: 0.9; line-height: 1.6;"></p>
-            <div class="modal-tag"><i class="fas fa-clock"></i> <span id="m-time"></span></div>
-            <br><br>
-            <button class="chat-head" style="width: 100%; border: none; border-radius: 15px; cursor: pointer; color: white;" onclick="closeModal()">ЗАКРЫТЬ</button>
+    <div class="modal" id="modalSpec" onclick="closeM()">
+        <div class="modal-card" onclick="event.stopPropagation()">
+            <span class="modal-close" onclick="closeM()">&times;</span>
+            <h2 id="mTitle" style="color: var(--accent);">Специальность</h2>
+            <p id="mDesc" style="line-height: 1.8; opacity: 0.9;"></p>
+            <div style="background: var(--glass); padding: 20px; border-radius: 20px; border: 1px solid var(--primary); margin-top: 25px;">
+                <i class="fas fa-clock"></i> <b id="mTime"></b>
+            </div>
+            <button class="hero-banner" style="padding: 15px; width: 100%; border: none; cursor: pointer; margin-top: 30px;" onclick="closeM()">Понятно</button>
         </div>
     </div>
 
-    <button id="chat-btn" onclick="toggleChat()"><i class="fas fa-robot"></i></button>
-    <div class="chat-box" id="chat-box">
-        <div class="chat-head"><span>ИИ-Ассистент ЖВПТК</span><span onclick="toggleChat()" style="cursor:pointer">&times;</span></div>
-        <div class="chat-msgs" id="chat-msgs">
-            <div class="msg bot">Здравствуйте! Я помогу узнать об истории ЖВПТК, наших партнерах-меморандумах и условиях поступления. Напишите ваш вопрос!</div>
+    <button id="bot-trigger" onclick="toggleBot()"><i class="fas fa-comment-dots"></i></button>
+    <div class="bot-window" id="botWindow">
+        <div class="bot-header"><span>Ассистент ЖВПТК</span><span onclick="toggleBot()" style="cursor:pointer">&times;</span></div>
+        <div class="bot-msgs" id="botMsgs">
+            <div class="msg bot">Привет! Я ИИ-ассистент ЖВПТК. Могу рассказать о Кодексе чести, списке документов или нашей 69-летней истории. Что вас интересует?</div>
         </div>
-        <div class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Ваш вопрос..." onkeypress="if(event.key==='Enter') sendMessage()">
+        <div class="bot-input">
+            <input type="text" id="botInp" placeholder="Спросите о поступлении..." onkeypress="if(event.key==='Enter') botSend()">
         </div>
     </div>
 
     <footer>
-        <p>© 2026 КГКП «Жезказганский высший политехнический колледж»</p>
-        <p>Государственная лицензия № KZ44LAA00025405 от 12.03.2021г.</p>
-        <p>г. Жезказган, ул. Байконурова, 19 | 76-19-23</p>
+        <p>© 2026 Жезказганский высший политехнический колледж</p>
+        <p>г. Жезказган, ул. Байконурова, 19 | Тел: 76-19-23</p>
     </footer>
 
     <script>
-        function openModal(title, desc, time) {
-            document.getElementById('m-title').innerText = title;
-            document.getElementById('m-desc').innerText = desc;
-            document.getElementById('m-time').innerText = time;
-            document.getElementById('modal-overlay').style.display = 'flex';
+        function openM(title, desc, time) {
+            document.getElementById('mTitle').innerText = title;
+            document.getElementById('mDesc').innerText = desc;
+            document.getElementById('mTime').innerText = "Срок обучения: " + time;
+            document.getElementById('modalSpec').style.display = 'flex';
         }
-        function closeModal() { document.getElementById('modal-overlay').style.display = 'none'; }
+        function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
 
-        function toggleChat() {
-            const chat = document.getElementById('chat-box');
-            chat.style.display = (chat.style.display === 'flex') ? 'none' : 'flex';
+        function toggleBot() {
+            const b = document.getElementById('botWindow');
+            b.style.display = (b.style.display === 'flex') ? 'none' : 'flex';
         }
 
-        function sendMessage() {
-            const inp = document.getElementById('chat-input');
-            const val = inp.value.trim().toLowerCase();
+        function botSend() {
+            const inp = document.getElementById('botInp');
+            const val = inp.value.toLowerCase().trim();
             if(!val) return;
 
-            addMsg(inp.value, 'user');
+            addM(inp.value, 'user');
             inp.value = '';
 
             setTimeout(() => {
-                let r = "Для уточнения информации свяжитесь с приемной комиссией: 76-19-23.";
-                if(val.includes('история') || val.includes('когда')) r = "ЖВПТК основан в 1953 году как вечерний строительный техникум. За 69 лет колледж прошел путь до Высшего политехнического!";
-                if(val.includes('цена') || val.includes('оплат')) r = "Стоимость обучения: 140 000 ₸ (очное) и 90 000 ₸ (заочное). Реквизиты указаны в разделе 'Поступление'.";
-                if(val.includes('партнер') || val.includes('меморандум')) r = "Мы сотрудничаем с Kazakhmys Distribution, Tranco Express, МЧС (ГУ СП и АСР), ТОО Самға и другими.";
-                if(val.includes('миссия') || val.includes('цель')) r = "Наша миссия — создание инновационной среды для качественного технического обучения по мировым стандартам.";
-                addMsg(r, 'bot');
+                let res = "Для уточнения деталей позвоните 76-19-23. Я могу рассказать про документы, кодекс чести и историю.";
+                if(val.includes('документ')) res = "Нужны: аттестат (оригинал), справка 075-У, 6 фото 3х4 и копия удостоверения. Подача через SmartNation.";
+                if(val.includes('кодекс') || val.includes('чест')) res = "Кодекс чести студента ЖВПТК включает: достоинство, стремление к знаниям, уважение к педагогам и дисциплину.";
+                if(val.includes('история') || val.includes('основан')) res = "Мы начали путь в 1953 году как вечерний строительный техникум. В 2021 году получили статус Высшего колледжа.";
+                if(val.includes('партнер') || val.includes('меморандум')) res = "У нас 9 ключевых партнеров, включая Kazakhmys Distribution, Tranco Express и МЧС (ГУ СП и АСР).";
+                addM(res, 'bot');
             }, 600);
         }
 
-        function addMsg(text, side) {
-            const container = document.getElementById('chat-msgs');
-            const div = document.createElement('div');
-            div.className = `msg ${side}`;
-            div.innerText = text;
-            container.appendChild(div);
-            container.scrollTop = container.scrollHeight;
+        function addM(txt, side) {
+            const box = document.getElementById('botMsgs');
+            const d = document.createElement('div');
+            d.className = `msg ${side}`;
+            d.innerText = txt;
+            box.appendChild(d);
+            box.scrollTop = box.scrollHeight;
         }
     </script>
 </body>
