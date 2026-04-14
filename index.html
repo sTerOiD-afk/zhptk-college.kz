@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ЖВПК 2026 — Официальный портал</title>
+    <title>ЖВПТК 2026 — Официальный портал</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
@@ -116,7 +116,7 @@
             margin-top: 20px; box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
         }
 
-        /* --- АССИСТЕНТ --- */
+        /* --- АССИСТЕНТ ЖВПТК --- */
         #ai-assistant-toggle {
             position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
             background: var(--primary); border-radius: 50%; display: flex;
@@ -160,7 +160,7 @@
     <div class="container">
         <section id="about">
             <div class="about-box">
-                <h1 style="font-size: 4rem; margin: 0; font-weight: 700;">ЖВПК <span style="color: var(--accent)">2026</span></h1>
+                <h1 style="font-size: 4rem; margin: 0; font-weight: 700;">ЖВПТК <span style="color: var(--accent)">2026</span></h1>
                 <p style="font-size: 1.2rem; margin: 20px 0; opacity: 0.8;">КГКП «Жезказганский высший политехнический колледж»</p>
                 <p>Лидер технического образования региона с 1953 года. Мы готовим специалистов, которые строят будущее Казахстана.</p>
             </div>
@@ -238,11 +238,11 @@
     <button id="ai-assistant-toggle" onclick="toggleChat()"><i class="fas fa-robot"></i></button>
     <div class="chat-window" id="chatWindow">
         <div class="chat-header">
-            <span>Ассистент ЖВПК</span>
+            <span>Ассистент ЖВПТК</span>
             <span style="cursor:pointer" onclick="toggleChat()">&times;</span>
         </div>
         <div class="chat-body" id="chatBody">
-            <div class="msg bot">Привет! Я виртуальный ассистент ЖВПК. Чем могу помочь? (Напишите: "цена", "адрес" или "документы")</div>
+            <div class="msg bot">Привет! Я виртуальный ассистент ЖВПТК. Чем могу помочь? (Напишите: "цена", "адрес" или "документы")</div>
         </div>
         <div class="chat-footer">
             <input type="text" class="chat-input" id="chatInput" placeholder="Ваш вопрос..." onkeypress="handleChat(event)">
@@ -250,11 +250,10 @@
     </div>
 
     <footer>
-        <p>© 2026 Жезказганский высший политехнический колледж</p>
+        <p>© 2026 Жезказганский высший политехнический колледж (ЖВПТК)</p>
     </footer>
 
     <script>
-        // Модальное окно профессий
         function showSpec(title, desc) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
@@ -262,7 +261,6 @@
         }
         function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; }
 
-        // Чат ассистент
         function toggleChat() {
             const chat = document.getElementById('chatWindow');
             chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
@@ -278,10 +276,10 @@
                 input.value = '';
 
                 setTimeout(() => {
-                    let response = "Извините, я еще учусь. Пожалуйста, позвоните в приемную по номеру 76-19-23.";
-                    if (text.includes('цена') || text.includes('сколько')) response = "Обучение стоит 140 000 ₸ на очном и 90 000 ₸ на заочном отделении.";
-                    if (text.includes('адрес') || text.includes('где')) response = "Мы находимся по адресу: г. Жезказган, ул. Байконурова, 19.";
-                    if (text.includes('документ')) response = "Для поступления нужны: аттестат, 6 фото 3x4, медсправка 075-У и копия удостоверения.";
+                    let response = "Извините, я еще учусь. Пожалуйста, позвоните в приемную ЖВПТК по номеру 76-19-23.";
+                    if (text.includes('цена') || text.includes('сколько')) response = "Обучение в ЖВПТК стоит 140 000 ₸ на очном и 90 000 ₸ на заочном отделении.";
+                    if (text.includes('адрес') || text.includes('где')) response = "ЖВПТК находится по адресу: г. Жезказган, ул. Байконурова, 19.";
+                    if (text.includes('документ')) response = "Для поступления в ЖВПТК нужны: аттестат, 6 фото 3x4, медсправка 075-У и копия удостоверения.";
                     addMessage(response, 'bot');
                 }, 600);
             }
