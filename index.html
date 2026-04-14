@@ -116,6 +116,30 @@
             margin-top: 20px; box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
         }
 
+        /* --- АССИСТЕНТ --- */
+        #ai-assistant-toggle {
+            position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px;
+            background: var(--primary); border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; cursor: pointer;
+            box-shadow: 0 10px 30px rgba(0, 122, 255, 0.4); z-index: 4000;
+            font-size: 1.5rem; color: white; border: none;
+        }
+        #ai-assistant-toggle:hover { transform: scale(1.1); background: var(--accent); color: var(--dark); }
+
+        .chat-window {
+            position: fixed; bottom: 100px; right: 30px; width: 350px; height: 450px;
+            background: #111; border: 1px solid var(--border); border-radius: 24px;
+            display: none; flex-direction: column; z-index: 4000; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5); backdrop-filter: blur(20px);
+        }
+        .chat-header { background: var(--primary); padding: 15px; font-weight: 700; display: flex; justify-content: space-between; }
+        .chat-body { flex: 1; padding: 15px; overflow-y: auto; font-size: 0.9rem; display: flex; flex-direction: column; gap: 10px; }
+        .chat-footer { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
+        .chat-input { background: var(--glass); border: 1px solid var(--border); color: white; padding: 8px 15px; border-radius: 20px; flex: 1; outline: none; }
+        .msg { padding: 10px 15px; border-radius: 15px; max-width: 80%; }
+        .msg.bot { background: var(--glass); align-self: flex-start; border-bottom-left-radius: 2px; }
+        .msg.user { background: var(--primary); align-self: flex-end; border-bottom-right-radius: 2px; }
+
         footer { text-align: center; padding: 60px; opacity: 0.4; border-top: 1px solid var(--border); margin-top: 50px; }
     </style>
 </head>
@@ -134,12 +158,11 @@
     </nav>
 
     <div class="container">
-        
         <section id="about">
             <div class="about-box">
                 <h1 style="font-size: 4rem; margin: 0; font-weight: 700;">ЖВПК <span style="color: var(--accent)">2026</span></h1>
                 <p style="font-size: 1.2rem; margin: 20px 0; opacity: 0.8;">КГКП «Жезказганский высший политехнический колледж»</p>
-                <p>Основанный в 1953 году, наш колледж прошел путь от строительного техникума до современного Высшего колледжа. Сегодня это инновационный центр подготовки технических кадров международного уровня.</p>
+                <p>Лидер технического образования региона с 1953 года. Мы готовим специалистов, которые строят будущее Казахстана.</p>
             </div>
         </section>
 
@@ -148,112 +171,130 @@
             <div class="dept-card">
                 <h3>Технический блок</h3>
                 <ul class="spec-list">
-                    <li onclick="showSpec('Газоснабжение', 'Проектирование и эксплуатация систем газораспределения. Подготовка техников для работы на гос. объектах и частных предприятиях.')"><i class="fas fa-burn"></i> Газоснабжение</li>
-                    <li onclick="showSpec('Электроснабжение', 'Монтаж, наладка и эксплуатация электрооборудования промышленных и гражданских зданий.')"><i class="fas fa-bolt"></i> Электроснабжение</li>
-                    <li onclick="showSpec('Тепловое оборудование', 'Эксплуатация теплоэнергетических установок и систем теплоснабжения города.')"><i class="fas fa-thermometer-half"></i> Теплоэнергетика</li>
-                    <li onclick="showSpec('Строительство', 'Возведение и эксплуатация зданий и сооружений. Квалификация: техник-строитель.')"><i class="fas fa-hard-hat"></i> Строительство</li>
+                    <li onclick="showSpec('Газоснабжение', 'Проектирование и эксплуатация систем газораспределения.')"><i class="fas fa-burn"></i> Газоснабжение</li>
+                    <li onclick="showSpec('Электроснабжение', 'Монтаж и наладка промышленного электрооборудования.')"><i class="fas fa-bolt"></i> Электроснабжение</li>
+                    <li onclick="showSpec('Теплоэнергетика', 'Работа с теплосетями и оборудованием ТЭЦ.')"><i class="fas fa-thermometer-half"></i> Теплоэнергетика</li>
+                    <li onclick="showSpec('Строительство', 'Возведение зданий и сооружений. Техник-строитель.')"><i class="fas fa-hard-hat"></i> Строительство</li>
                 </ul>
             </div>
             <div class="dept-card">
                 <h3>IT и Транспорт</h3>
                 <ul class="spec-list">
-                    <li onclick="showSpec('Ж/Д Транспорт', 'Организация перевозок и управление движением на железнодорожном транспорте.')"><i class="fas fa-train"></i> Перевозки (Ж/Д)</li>
-                    <li onclick="showSpec('Автотранспорт', 'Техническое обслуживание, ремонт и эксплуатация автомобильного транспорта.')"><i class="fas fa-car"></i> Ремонт авто</li>
-                    <li onclick="showSpec('Логистика', 'Операционное управление логистическими процессами на транспорте.')"><i class="fas fa-truck-loading"></i> Логистика</li>
-                    <li onclick="showSpec('IT-системы', 'Разработка программного обеспечения, работа с базами данных и сетевое администрирование.')"><i class="fas fa-code"></i> Программирование</li>
+                    <li onclick="showSpec('Ж/Д Транспорт', 'Управление движением и организация перевозок.')"><i class="fas fa-train"></i> Перевозки (Ж/Д)</li>
+                    <li onclick="showSpec('Автотранспорт', 'Обслуживание и ремонт современной автотехники.')"><i class="fas fa-car"></i> Ремонт авто</li>
+                    <li onclick="showSpec('Логистика', 'Управление цепями поставок и перевозками.')"><i class="fas fa-truck-loading"></i> Логистика</li>
+                    <li onclick="showSpec('Программирование', 'Разработка ПО и администрирование систем.')"><i class="fas fa-code"></i> ПО и IT-системы</li>
                 </ul>
             </div>
             <div class="dept-card">
                 <h3>Безопасность</h3>
                 <ul class="spec-list">
-                    <li onclick="showSpec('Защита в ЧС', 'Предупреждение и ликвидация последствий чрезвычайных ситуаций. Подготовка для МЧС.')"><i class="fas fa-shield-alt"></i> Защита в ЧС</li>
-                    <li onclick="showSpec('Кибербезопасность', 'Обеспечение информационной безопасности автоматизированных систем.')"><i class="fas fa-user-shield"></i> Инфо-безопасность</li>
-                    <li onclick="showSpec('Архитектура', 'Архитектурное проектирование зданий и дизайн городской среды.')"><i class="fas fa-drafting-pencil"></i> Архитектура</li>
+                    <li onclick="showSpec('Защита в ЧС', 'Обучение спасателей для структур МЧС.')"><i class="fas fa-shield-alt"></i> Защита в ЧС</li>
+                    <li onclick="showSpec('Инфо-безопасность', 'Защита данных и борьба с киберугрозами.')"><i class="fas fa-user-shield"></i> Кибербезопасность</li>
+                    <li onclick="showSpec('Архитектура', 'Проектирование и дизайн городской среды.')"><i class="fas fa-drafting-pencil"></i> Архитектура</li>
                 </ul>
             </div>
         </div>
 
-        <h2 class="section-title" id="admission">Стоимость и Реквизиты</h2>
-        <div class="price-card">
+        <div class="price-card" id="admission">
+            <h2 style="margin-top:0">Стоимость обучения</h2>
             <div style="display:flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
-                <div>
-                    <span style="display:block; opacity: 0.8;">ОЧНОЕ ОТДЕЛЕНИЕ</span>
-                    <strong style="font-size: 2.5rem;">140 000 ₸</strong>
-                </div>
-                <div>
-                    <span style="display:block; opacity: 0.8;">ЗАОЧНОЕ ОТДЕЛЕНИЕ</span>
-                    <strong style="font-size: 2.5rem;">90 000 ₸</strong>
-                </div>
+                <div><span>ОЧНОЕ</span><br><strong style="font-size: 2rem;">140 000 ₸</strong></div>
+                <div><span>ЗАОЧНОЕ</span><br><strong style="font-size: 2rem;">90 000 ₸</strong></div>
             </div>
-            <div class="bank-details">
-                БИН: 990140001302 | РНН: 241000003513 <br>
-                ИИК: KZ876017171000000065 | БИК: HSBKKZKX
-            </div>
-            <p style="margin-top: 20px; font-size: 0.9rem;">Оплата производится через филиалы АО "Народный Банк Казахстана"</p>
+            <div class="bank-details">ИИК: KZ876017171000000065 | БИН: 990140001302</div>
         </div>
 
-        <h2 class="section-title" id="contact">Связь и Партнеры</h2>
-        <div class="contact-grid">
+        <div class="contact-grid" id="contact">
             <div class="info-card">
-                <h4>Наши контакты</h4>
-                <p><i class="fas fa-map-marker-alt" style="color:var(--primary)"></i> г. Жезказган, ул. Байконурова, 19</p>
-                <p><i class="fas fa-phone-alt" style="color:var(--primary)"></i> 76-19-23 (Приемная)</p>
-                <p><i class="fas fa-mobile-alt" style="color:var(--primary)"></i> 8(705)267-12-34</p>
-                <p><i class="fas fa-envelope" style="color:var(--primary)"></i> jezatk@mail.ru</p>
-                <p><i class="fab fa-instagram" style="color:var(--primary)"></i> @zhptk.kz</p>
+                <h4>Контакты</h4>
+                <p>г. Жезказган, ул. Байконурова, 19</p>
+                <p>Тел: 76-19-23 | 8(705)267-12-34</p>
+                <p>Email: jezatk@mail.ru</p>
             </div>
             <div class="info-card">
-                <h4>Крупные партнеры</h4>
-                <p>Мы работаем на основании меморандумов о сотрудничестве с лидерами индустрии:</p>
+                <h4>Партнеры</h4>
                 <div class="partner-tags">
                     <span class="tag">Kazakhmys</span>
                     <span class="tag">Tranco Express</span>
                     <span class="tag">FlexComp</span>
-                    <span class="tag">GU "SP i ASR"</span>
-                    <span class="tag">Samға</span>
-                    <span class="tag">Nur-Karaganda</span>
                 </div>
             </div>
         </div>
-
-        <div style="text-align: center; margin-top: 50px;">
-            <a href="https://college.smartnation.kz/kz/tko" target="_blank" class="btn-main">ПОДАТЬ ДОКУМЕНТЫ ОНЛАЙН</a>
+        <div style="text-align: center; margin-top: 40px;">
+            <a href="https://college.smartnation.kz/kz/tko" class="btn-main">ПОДАТЬ ДОКУМЕНТЫ</a>
         </div>
-
     </div>
 
     <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
         <div class="modal-content" onclick="event.stopPropagation()">
             <span class="btn-close" onclick="closeModal()">&times;</span>
             <h2 id="modalTitle" style="color: var(--accent);">Специальность</h2>
-            <p id="modalDescription" style="margin: 20px 0; line-height: 1.8;">Описание специальности...</p>
-            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px;">
-                <small>Срок обучения: от 2 лет 10 мес. до 3 лет 10 мес.</small>
-            </div>
+            <p id="modalDescription">Описание...</p>
             <button class="btn-main" style="width: 100%; border: none; cursor: pointer;" onclick="closeModal()">Закрыть</button>
+        </div>
+    </div>
+
+    <button id="ai-assistant-toggle" onclick="toggleChat()"><i class="fas fa-robot"></i></button>
+    <div class="chat-window" id="chatWindow">
+        <div class="chat-header">
+            <span>Ассистент ЖВПК</span>
+            <span style="cursor:pointer" onclick="toggleChat()">&times;</span>
+        </div>
+        <div class="chat-body" id="chatBody">
+            <div class="msg bot">Привет! Я виртуальный ассистент ЖВПК. Чем могу помочь? (Напишите: "цена", "адрес" или "документы")</div>
+        </div>
+        <div class="chat-footer">
+            <input type="text" class="chat-input" id="chatInput" placeholder="Ваш вопрос..." onkeypress="handleChat(event)">
         </div>
     </div>
 
     <footer>
         <p>© 2026 Жезказганский высший политехнический колледж</p>
-        <p style="font-size: 0.8rem;">Официальный образовательный портал. Все права защищены.</p>
     </footer>
 
     <script>
+        // Модальное окно профессий
         function showSpec(title, desc) {
             document.getElementById('modalTitle').innerText = title;
             document.getElementById('modalDescription').innerText = desc;
             document.getElementById('modalOverlay').style.display = 'flex';
         }
+        function closeModal() { document.getElementById('modalOverlay').style.display = 'none'; }
 
-        function closeModal() {
-            document.getElementById('modalOverlay').style.display = 'none';
+        // Чат ассистент
+        function toggleChat() {
+            const chat = document.getElementById('chatWindow');
+            chat.style.display = chat.style.display === 'flex' ? 'none' : 'flex';
         }
 
-        // Закрытие по ESC
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModal();
-        });
+        function handleChat(e) {
+            if (e.key === 'Enter') {
+                const input = document.getElementById('chatInput');
+                const text = input.value.toLowerCase();
+                if (!text) return;
+
+                addMessage(input.value, 'user');
+                input.value = '';
+
+                setTimeout(() => {
+                    let response = "Извините, я еще учусь. Пожалуйста, позвоните в приемную по номеру 76-19-23.";
+                    if (text.includes('цена') || text.includes('сколько')) response = "Обучение стоит 140 000 ₸ на очном и 90 000 ₸ на заочном отделении.";
+                    if (text.includes('адрес') || text.includes('где')) response = "Мы находимся по адресу: г. Жезказган, ул. Байконурова, 19.";
+                    if (text.includes('документ')) response = "Для поступления нужны: аттестат, 6 фото 3x4, медсправка 075-У и копия удостоверения.";
+                    addMessage(response, 'bot');
+                }, 600);
+            }
+        }
+
+        function addMessage(text, side) {
+            const body = document.getElementById('chatBody');
+            const div = document.createElement('div');
+            div.className = `msg ${side}`;
+            div.innerText = text;
+            body.appendChild(div);
+            body.scrollTop = body.scrollHeight;
+        }
     </script>
 </body>
 </html>
