@@ -3,216 +3,152 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ЖВПК 2026 — Official Portal</title>
+    <title>ЖВПК 2026 — Официальный портал</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #007aff;
-            --secondary: #6366f1;
             --accent: #00f2fe;
             --dark: #050505;
             --glass: rgba(255, 255, 255, 0.03);
             --border: rgba(255, 255, 255, 0.1);
         }
 
-        * { box-sizing: border-box; transition: 0.4s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        * { box-sizing: border-box; transition: 0.3s ease; }
         body {
             font-family: 'Space Grotesk', sans-serif;
             background: var(--dark);
             color: #e2e8f0;
             margin: 0;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
+            line-height: 1.6;
         }
 
-        /* --- ФОН --- */
         .cyber-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; background: radial-gradient(circle at 50% 50%, #0f172a 0%, #050505 100%);
         }
-        .orb {
-            position: absolute; width: 400px; height: 400px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            filter: blur(120px); border-radius: 50%; opacity: 0.15;
-            animation: float 15s infinite alternate;
-        }
-        @keyframes float {
-            0% { transform: translate(0, 0) rotate(0deg); }
-            100% { transform: translate(100px, 200px) rotate(360deg); }
-        }
 
-        /* --- NAVIGATION --- */
         nav {
             position: fixed; top: 0; width: 100%; height: 70px;
             background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border); display: flex;
             justify-content: center; align-items: center; z-index: 1000; gap: 30px;
         }
-        nav a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.85rem; letter-spacing: 1px; }
-        nav a:hover { color: var(--accent); }
+        nav a { color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; }
 
-        .container { max-width: 1200px; margin: auto; padding: 100px 20px; }
-        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 50px; color: var(--accent); }
+        .container { max-width: 1200px; margin: 100px auto 60px; padding: 0 20px; }
+        .section-title { font-size: 2.5rem; color: var(--accent); margin: 60px 0 30px; text-align: center; }
 
-        /* --- ОТДЕЛЕНИЯ --- */
-        .dept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; }
-        .dept-card {
+        /* КАРТОЧКИ ИНФОРМАЦИИ */
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .info-card {
             background: var(--glass); border: 1px solid var(--border);
-            border-radius: 30px; padding: 30px; backdrop-filter: blur(10px);
+            border-radius: 24px; padding: 30px; backdrop-filter: blur(10px);
         }
-        .dept-card h3 { color: var(--primary); margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
-        
-        /* Список профессий теперь кликабельный */
-        .spec-list { list-style: none; padding: 0; margin: 15px 0; }
-        .spec-list li { 
-            padding: 12px 15px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05); 
-            cursor: pointer; border-radius: 10px; display: flex; align-items: center; gap: 10px;
-        }
-        .spec-list li:hover { background: rgba(0, 122, 255, 0.15); color: var(--accent); padding-left: 20px; }
-        .spec-list li i { width: 20px; text-align: center; color: var(--primary); }
+        .info-card h3 { color: var(--primary); margin-top: 0; display: flex; align-items: center; gap: 10px; }
+        .info-card i { color: var(--accent); }
 
-        /* --- МОДАЛЬНОЕ ОКНО --- */
+        /* СПИСОК ПАРТНЕРОВ */
+        .partners-tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .partner-tag {
+            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
+            padding: 5px 15px; border-radius: 50px; font-size: 0.85rem;
+        }
+
+        /* МОДАЛЬНОЕ ОКНО */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
-            display: none; justify-content: center; align-items: center; z-index: 3000;
+            background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000;
         }
         .modal-content {
-            background: #111; border: 1px solid var(--accent); width: 90%; max-width: 500px;
-            padding: 40px; border-radius: 30px; position: relative;
-            box-shadow: 0 0 50px rgba(0, 242, 254, 0.2);
-            transform: scale(0.8); opacity: 0; transition: 0.3s ease-out;
+            background: #111; border: 1px solid var(--accent); padding: 40px; border-radius: 30px;
+            max-width: 500px; width: 90%; position: relative;
         }
-        .modal-content.active { transform: scale(1); opacity: 1; }
-        .close-modal { position: absolute; top: 20px; right: 20px; cursor: pointer; color: #666; font-size: 1.5rem; }
-        .close-modal:hover { color: white; }
 
-        /* --- ОСТАЛЬНЫЕ СТИЛИ --- */
-        .price-card { background: linear-gradient(135deg, var(--primary), var(--secondary)); padding: 40px; border-radius: 40px; text-align: center; margin: 40px 0; }
-        .bank-details { background: #111; padding: 25px; border-radius: 20px; font-family: monospace; margin-top: 20px; color: #10b981; border: 1px dashed #333; font-size: 0.85rem; }
-        .contact-section { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
-        .info-box { background: var(--glass); padding: 30px; border-radius: 30px; border: 1px solid var(--border); }
-        .btn { background: var(--accent); color: var(--dark); padding: 15px 35px; border-radius: 50px; text-decoration: none; font-weight: 700; display: inline-block; }
-        footer { text-align: center; padding: 60px; opacity: 0.5; border-top: 1px solid var(--border); }
+        .btn-call {
+            background: var(--primary); color: white; padding: 12px 25px; 
+            border-radius: 50px; text-decoration: none; display: inline-block; margin-top: 15px;
+        }
+
+        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); opacity: 0.6; }
     </style>
 </head>
 <body>
 
-    <div class="cyber-bg">
-        <div class="orb" style="top:10%; left:10%"></div>
-        <div class="orb" style="bottom:20%; right:10%; background: var(--secondary)"></div>
-    </div>
+    <div class="cyber-bg"></div>
 
     <nav>
         <a href="#about">О КОЛЛЕДЖЕ</a>
-        <a href="#specialties">ОТДЕЛЕНИЯ</a>
-        <a href="#admission">ОПЛАТА</a>
+        <a href="#specialties">ПРОФЕССИИ</a>
         <a href="#contact">КОНТАКТЫ</a>
     </nav>
 
     <div class="container">
         
-        <section id="about" style="text-align: center; margin-bottom: 80px;">
-            <h1 style="font-size: 4rem; margin: 0; font-weight: 700;">ЖВПК <span style="color: var(--accent)">2026</span></h1>
-            <p style="max-width: 800px; margin: 20px auto; font-size: 1.1rem; opacity: 0.8;">
-                Нажмите на любую специальность, чтобы узнать подробности обучения.
-            </p>
+        <section id="about">
+            <h1 style="text-align:center; font-size: 3.5rem;">ЖВПК <span style="color:var(--accent)">2026</span></h1>
+            <div class="info-card" style="margin-bottom: 40px; text-align: center;">
+                <p>КГКП «Жезказганский высший политехнический колледж» — это кузница кадров с 1953 года. Мы объединяем традиции прошлого (ЖПТК) и технологии будущего для подготовки лучших специалистов региона.</p>
+            </div>
         </section>
 
-        <h2 class="section-title" id="specialties">Наши Отделения</h2>
-        <div class="dept-grid">
-            <div class="dept-card">
-                <h3>Техническое отделение</h3>
-                <ul class="spec-list">
-                    <li onclick="showSpec('Газоснабжение', 'Проектирование и эксплуатация систем газораспределения. Подготовка техников для работы на промышленных объектах.')"><i class="fas fa-burn"></i> Газоснабжение</li>
-                    <li onclick="showSpec('Электроснабжение', 'Обслуживание электрических сетей и подстанций. Квалификация: техник-электрик.')"><i class="fas fa-bolt"></i> Электроснабжение</li>
-                    <li onclick="showSpec('Теплотехническое оборудование', 'Работа с котлами, турбинами и теплосетями города и предприятий.')"><i class="fas fa-thermometer-half"></i> Теплоэнергетика</li>
-                    <li onclick="showSpec('Строительство и эксплуатация', 'Возведение зданий, архитектурное проектирование и контроль качества работ.')"><i class="fas fa-hard-hat"></i> Строительство</li>
-                </ul>
-            </div>
-            <div class="dept-card">
-                <h3>Транспорт и IT</h3>
-                <ul class="spec-list">
-                    <li onclick="showSpec('Ж/Д Транспорт', 'Управление движением поездов, логистика и диспетчерское управление.')"><i class="fas fa-train"></i> Перевозки (Ж/Д)</li>
-                    <li onclick="showSpec('Ремонт автотранспорта', 'Техническое обслуживание и ремонт современных автомобилей. Мастер по двигателям и электронике.')"><i class="fas fa-car"></i> Автотранспорт</li>
-                    <li onclick="showSpec('Логистика', 'Управление потоками товаров, складирование и оптимизация маршрутов перевозок.')"><i class="fas fa-truck-loading"></i> Логистика</li>
-                    <li onclick="showSpec('IT разработка', 'Программирование на Python/JS, создание веб-сервисов и мобильных приложений.')"><i class="fas fa-code"></i> ПО и IT-системы</li>
-                </ul>
-            </div>
-            <div class="dept-card">
-                <h3>Безопасность</h3>
-                <ul class="spec-list">
-                    <li onclick="showSpec('Защита в ЧС', 'Подготовка специалистов для МЧС. Спасательные работы и пожарная безопасность.')"><i class="fas fa-shield-alt"></i> Защита в ЧС</li>
-                    <li onclick="showSpec('Инфо-Безопасность', 'Защита данных от хакерских атак, криптография и кибер-безопасность предприятий.')"><i class="fas fa-user-shield"></i> Кибербезопасность</li>
-                    <li onclick="showSpec('Архитектура', 'Проектирование современных городских ландшафтов и дизайн жилых комплексов.')"><i class="fas fa-drafting-pencil"></i> Архитектура</li>
-                </ul>
-            </div>
-        </div>
-
-        <h2 class="section-title" id="admission">Оплата</h2>
-        <div class="price-card">
-            <div style="display:flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
-                <div><h4>ОЧНОЕ: 140 000 ₸</h4></div>
-                <div><h4>ЗАОЧНОЕ: 90 000 ₸</h4></div>
-            </div>
-            <div class="bank-details">
-                ИИК: KZ876017171000000065 | БИК: HSBKKZKX
-            </div>
-        </div>
-
-        <h2 class="section-title" id="contact">Контакты</h2>
-        <div class="contact-section">
-            <div class="info-box">
+        <h2 class="section-title" id="contact">Информация и Связь</h2>
+        <div class="info-grid">
+            
+            <div class="info-card">
+                <h3><i class="fas fa-map-marker-alt"></i> Адрес</h3>
                 <p>г. Жезказган, ул. Байконурова, 19</p>
-                <p>Тел: 76-19-23 | 8(705)267-12-34</p>
+                <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
+                <h3><i class="fas fa-phone-alt"></i> Телефоны</h3>
+                <p>Приемная: <strong>76-19-23</strong></p>
+                <p>Сот. связь: <strong>8(705)267-12-34</strong></p>
+                <a href="tel:87052671234" class="btn-call">Позвонить сейчас</a>
             </div>
-            <div class="info-box">
-                <h3>Партнеры</h3>
-                <p>Kazakhmys, Tranco Express, FlexComp</p>
-            </div>
-        </div>
-    </div>
 
-    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
-        <div class="modal-content" id="modalContent" onclick="event.stopPropagation()">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 id="specTitle" style="color: var(--accent); margin-bottom: 20px;">Название профессии</h2>
-            <p id="specText" style="line-height: 1.6; opacity: 0.9;">Описание появится здесь...</p>
-            <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid var(--border);">
-                <small style="color: var(--primary);">Срок обучения: 3 года 10 месяцев (на базе 9 кл.)</small>
+            <div class="info-card">
+                <h3><i class="fas fa-handshake"></i> Наши Партнеры</h3>
+                <p>Мы сотрудничаем с ведущими компаниями для обеспечения практики и трудоустройства:</p>
+                <div class="partners-tag-cloud">
+                    <span class="partner-tag">Kazakhmys</span>
+                    <span class="partner-tag">Tranco Express</span>
+                    <span class="partner-tag">FlexComp</span>
+                    <span class="partner-tag">GU "SP i ASR"</span>
+                    <span class="partner-tag">Kazakhmys Distribution</span>
+                </div>
             </div>
-            <button class="btn" style="margin-top: 20px; width: 100%; border: none; cursor: pointer;" onclick="closeModal()">Понятно</button>
+
+            <div class="info-card">
+                <h3><i class="fas fa-envelope-open-text"></i> Email</h3>
+                <p>jezatk@mail.ru</p>
+                <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
+                <h3><i class="fab fa-instagram"></i> Соцсети</h3>
+                <p>Следите за новостями: <br><strong>@zhptk.kz</strong></p>
+            </div>
+
         </div>
+
+        <div style="text-align: center; margin-top: 60px;">
+            <a href="https://college.smartnation.kz/kz/tko" target="_blank" style="font-size: 1.2rem; padding: 20px 50px;" class="btn-call">ПОДАТЬ ДОКУМЕНТЫ ОНЛАЙН</a>
+        </div>
+
     </div>
 
     <footer>
         <p>© 2026 Жезказганский высший политехнический колледж</p>
+        <p style="font-size: 0.8rem;">Ул. Байконурова, 19 | 76-19-23</p>
     </footer>
 
     <script>
-        function showSpec(title, text) {
-            const overlay = document.getElementById('modalOverlay');
-            const content = document.getElementById('modalContent');
-            
-            document.getElementById('specTitle').innerText = title;
-            document.getElementById('specText').innerText = text;
-            
-            overlay.style.display = 'flex';
-            setTimeout(() => {
-                content.classList.add('active');
-            }, 10);
-        }
-
-        function closeModal() {
-            const overlay = document.getElementById('modalOverlay');
-            const content = document.getElementById('modalContent');
-            
-            content.classList.remove('active');
-            setTimeout(() => {
-                overlay.style.display = 'none';
-            }, 300);
-        }
+        // Плавный скролл до якорей
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
     </script>
 </body>
 </html>
