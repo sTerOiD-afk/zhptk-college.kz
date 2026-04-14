@@ -11,7 +11,7 @@
             --primary: #007aff;
             --accent: #00f2fe;
             --dark: #050505;
-            --glass: rgba(255, 255, 255, 0.03);
+            --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(255, 255, 255, 0.1);
         }
 
@@ -24,6 +24,7 @@
             line-height: 1.6;
         }
 
+        /* FONTS & BG */
         .cyber-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; background: radial-gradient(circle at 50% 50%, #0f172a 0%, #050505 100%);
@@ -33,45 +34,50 @@
             position: fixed; top: 0; width: 100%; height: 70px;
             background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border); display: flex;
-            justify-content: center; align-items: center; z-index: 1000; gap: 30px;
+            justify-content: center; align-items: center; z-index: 1000; gap: 25px;
         }
         nav a { color: #fff; text-decoration: none; font-size: 0.8rem; font-weight: 700; letter-spacing: 1px; }
+        nav a:hover { color: var(--accent); }
 
         .container { max-width: 1200px; margin: 100px auto 60px; padding: 0 20px; }
-        .section-title { font-size: 2.5rem; color: var(--accent); margin: 60px 0 30px; text-align: center; }
 
-        /* КАРТОЧКИ ИНФОРМАЦИИ */
-        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
-        .info-card {
+        .section-title { font-size: 2.5rem; color: var(--accent); margin-top: 80px; text-align: center; }
+
+        /* --- ОТДЕЛЕНИЯ --- */
+        .dept-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 25px; margin-top: 40px; }
+        .dept-card {
             background: var(--glass); border: 1px solid var(--border);
             border-radius: 24px; padding: 30px; backdrop-filter: blur(10px);
         }
-        .info-card h3 { color: var(--primary); margin-top: 0; display: flex; align-items: center; gap: 10px; }
-        .info-card i { color: var(--accent); }
+        .dept-card h3 { color: var(--primary); border-bottom: 1px solid var(--border); padding-bottom: 10px; margin-top: 0; }
+        .spec-link { 
+            display: block; padding: 10px; border-radius: 12px; 
+            margin: 8px 0; color: #cbd5e1; text-decoration: none; 
+            background: rgba(255,255,255,0.03); border: 1px solid transparent;
+        }
+        .spec-link:hover { border-color: var(--accent); color: white; background: rgba(0, 122, 255, 0.1); }
 
-        /* СПИСОК ПАРТНЕРОВ */
-        .partners-tag-cloud { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
-        .partner-tag {
-            background: rgba(255,255,255,0.05); border: 1px solid var(--border);
-            padding: 5px 15px; border-radius: 50px; font-size: 0.85rem;
+        /* --- КОНТАКТЫ --- */
+        .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 40px; }
+        .contact-card { background: var(--glass); padding: 30px; border-radius: 24px; border: 1px solid var(--border); }
+        .contact-card i { color: var(--accent); width: 30px; }
+
+        /* --- ЦЕНЫ --- */
+        .price-box {
+            background: linear-gradient(135deg, #1e293b, #000);
+            border: 1px solid var(--primary); padding: 40px; border-radius: 30px;
+            text-align: center; margin-top: 50px;
+        }
+        .bank-code { 
+            background: #000; color: #10b981; padding: 20px; 
+            border-radius: 15px; font-family: monospace; margin-top: 20px;
+            border: 1px solid #222; font-size: 0.9rem;
         }
 
-        /* МОДАЛЬНОЕ ОКНО */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000;
-        }
-        .modal-content {
-            background: #111; border: 1px solid var(--accent); padding: 40px; border-radius: 30px;
-            max-width: 500px; width: 90%; position: relative;
-        }
+        /* --- FOOTER --- */
+        footer { border-top: 1px solid var(--border); padding: 40px; text-align: center; margin-top: 100px; opacity: 0.6; }
 
-        .btn-call {
-            background: var(--primary); color: white; padding: 12px 25px; 
-            border-radius: 50px; text-decoration: none; display: inline-block; margin-top: 15px;
-        }
-
-        footer { text-align: center; padding: 40px; border-top: 1px solid var(--border); opacity: 0.6; }
+        @media (max-width: 768px) { .contact-grid { grid-template-columns: 1fr; } .section-title { font-size: 1.8rem; } }
     </style>
 </head>
 <body>
@@ -79,74 +85,105 @@
     <div class="cyber-bg"></div>
 
     <nav>
-        <a href="#about">О КОЛЛЕДЖЕ</a>
-        <a href="#specialties">ПРОФЕССИИ</a>
-        <a href="#contact">КОНТАКТЫ</a>
+        <a href="#about">ГЛАВНАЯ</a>
+        <a href="#depts">ОТДЕЛЕНИЯ</a>
+        <a href="#finance">СТОИМОСТЬ</a>
+        <a href="#contacts">КОНТАКТЫ</a>
     </nav>
 
     <div class="container">
-        
         <section id="about">
-            <h1 style="text-align:center; font-size: 3.5rem;">ЖВПК <span style="color:var(--accent)">2026</span></h1>
-            <div class="info-card" style="margin-bottom: 40px; text-align: center;">
-                <p>КГКП «Жезказганский высший политехнический колледж» — это кузница кадров с 1953 года. Мы объединяем традиции прошлого (ЖПТК) и технологии будущего для подготовки лучших специалистов региона.</p>
+            <h1 style="font-size: 4rem; text-align: center; margin-bottom: 20px;">ЖВПК <span style="color: var(--accent);">2026</span></h1>
+            <div class="dept-card" style="margin-bottom: 40px;">
+                <p>КГКП «Жезказганский высший политехнический колледж» — флагман технического образования с 1953 года. Наша миссия: создание инновационной среды для подготовки кадров международного уровня.</p>
             </div>
         </section>
 
-        <h2 class="section-title" id="contact">Информация и Связь</h2>
-        <div class="info-grid">
-            
-            <div class="info-card">
-                <h3><i class="fas fa-map-marker-alt"></i> Адрес</h3>
-                <p>г. Жезказган, ул. Байконурова, 19</p>
-                <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
-                <h3><i class="fas fa-phone-alt"></i> Телефоны</h3>
-                <p>Приемная: <strong>76-19-23</strong></p>
-                <p>Сот. связь: <strong>8(705)267-12-34</strong></p>
-                <a href="tel:87052671234" class="btn-call">Позвонить сейчас</a>
+        <h2 class="section-title" id="depts">Учебные отделения</h2>
+        <div class="dept-container">
+            <div class="dept-card">
+                <h3>Техническое отделение</h3>
+                <a href="#" class="spec-link">07321200 — Системы газоснабжения</a>
+                <a href="#" class="spec-link">07130200 — Электроснабжение</a>
+                <a href="#" class="spec-link">07130400 — Теплотехническое оборудование</a>
+                <a href="#" class="spec-link">07320100 — Строительство зданий</a>
             </div>
+            <div class="dept-card">
+                <h3>Транспорт и IT</h3>
+                <a href="#" class="spec-link">10410200 — Организация перевозок (Ж/Д)</a>
+                <a href="#" class="spec-link">07161300 — Ремонт автотранспорта</a>
+                <a href="#" class="spec-link">1202000 — Логистика (Автотранспорт)</a>
+                <a href="#" class="spec-link">06130100 — Программное обеспечение (IT)</a>
+            </div>
+            <div class="dept-card">
+                <h3>Специальное отделение</h3>
+                <a href="#" class="spec-link">10320200 — Защита в ЧС (Чрезвычайные ситуации)</a>
+                <a href="#" class="spec-link">Архитектура и дизайн (Перспективно)</a>
+                <a href="#" class="spec-link">Информационная безопасность</a>
+            </div>
+        </div>
 
-            <div class="info-card">
-                <h3><i class="fas fa-handshake"></i> Наши Партнеры</h3>
-                <p>Мы сотрудничаем с ведущими компаниями для обеспечения практики и трудоустройства:</p>
-                <div class="partners-tag-cloud">
-                    <span class="partner-tag">Kazakhmys</span>
-                    <span class="partner-tag">Tranco Express</span>
-                    <span class="partner-tag">FlexComp</span>
-                    <span class="partner-tag">GU "SP i ASR"</span>
-                    <span class="partner-tag">Kazakhmys Distribution</span>
+        <h2 class="section-title" id="finance">Стоимость обучения</h2>
+        <div class="price-box">
+            <div style="display: flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <div style="font-size: 0.9rem; opacity: 0.6;">ОЧНАЯ ФОРМА</div>
+                    <div style="font-size: 2.5rem; font-weight: 700;">140 000 ₸</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.9rem; opacity: 0.6;">ЗАОЧНАЯ ФОРМА</div>
+                    <div style="font-size: 2.5rem; font-weight: 700;">90 000 ₸</div>
                 </div>
             </div>
-
-            <div class="info-card">
-                <h3><i class="fas fa-envelope-open-text"></i> Email</h3>
-                <p>jezatk@mail.ru</p>
-                <hr style="border: 0; border-top: 1px solid var(--border); margin: 15px 0;">
-                <h3><i class="fab fa-instagram"></i> Соцсети</h3>
-                <p>Следите за новостями: <br><strong>@zhptk.kz</strong></p>
+            <p style="margin-top: 25px; font-size: 0.9rem; color: #94a3b8;">
+                Предоплата 50% до 10 сентября. Остаток до 10 января.<br>
+                Оплата через филиалы АО "Народный Банк Казахстана".
+            </p>
+            <div class="bank-code">
+                <strong>РЕКВИЗИТЫ ДЛЯ ОПЛАТЫ:</strong><br>
+                БИН: 990140001302 | РНН: 241000003513<br>
+                ИИК: KZ876017171000000065 | БИК: HSBKKZKX
             </div>
-
         </div>
 
-        <div style="text-align: center; margin-top: 60px;">
-            <a href="https://college.smartnation.kz/kz/tko" target="_blank" style="font-size: 1.2rem; padding: 20px 50px;" class="btn-call">ПОДАТЬ ДОКУМЕНТЫ ОНЛАЙН</a>
+        <h2 class="section-title" id="contacts">Связь с нами</h2>
+        <div class="contact-grid">
+            <div class="contact-card">
+                <h3>Администрация</h3>
+                <p><i class="fas fa-map-marker-alt"></i> г. Жезказган, ул. Байконурова, 19</p>
+                <p><i class="fas fa-phone"></i> 76-19-23 (Приемная)</p>
+                <p><i class="fas fa-mobile-alt"></i> 8(705)267-12-34 (Сотрудничество)</p>
+                <p><i class="fas fa-envelope"></i> jezatk@mail.ru</p>
+            </div>
+            <div class="contact-card">
+                <h3>Сотрудничество</h3>
+                <p>Мы работаем по меморандумам с крупнейшими компаниями:</p>
+                <ul style="font-size: 0.85rem; padding-left: 20px; color: #94a3b8;">
+                    <li>ТОО "Kazakhmys Distribution"</li>
+                    <li>ТОО "Tranco Express"</li>
+                    <li>ТОО "Самға" / ТОО "FlexComp"</li>
+                    <li>ГУ "СП и АСР"</li>
+                </ul>
+            </div>
         </div>
 
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="https://college.smartnation.kz/kz/tko" target="_blank" class="spec-link" style="display: inline-block; padding: 15px 40px; background: var(--primary); color: white; border-radius: 50px; font-weight: 700;">ПОДАТЬ ЗАЯВЛЕНИЕ ОНЛАЙН</a>
+        </div>
     </div>
 
     <footer>
-        <p>© 2026 Жезказганский высший политехнический колледж</p>
-        <p style="font-size: 0.8rem;">Ул. Байконурова, 19 | 76-19-23</p>
+        <p>&copy; 2026 Жезказганский высший политехнический колледж</p>
+        <p style="font-size: 0.7rem;">г. Жезказган, ул. Байконурова, 19 | Официальный сайт: zhptk.edu.kz</p>
     </footer>
 
     <script>
-        // Плавный скролл до якорей
+        // Плавный скролл
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
+                const targetId = this.getAttribute('href');
+                document.querySelector(targetId).scrollIntoView({ behavior: 'smooth' });
             });
         });
     </script>
