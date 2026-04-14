@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Жезказганский высший политехнический колледж (ЖВПК)</title>
+    <style>
+        :root {
+            --primary-color: #0056b3;
+            --bg-color: #f4f7f6;
+            --text-color: #333;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; margin: 0; padding: 0; background: var(--bg-color); color: var(--text-color); }
+        header { background: var(--primary-color); color: #fff; padding: 20px 0; text-align: center; }
+        header a { color: #fff; text-decoration: none; margin: 0 15px; font-weight: bold; }
+        .container { width: 80%; margin: auto; overflow: hidden; padding: 20px; }
+        section { background: #fff; margin: 20px 0; padding: 20px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+        h1, h2, h3 { color: var(--primary-color); }
+        .btn { display: inline-block; background: #28a745; color: #fff; padding: 10px 20px; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 10px; }
+        .btn:hover { background: #218838; }
+        ul { list-style-type: square; padding-left: 20px; }
+        form { display: flex; flex-direction: column; }
+        form input, form textarea { margin-bottom: 15px; padding: 10px; border: 1px solid #ccc; border-radius: 4px; }
+        form button { background: var(--primary-color); color: #fff; border: none; padding: 10px; cursor: pointer; border-radius: 4px; font-size: 16px; }
+        footer { text-align: center; padding: 20px; background: #333; color: #fff; margin-top: 20px; }
+        footer a { color: #fbd305; text-decoration: none; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Жезказганский высший политехнический колледж</h1>
+        <nav>
+            <a href="#about">О колледже</a>
+            <a href="#specialties">Специальности</a>
+            <a href="#admission">Поступающим</a>
+            <a href="#contact">Задать вопрос</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <section id="about">
+            <h2>Официальная информация</h2>
+            <p>Добро пожаловать на неофициальный портал ЖВПК. Официальный сайт: <a href="https://zhptk.edu.kz/" target="_blank">zhptk.edu.kz</a></p>
+            
+            <h3>Нормативные документы и правила</h3>
+            <ul>
+                <li><strong>Кодекс чести</strong>: <i>(Здесь будет текст с официального сайта)</i></li>
+                <li><strong>Правила внутреннего распорядка ЖВПК</strong>: <i>(Добавьте текст)</i></li>
+                <li><strong>Рабочее время и организация учебных занятий</strong>: <i>(Добавьте текст)</i></li>
+                <li><strong>Поощрения и взыскания</strong>: <i>(Добавьте текст)</i></li>
+                <li><strong>Права и обязанности студентов</strong>: <i>(Добавьте текст)</i></li>
+                <li><strong>Здоровый образ жизни</strong>: <i>(Добавьте текст)</i></li>
+            </ul>
+        </section>
+
+        <section id="specialties">
+            <h2>Специальности колледжа</h2>
+            <p><a href="#" target="_blank">🎥 О СПЕЦИАЛЬНОСТЯХ (видео)</a></p>
+            <ul>
+                <li><strong>07321200</strong> - Монтаж и эксплуатация оборудования и систем газоснабжения</li>
+                <li><strong>10320200</strong> - Защита в чрезвычайных ситуациях</li>
+                <li><strong>07130200</strong> - Электроснабжение</li>
+                <li><strong>10410200</strong> - Организация перевозок и управление движением на железнодорожном транспорте</li>
+                <li><strong>07161300</strong> - Техническое обслуживание, ремонт и эксплуатация автомобильного транспорта</li>
+                <li><strong>07320100</strong> - Строительство и эксплуатация зданий и сооружений</li>
+                <li><strong>07130400</strong> - Теплотехническое оборудование и системы теплоснабжения</li>
+                <li><strong>06130100</strong> - Программное обеспечение</li>
+                <li><strong>1202000</strong> - Организация перевозок и управление движением на автомобильном транспорте (подробно)</li>
+            </ul>
+        </section>
+
+        <section id="admission">
+            <h2>Открытый прием!</h2>
+            <p>Узнайте все необходимое для поступления в наш колледж:</p>
+            <ul>
+                <li><strong>Стоимость обучения</strong>: <i>(Информация о стоимости)</i></li>
+                <li><strong>Порядок сдачи документов</strong>: <i>(Список документов)</i></li>
+            </ul>
+            <div style="text-align: center; margin: 30px 0;">
+                <a href="https://college.smartnation.kz/kz/tko" target="_blank" class="btn">ПОДАТЬ ЗАЯВЛЕНИЕ ОНЛАЙН</a>
+            </div>
+        </section>
+
+        <section id="contact">
+            <h2>Оставить запрос (База данных)</h2>
+            <p>Задайте вопрос, и он сохранится в нашей базе данных.</p>
+            <form id="queryForm">
+                <input type="text" id="name" placeholder="Ваше имя" required>
+                <input type="email" id="email" placeholder="Ваш Email" required>
+                <textarea id="message" rows="5" placeholder="Ваш вопрос или сообщение" required></textarea>
+                <button type="submit">Отправить запрос</button>
+            </form>
+            <p id="formStatus" style="color: green; display: none; mt-10">Запрос успешно отправлен в базу данных!</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>Следите за нами в Instagram: <a href="https://www.instagram.com/zhptk.kz" target="_blank">@zhptk.kz</a></p>
+        <p>&copy; 2023 Жезказганский высший политехнический колледж</p>
+    </footer>
+
+    <script type="module">
+        // ИМПОРТ ФУНКЦИЙ FIREBASE
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
+        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+
+        // ВАЖНО: ЗАМЕНИТЕ ЭТОТ КОНФИГ НА ВАШ ИЗ FIREBASE! (См. Шаг 3)
+        const firebaseConfig = {
+            apiKey: "ВАШ_API_KEY",
+            authDomain: "ВАШ_PROJECT.firebaseapp.com",
+            databaseURL: "https://ВАШ_PROJECT.firebaseio.com",
+            projectId: "ВАШ_PROJECT",
+            storageBucket: "ВАШ_PROJECT.appspot.com",
+            messagingSenderId: "ВАШ_SENDER_ID",
+            appId: "ВАШ_APP_ID"
+        };
+
+        // Инициализация Firebase
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Обработка отправки формы
+        document.getElementById('queryForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+
+            // Отправка данных в таблицу "userQueries" в БД
+            push(ref(database, 'userQueries'), {
+                name: name,
+                email: email,
+                message: message,
+                timestamp: new Date().toISOString()
+            }).then(() => {
+                document.getElementById('formStatus').style.display = 'block';
+                document.getElementById('queryForm').reset();
+            }).catch((error) => {
+                alert("Ошибка при отправке: " + error);
+            });
+        });
+    </script>
+</body>
+</html>
