@@ -35,130 +35,98 @@
         
         /* Блоки/Секции */
         section { background: var(--card-bg); margin-bottom: 30px; padding: 30px; border-radius: 12px; box-shadow: var(--shadow); transition: var(--transition); }
-        section:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.15); }
         
         h2 { color: var(--primary-color); border-bottom: 2px solid var(--bg-color); padding-bottom: 10px; margin-top: 0; display: flex; align-items: center; gap: 10px;}
         h3 { color: var(--text-main); margin-top: 25px; }
         
         /* Списки */
         ul.styled-list { list-style: none; padding: 0; }
-        ul.styled-list li { background: var(--bg-color); margin-bottom: 10px; padding: 15px; border-radius: 8px; display: flex; align-items: start; gap: 10px; border-left: 4px solid transparent; transition: var(--transition); }
-        ul.styled-list li:hover { border-left-color: var(--primary-color); background: #e8eff5; }
-        ul.styled-list li i { color: var(--primary-color); margin-top: 3px; }
+        
+        /* --- ИЗМЕНЕНИЯ: СТИЛИ ДЛЯ КЛИКАБЕЛЬНЫХ ЭЛЕМЕНТОВ СПИСКА --- */
+        ul.styled-list li { 
+            background: var(--bg-color); 
+            margin-bottom: 10px; 
+            padding: 15px; 
+            border-radius: 8px; 
+            display: flex; 
+            align-items: start; 
+            gap: 10px; 
+            border-left: 4px solid transparent; 
+            transition: var(--transition); 
+            cursor: pointer; /* Показываем, что элемент кликабельный */
+            position: relative;
+        }
+        ul.styled-list li:hover { 
+            border-left-color: var(--primary-color); 
+            background: #e8eff5; 
+            transform: translateX(5px); /* Легкий эффект сдвига */
+        }
+        ul.styled-list li i { color: var(--primary-color); margin-top: 3px; font-size: 1.1rem;}
+        /* --------------------------------------------------------------------- */
 
         /* Кнопки */
         .btn { display: inline-block; background: var(--primary-color); color: #fff; padding: 12px 24px; text-decoration: none; border-radius: 30px; font-weight: 600; font-size: 0.9rem; transition: var(--transition); box-shadow: var(--shadow); border: none; cursor: pointer; }
         .btn:hover { background: #004494; transform: scale(1.05); }
-        .btn-success { background: #28a745; }
-        .btn-success:hover { background: #218838; }
-
-        /* Ссылка на Instagram в тексте */
-        .insta-link { color: #e1306c; font-weight: bold; text-decoration: none; display: inline-flex; align-items: center; gap: 5px;}
 
         footer { text-align: center; padding: 40px; background: #2c3e50; color: #fff; margin-top: 40px; font-size: 0.9rem; }
         footer a { color: var(--accent-color); text-decoration: none; }
 
+
         /* ------------------------------------------------------------------ */
-        /* СТИЛИ ЧАТ-АССИСТЕНТА (ПЛАВАЮЩИЙ ВИДЖЕТ) */
+        /* СТИЛИ МОДАЛЬНОГО ОКНА (MODAL) */
         
-        /* Кнопка открытия чата (иконка) */
-        #chat-widget-button {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background-color: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 24px;
-            cursor: pointer;
-            z-index: 2000;
-            transition: var(--transition);
-        }
-        #chat-widget-button:hover { transform: scale(1.1) rotate(5deg); background-color: #004494; }
-
-        /* Окно чата */
-        #chat-window {
-            position: fixed;
-            bottom: 90px;
-            right: 20px;
-            width: 350px;
-            height: 500px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+        .modal {
             display: none; /* Скрыто по умолчанию */
-            flex-direction: column;
-            overflow: hidden;
-            z-index: 2000;
-            transition: var(--transition);
-            transform: translateY(20px);
+            position: fixed;
+            z-index: 3000; /* Поверх всего */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto; /* Включаем прокрутку, если текст длинный */
+            background-color: rgba(0,0,0,0.5); /* Полупрозрачный фон */
+            backdrop-filter: blur(5px); /* Легкое размытие фона */
             opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        #chat-window.open { display: flex; transform: translateY(0); opacity: 1; }
 
-        /* Шапка чата */
-        .chat-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px;
+        .modal.show { display: block; opacity: 1; }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 10% auto; /* 10% от верха, по центру */
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+            width: 80%;
+            max-width: 700px; /* Максимальная ширина */
+            transform: translateY(-50px);
+            transition: transform 0.3s ease;
+            position: relative;
+        }
+
+        .modal.show .modal-content { transform: translateY(0); }
+
+        .close-modal {
+            color: #aaa;
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            font-size: 28px;
             font-weight: bold;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .chat-header .close-chat { cursor: pointer; font-size: 20px; }
-
-        /* Тело чата (сообщения) */
-        .chat-body {
-            flex: 1;
-            padding: 15px;
-            overflow-y: auto;
-            background-color: #f9f9f9;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /* Стиль сообщений */
-        .message { padding: 10px 15px; border-radius: 8px; max-width: 80%; font-size: 0.9rem; position: relative; }
-        .message.assistant { background-color: #e8eff5; color: var(--text-main); align-self: flex-start; border-bottom-left-radius: 2px; }
-        .message.user { background-color: var(--primary-color); color: white; align-self: flex-end; border-bottom-right-radius: 2px; }
-        .message-time { font-size: 0.7rem; color: var(--text-muted); margin-top: 5px; display: block;}
-        .message.user .message-time { color: #ccdfff; }
-
-        /* Поле ввода */
-        .chat-input-area {
-            padding: 10px;
-            border-top: 1px solid #eee;
-            display: flex;
-            gap: 10px;
-            background: white;
-        }
-        .chat-input-area input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 20px;
-            outline: none;
-        }
-        .chat-input-area button {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
             cursor: pointer;
-            transition: var(--transition);
+            transition: color 0.2s;
         }
-        .chat-input-area button:hover { background: #004494; }
 
+        .close-modal:hover,
+        .close-modal:focus {
+            color: var(--primary-color);
+            text-decoration: none;
+        }
+
+        .modal-header h2 { margin-top: 0; border: none; padding: 0; color: var(--primary-color); }
+        .modal-body { margin-top: 20px; color: var(--text-main); font-size: 1rem;}
+        
     </style>
 </head>
 <body>
@@ -181,163 +149,120 @@
     <div class="container">
         <section id="about">
             <h2><i class="fas fa-history"></i> Официальная информация</h2>
-            <p>Добро пожаловать на неофициальный информационный портал Жезказганского высшего политехнического колледжа. Основной источник информации: <a href="https://zhptk.edu.kz/" target="_blank" class="insta-link">zhptk.edu.kz <i class="fas fa-external-link-alt"></i></a></p>
+            <p>Добро пожаловать на неофициальный информационный портал Жезказганского высшего политехнического колледжа. Кликните на документ ниже, чтобы открыть его текст.</p>
             
             <h3><i class="fas fa-book"></i> Нормативные документы</h3>
-            <ul class="styled-list">
-                <li><i class="fas fa-check-circle"></i> <div><strong>Кодекс чести:</strong> <span>Определяет морально-этические принципы студентов и преподавателей.</span></div></li>
-                <li><i class="fas fa-gavel"></i> <div><strong>Правила внутреннего распорядка:</strong> <span>Регламент поведения на территории колледжа.</span></div></li>
-                <li><i class="fas fa-clock"></i> <div><strong>Рабочее время и учебные занятия:</strong> <span>Расписание и организация учебного процесса.</span></div></li>
-                <li><i class="fas fa-trophy"></i> <div><strong>Поощрения и взыскания:</strong> <span>Система мотивации и ответственности.</span></div></li>
-                <li><i class="fas fa-user-shield"></i> <div><strong>Права и обязанности студентов:</strong> <span>Ваши возможности и ответственность.</span></div></li>
-                <li><i class="fas fa-heartbeat"></i> <div><strong>Здоровый образ жизни:</strong> <span>Программы и правила поддержания здоровья.</span></div></li>
+            
+            <ul class="styled-list documents-list">
+                <li class="doc-item" data-doc="honor-code">
+                    <i class="fas fa-check-circle"></i> 
+                    <div><strong>Кодекс чести:</strong> <span>Определяет морально-этические принципы студентов и преподавателей.</span></div>
+                </li>
+                <li class="doc-item" data-doc="internal-rules">
+                    <i class="fas fa-gavel"></i> 
+                    <div><strong>Правила внутреннего распорядка:</strong> <span>Регламент поведения на территории колледжа.</span></div>
+                </li>
+                <li class="doc-item" data-doc="schedule">
+                    <i class="fas fa-clock"></i> 
+                    <div><strong>Рабочее время и учебные занятия:</strong> <span>Расписание и организация учебного процесса.</span></div>
+                </li>
+                <li class="doc-item" data-doc="rewards">
+                    <i class="fas fa-trophy"></i> 
+                    <div><strong>Поощрения и взыскания:</strong> <span>Система мотивации и ответственности.</span></div>
+                </li>
+                <li class="doc-item" data-doc="student-rights">
+                    <i class="fas fa-user-shield"></i> 
+                    <div><strong>Права и обязанности студентов:</strong> <span>Ваши возможности и ответственность.</span></div>
+                </li>
+                <li class="doc-item" data-doc="healthy-lifestyle">
+                    <i class="fas fa-heartbeat"></i> 
+                    <div><strong>Здоровый образ жизни:</strong> <span>Программы и правила поддержания здоровья.</span></div>
+                </li>
             </ul>
-        </section>
+            </section>
 
         <section id="specialties">
             <h2><i class="fas fa-briefcase"></i> Наши специальности</h2>
-            <p style="margin-bottom: 20px;">
-                <a href="https://www.youtube.com/results?search_query=ЖВПК+специальности" target="_blank" class="btn">
-                    <i class="fab fa-youtube"></i> Видео о специальностях
-                </a>
-            </p>
             <ul class="styled-list">
-                <li><i class="fas fa-gas-pump"></i> <span><strong>07321200</strong> Монтаж и эксплуатация систем газоснабжения</span></li>
-                <li><i class="fas fa-fire-extinguisher"></i> <span><strong>10320200</strong> Защита в чрезвычайных ситуациях</span></li>
-                <li><i class="fas fa-bolt"></i> <span><strong>07130200</strong> Электроснабжение</span></li>
-                <li><i class="fas fa-train"></i> <span><strong>10410200</strong> Организация перевозок (ж/д транспорт)</span></li>
-                <li><i class="fas fa-tools"></i> <span><strong>07161300</strong> Ремонт и эксплуатация автотранспорта</span></li>
-                <li><i class="fas fa-hard-hat"></i> <span><strong>07320100</strong> Строительство зданий и сооружений</span></li>
-                <li><i class="fas fa-thermometer-three-quarters"></i> <span><strong>07130400</strong> Теплотехническое оборудование</span></li>
                 <li><i class="fas fa-code"></i> <span><strong>06130100</strong> Программное обеспечение</span></li>
-                <li><i class="fas fa-bus"></i> <span><strong>1202000</strong> Организация перевозок (автотранспорт, подробно)</span></li>
+                <li><i class="fas fa-bolt"></i> <span><strong>07130200</strong> Электроснабжение</span></li>
+                <li><i class="fas fa-bus"></i> <span><strong>1202000</strong> Организация перевозок (автотранспорт)</span></li>
             </ul>
-        </section>
-
-        <section id="admission">
-            <h2><i class="fas fa-door-open"></i> Открытый прием!</h2>
-            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                <div style="flex: 1; min-width: 280px;">
-                    <h3><i class="fas fa-money-bill-wave"></i> Стоимость обучения</h3>
-                    <p>Информацию о стоимости на текущий учебный год уточняйте в приемной комиссии или на официальном сайте.</p>
-                </div>
-                <div style="flex: 1; min-width: 280px;">
-                    <h3><i class="fas fa-file-alt"></i> Порядок сдачи документов</h3>
-                    <p>Стандартный пакет документов: заявление, аттестат (подлинник), фото 3х4 (6 шт.), мед. справка 075-У.</p>
-                </div>
-            </div>
-            <div style="text-align: center; margin: 40px 0 20px;">
-                <a href="https://college.smartnation.kz/kz/tko" target="_blank" class="btn btn-success btn-lg">
-                    <i class="fas fa-laptop-code"></i> ПОДАТЬ ЗАЯВЛЕНИЕ ОНЛАЙН
-                </a>
-            </div>
         </section>
     </div>
 
     <footer>
-        <p>Мы в Инстаграм: <a href="https://www.instagram.com/zhptk.kz" target="_blank" class="insta-link"><i class="fab fa-instagram"></i> @zhptk.kz</a></p>
         <p>&copy; 2023 Жезказганский высший политехнический колледж. Разработано для GitHub Pages.</p>
     </footer>
 
-    <div id="chat-widget-button" onclick="toggleChat()">
-        <i class="fas fa-comment-dots"></i>
-    </div>
-
-    <div id="chat-window">
-        <div class="chat-header">
-            <span><i class="fas fa-robot"></i> Ассистент ЖВПК</span>
-            <span class="close-chat" onclick="toggleChat()">&times;</span>
-        </div>
-        <div class="chat-body" id="chat-messages">
-            <div class="message assistant">
-                Здравствуйте! Я ваш цифровой помощник. Задайте мне вопрос о колледже, и он будет сохранен в нашей базе данных для ответа.
-                <span class="message-time">только что</span>
+    <div id="documentModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-header">
+                <h2 id="modalTitle">Название документа</h2>
+            </div>
+            <div id="modalBody" class="modal-body">
+                <p>Текст документа загружается...</p>
             </div>
         </div>
-        <div class="chat-input-area">
-            <input type="text" id="user-input" placeholder="Введите ваш вопрос...">
-            <button onclick="sendMessage()"><i class="fas fa-paper-plane"></i></button>
-        </div>
     </div>
 
-    <script type="module">
-        // 1. ИМПОРТ ФУНКЦИЙ FIREBASE (Оставляем как в Шаге 1)
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-app.js";
-        import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/10.5.0/firebase-database.js";
+    <script>
+        // Глобальные переменные для элементов окна
+        const modal = document.getElementById("documentModal");
+        const modalTitle = document.getElementById("modalTitle");
+        const modalBody = document.getElementById("modalBody");
+        const closeBtn = document.querySelector(".close-modal");
 
-        // 2. ВАЖНО: ЗАМЕНИТЕ ЭТОТ КОНФИГ НА ВАШ ИЗ FIREBASE Консоли!
-        const firebaseConfig = {
-            apiKey: "ВАШ_API_KEY_ИЗ_КОНСОЛИ",
-            authDomain: "ВАШ_PROJECT.firebaseapp.com",
-            databaseURL: "https://ВАШ_PROJECT-default-rtdb.firebaseio.com",
-            projectId: "ВАШ_PROJECT_ID",
-            storageBucket: "ВАШ_PROJECT.appspot.com",
-            messagingSenderId: "ВАШ_SENDER_ID",
-            appId: "ВАШ_APP_ID"
-        };
-
-        // Инициализация
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-        const chatMessages = document.getElementById('chat-messages');
-        const userInput = document.getElementById('user-input');
-
-        // Глобальные функции для ХТМЛ (через window)
-        window.toggleChat = function() {
-            const chatWindow = document.getElementById('chat-window');
-            chatWindow.classList.toggle('open');
+        // Функция открытия окна
+        function openModal(docTitle, docContent) {
+            modalTitle.textContent = docTitle;
+            modalBody.innerHTML = docContent;
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Запрещаем прокрутку фона
         }
 
-        window.sendMessage = function() {
-            const text = userInput.value.trim();
-            if (text === "") return;
+        // Функция закрытия окна
+        function closeModal() {
+            modal.classList.remove('show');
+            document.body.style.overflow = ''; // Восстанавливаем прокрутку фона
+        }
 
-            // Добавляем сообщение пользователя на экран
-            addMessageToScreen(text, 'user');
-            userInput.value = '';
-
-            // ОТПРАВКА В БАЗУ ДАННЫХ FIREBASE
-            // Мы сохраняем вопрос как "запрос" (query)
-            push(ref(database, 'userQueries'), {
-                question: text,
-                timestamp: new Date().toISOString(),
-                status: 'new',
-                source: 'chat_widget'
-            }).then(() => {
-                // Имитируем ответ ассистента после успешной записи в БД
-                setTimeout(() => {
-                    addMessageToScreen("Ваш вопрос записан в нашу базу данных. Наш менеджер свяжется с вами, если вы оставите контакты (хотя в этом чате я их не прошу для простоты).", 'assistant');
-                }, 1000);
-            }).catch((error) => {
-                console.error("Ошибка Firebase:", error);
-                addMessageToScreen("Извините, произошла ошибка подключения к базе данных.", 'assistant');
+        // Добавляем обработчик клика на каждый документ
+        document.querySelectorAll('.doc-item').forEach(item => {
+            item.addEventListener('click', () => {
+                // Извлекаем название документа из элемента
+                const title = item.querySelector('strong').textContent.replace(':', '');
+                
+                // ВАЖНО: Ниже замените placeholder-текст на реальный текст документа
+                // Для простоты я использую универсальный шаблон.
+                const content = `
+                    <p>Здесь должен быть размещен полный текст документа "<strong>${title}</strong>", 
+                    скопированный с официального сайта ЖВПК.</p>
+                    <p>Этот текст будет отображаться в удобном всплывающем окне, не перегружая основную страницу.</p>
+                    <p>Вставьте сюда реальные абзацы, списки или таблицы из официальных файлов.</p>
+                `;
+                
+                openModal(title, content);
             });
-        }
+        });
 
-        // Обработка Enter в поле ввода
-        userInput.addEventListener('keypress', function (e) {
-            if (e.key === 'Enter') {
-                sendMessage();
+        // Закрытие по кнопке "X"
+        closeBtn.addEventListener('click', closeModal);
+
+        // Закрытие при клике вне окна
+        window.addEventListener('click', (event) => {
+            if (event.target == modal) {
+                closeModal();
             }
         });
 
-        // Функция добавления HTML сообщения на экран
-        function addMessageToScreen(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.classList.add('message', sender);
-            
-            const timeString = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-            
-            messageDiv.innerHTML = `
-                ${text}
-                <span class="message-time">${timeString}</span>
-            `;
-            
-            chatMessages.appendChild(messageDiv);
-            // Автопрокрутка вниз
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
+        // Закрытие по клавише Esc
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && modal.classList.contains('show')) {
+                closeModal();
+            }
+        });
     </script>
 </body>
 </html>
