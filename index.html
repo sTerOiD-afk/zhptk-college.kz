@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ЖВПК 2026 — Official Portal</title>
+    <title>ЖВПК 2026 — Официальный портал</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&display=swap" rel="stylesheet">
     <style>
@@ -24,9 +24,10 @@
             margin: 0;
             overflow-x: hidden;
             scroll-behavior: smooth;
+            line-height: 1.6;
         }
 
-        /* --- АНИМИРОВАННЫЙ ФОН 2026 --- */
+        /* --- АНИМИРОВАННЫЙ ФОН --- */
         .cyber-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; background: radial-gradient(circle at 50% 50%, #0f172a 0%, #050505 100%);
@@ -42,232 +43,216 @@
             100% { transform: translate(100px, 200px) rotate(360deg); }
         }
 
-        /* --- NAVIGATION --- */
+        /* --- НАВИГАЦИЯ --- */
         nav {
             position: fixed; top: 0; width: 100%; height: 70px;
             background: rgba(5, 5, 5, 0.8); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border); display: flex;
-            justify-content: space-around; align-items: center; z-index: 1000;
+            justify-content: center; align-items: center; z-index: 1000; gap: 30px;
         }
-        nav a { color: #fff; text-decoration: none; font-weight: 500; font-size: 0.85rem; letter-spacing: 1px; }
+        nav a { color: #fff; text-decoration: none; font-weight: 700; font-size: 0.8rem; letter-spacing: 1.5px; text-transform: uppercase; }
         nav a:hover { color: var(--accent); }
 
-        /* --- HERO --- */
-        .hero {
-            height: 90vh; display: flex; flex-direction: column;
-            justify-content: center; align-items: center; text-align: center;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.8)), 
-                        url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=1500&q=80');
-            background-size: cover; background-attachment: fixed;
-        }
-        .hero h1 { font-size: 5rem; margin: 0; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-weight: 700; }
-        .hero p { max-width: 700px; font-size: 1.2rem; opacity: 0.7; }
+        .container { max-width: 1200px; margin: auto; padding: 100px 20px; }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 40px; color: var(--accent); }
 
-        .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
-
-        /* --- КАРТОЧКИ (BENTO) --- */
-        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 50px; color: var(--accent); }
-        
-        .bento-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px;
+        /* --- ИНФОРМАЦИЯ О КОЛЛЕДЖЕ --- */
+        .about-box {
+            background: var(--glass); border: 1px solid var(--border);
+            border-radius: 30px; padding: 40px; text-align: center;
+            backdrop-filter: blur(10px); margin-bottom: 60px;
         }
-        .bento-item {
+
+        /* --- ОТДЕЛЕНИЯ И ПРОФЕССИИ --- */
+        .dept-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        .dept-card {
             background: var(--glass); border: 1px solid var(--border);
             border-radius: 30px; padding: 30px; backdrop-filter: blur(10px);
         }
-        .bento-item:hover { background: rgba(255,255,255,0.06); border-color: var(--accent); transform: scale(1.02); }
+        .dept-card h3 { color: var(--primary); margin-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 10px; }
+        
+        .spec-list { list-style: none; padding: 0; margin: 15px 0; }
+        .spec-list li { 
+            padding: 12px 15px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.05); 
+            cursor: pointer; border-radius: 12px; display: flex; align-items: center; gap: 10px;
+        }
+        .spec-list li:hover { background: rgba(0, 122, 255, 0.15); color: var(--accent); transform: translateX(10px); }
+        .spec-list li i { color: var(--primary); width: 20px; text-align: center; }
 
-        /* --- ХРОНОЛОГИЯ --- */
-        .timeline { border-left: 2px solid var(--primary); padding-left: 30px; margin-left: 20px; }
-        .time-item { position: relative; margin-bottom: 30px; }
-        .time-item::before { content: ''; position: absolute; left: -41px; top: 5px; width: 20px; height: 20px; background: var(--primary); border-radius: 50%; box-shadow: 0 0 15px var(--primary); }
-
-        /* --- ЦЕНЫ И РЕКВИЗИТЫ --- */
+        /* --- СТОИМОСТЬ --- */
         .price-card {
             background: linear-gradient(135deg, var(--primary), var(--secondary));
-            padding: 40px; border-radius: 40px; text-align: center;
+            padding: 40px; border-radius: 40px; text-align: center; margin: 60px 0;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
         }
         .bank-details {
-            background: #111; padding: 25px; border-radius: 20px; font-family: monospace; 
-            margin-top: 20px; color: #10b981; border: 1px dashed #333;
+            background: rgba(0,0,0,0.4); padding: 25px; border-radius: 20px; font-family: monospace; 
+            margin-top: 20px; color: #10b981; border: 1px dashed rgba(255,255,255,0.2); font-size: 0.9rem;
         }
 
-        /* --- MODAL --- */
-        .modal {
+        /* --- КОНТАКТЫ И ПАРТНЕРЫ --- */
+        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; }
+        .info-card { background: var(--glass); padding: 30px; border-radius: 30px; border: 1px solid var(--border); }
+        .info-card h4 { color: var(--accent); margin-top: 0; font-size: 1.2rem; }
+        
+        .partner-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 15px; }
+        .tag { background: rgba(255,255,255,0.05); border: 1px solid var(--border); padding: 6px 15px; border-radius: 50px; font-size: 0.85rem; }
+
+        /* --- МОДАЛЬНОЕ ОКНО --- */
+        .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.9); display: none; align-items: center; justify-content: center; z-index: 2000; padding: 20px;
+            background: rgba(0,0,0,0.9); backdrop-filter: blur(10px);
+            display: none; justify-content: center; align-items: center; z-index: 3000;
         }
-        .modal-box {
-            background: #111; border: 1px solid var(--accent); padding: 40px; 
-            border-radius: 30px; max-width: 700px; position: relative;
+        .modal-content {
+            background: #111; border: 1px solid var(--accent); width: 90%; max-width: 500px;
+            padding: 40px; border-radius: 30px; position: relative; text-align: center;
         }
+        .btn-close { position: absolute; top: 20px; right: 20px; cursor: pointer; font-size: 1.5rem; color: #666; }
 
-        /* --- BUTTONS --- */
-        .btn {
-            background: var(--accent); color: var(--dark); padding: 15px 35px;
+        .btn-main {
+            background: var(--accent); color: var(--dark); padding: 18px 40px;
             border-radius: 50px; text-decoration: none; font-weight: 700; display: inline-block;
-            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
+            margin-top: 20px; box-shadow: 0 10px 30px rgba(0, 242, 254, 0.3);
         }
-        .btn:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(0, 242, 254, 0.5); }
 
+        footer { text-align: center; padding: 60px; opacity: 0.4; border-top: 1px solid var(--border); margin-top: 50px; }
     </style>
 </head>
 <body>
 
     <div class="cyber-bg">
-        <div class="orb" style="top:10%; left:10%"></div>
-        <div class="orb" style="bottom:10%; right:10%; background: var(--secondary)"></div>
+        <div class="orb" style="top:15%; left:10%"></div>
+        <div class="orb" style="bottom:15%; right:10%; background: var(--secondary)"></div>
     </div>
 
     <nav>
-        <a href="#about">О КОЛЛЕДЖЕ</a>
-        <a href="#mission">МИССИЯ</a>
-        <a href="#specialties">ОТДЕЛЕНИЯ</a>
-        <a href="#admission">ПРИЕМ</a>
-        <a href="#contact">КОНТАКТЫ</a>
+        <a href="#about">О Колледже</a>
+        <a href="#specialties">Профессии</a>
+        <a href="#admission">Оплата</a>
+        <a href="#contact">Контакты</a>
     </nav>
 
-    <header class="hero">
-        <h1 id="home">ЖВПК 2026</h1>
-        <p>КГКП «Жезказганский высший политехнический колледж» — более 65 лет лидерства в техническом образовании.</p>
-        <a href="https://college.smartnation.kz/kz/tko" target="_blank" class="btn">ПОДАТЬ ЗАЯВЛЕНИЕ</a>
-    </header>
-
     <div class="container">
-
+        
         <section id="about">
-            <h2 class="section-title">История и наследие</h2>
-            <div class="bento-grid">
-                <div class="bento-item" style="grid-column: span 2;">
-                    <h3>О колледже</h3>
-                    <p>Базой ЖПТК является Жезказганский строительный техникум, созданный в 1953 году. Сегодня мы объединяем традиции прошлого и технологии будущего.</p>
-                </div>
-                <div class="bento-item">
-                    <h3>Контакты</h3>
-                    <p><i class="fas fa-map-marker-alt"></i> г.Жезказган, ул. Байконурова, 19</p>
-                    <p><i class="fas fa-phone"></i> 76-19-23</p>
-                    <p><i class="fas fa-envelope"></i> jezatk@mail.ru</p>
-                </div>
-            </div>
-
-            <div class="timeline" style="margin-top: 50px;">
-                <div class="time-item"><strong>1953</strong> — Основан как Вечерний строительный техникум.</div>
-                <div class="time-item"><strong>1997</strong> — Слияние строительного, горного и совхоза-техникума.</div>
-                <div class="time-item"><strong>2005</strong> — Жезказганский политехнический колледж.</div>
-                <div class="time-item"><strong>2021</strong> — Получен статус "Высший колледж".</div>
+            <div class="about-box">
+                <h1 style="font-size: 4rem; margin: 0; font-weight: 700;">ЖВПК <span style="color: var(--accent)">2026</span></h1>
+                <p style="font-size: 1.2rem; margin: 20px 0; opacity: 0.8;">КГКП «Жезказганский высший политехнический колледж»</p>
+                <p>Основанный в 1953 году, наш колледж прошел путь от строительного техникума до современного Высшего колледжа. Сегодня это инновационный центр подготовки технических кадров международного уровня.</p>
             </div>
         </section>
 
-        <section id="mission">
-            <h2 class="section-title">Миссия и Стратегия</h2>
-            <div class="bento-grid">
-                <div class="bento-item">
-                    <i class="fas fa-rocket fa-2x" style="color:var(--accent)"></i>
-                    <h3>Миссия</h3>
-                    <p>Создание инновационной среды и обеспечение качества образования по международным стандартам.</p>
+        <h2 class="section-title" id="specialties">Направления обучения</h2>
+        <div class="dept-grid">
+            <div class="dept-card">
+                <h3>Технический блок</h3>
+                <ul class="spec-list">
+                    <li onclick="showSpec('Газоснабжение', 'Проектирование и эксплуатация систем газораспределения. Подготовка техников для работы на гос. объектах и частных предприятиях.')"><i class="fas fa-burn"></i> Газоснабжение</li>
+                    <li onclick="showSpec('Электроснабжение', 'Монтаж, наладка и эксплуатация электрооборудования промышленных и гражданских зданий.')"><i class="fas fa-bolt"></i> Электроснабжение</li>
+                    <li onclick="showSpec('Тепловое оборудование', 'Эксплуатация теплоэнергетических установок и систем теплоснабжения города.')"><i class="fas fa-thermometer-half"></i> Теплоэнергетика</li>
+                    <li onclick="showSpec('Строительство', 'Возведение и эксплуатация зданий и сооружений. Квалификация: техник-строитель.')"><i class="fas fa-hard-hat"></i> Строительство</li>
+                </ul>
+            </div>
+            <div class="dept-card">
+                <h3>IT и Транспорт</h3>
+                <ul class="spec-list">
+                    <li onclick="showSpec('Ж/Д Транспорт', 'Организация перевозок и управление движением на железнодорожном транспорте.')"><i class="fas fa-train"></i> Перевозки (Ж/Д)</li>
+                    <li onclick="showSpec('Автотранспорт', 'Техническое обслуживание, ремонт и эксплуатация автомобильного транспорта.')"><i class="fas fa-car"></i> Ремонт авто</li>
+                    <li onclick="showSpec('Логистика', 'Операционное управление логистическими процессами на транспорте.')"><i class="fas fa-truck-loading"></i> Логистика</li>
+                    <li onclick="showSpec('IT-системы', 'Разработка программного обеспечения, работа с базами данных и сетевое администрирование.')"><i class="fas fa-code"></i> Программирование</li>
+                </ul>
+            </div>
+            <div class="dept-card">
+                <h3>Безопасность</h3>
+                <ul class="spec-list">
+                    <li onclick="showSpec('Защита в ЧС', 'Предупреждение и ликвидация последствий чрезвычайных ситуаций. Подготовка для МЧС.')"><i class="fas fa-shield-alt"></i> Защита в ЧС</li>
+                    <li onclick="showSpec('Кибербезопасность', 'Обеспечение информационной безопасности автоматизированных систем.')"><i class="fas fa-user-shield"></i> Инфо-безопасность</li>
+                    <li onclick="showSpec('Архитектура', 'Архитектурное проектирование зданий и дизайн городской среды.')"><i class="fas fa-drafting-pencil"></i> Архитектура</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2 class="section-title" id="admission">Стоимость и Реквизиты</h2>
+        <div class="price-card">
+            <div style="display:flex; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                <div>
+                    <span style="display:block; opacity: 0.8;">ОЧНОЕ ОТДЕЛЕНИЕ</span>
+                    <strong style="font-size: 2.5rem;">140 000 ₸</strong>
                 </div>
-                <div class="bento-item" style="grid-column: span 2;">
-                    <h3>Наше видение 2026</h3>
-                    <ul style="font-size: 0.9rem; opacity: 0.8;">
-                        <li>Внедрение дуальной системы образования.</li>
-                        <li>Центр компетенций «Жас маман».</li>
-                        <li>Тренировочный лагерь WorldSkills.</li>
-                        <li>Автоматизация всех процессов от абитуриента до выпуска.</li>
-                    </ul>
+                <div>
+                    <span style="display:block; opacity: 0.8;">ЗАОЧНОЕ ОТДЕЛЕНИЕ</span>
+                    <strong style="font-size: 2.5rem;">90 000 ₸</strong>
                 </div>
             </div>
-        </section>
+            <div class="bank-details">
+                БИН: 990140001302 | РНН: 241000003513 <br>
+                ИИК: KZ876017171000000065 | БИК: HSBKKZKX
+            </div>
+            <p style="margin-top: 20px; font-size: 0.9rem;">Оплата производится через филиалы АО "Народный Банк Казахстана"</p>
+        </div>
 
-        <section id="admission">
-            <h2 class="section-title">Стоимость и Оплата</h2>
-            <div class="price-card">
-                <div style="display:flex; justify-content: space-around; flex-wrap: wrap;">
-                    <div>
-                        <h4 style="margin:0">ОЧНОЕ</h4>
-                        <span style="font-size: 3rem; font-weight:700;">140 000 ₸</span>
-                    </div>
-                    <div>
-                        <h4 style="margin:0">ЗАОЧНОЕ</h4>
-                        <span style="font-size: 3rem; font-weight:700;">90 000 ₸</span>
-                    </div>
-                </div>
-                <p style="margin-top:20px; opacity:0.9;">Оплата 50% производится до 10 сентября, остаток — до 10 января.</p>
-                
-                <div class="bank-details">
-                    <p>Реквизиты АО "Народный Банк Казахстана":</p>
-                    БИН 990140001302 | ИИК KZ876017171000000065 | БИК HSBKKZKX
+        <h2 class="section-title" id="contact">Связь и Партнеры</h2>
+        <div class="contact-grid">
+            <div class="info-card">
+                <h4>Наши контакты</h4>
+                <p><i class="fas fa-map-marker-alt" style="color:var(--primary)"></i> г. Жезказган, ул. Байконурова, 19</p>
+                <p><i class="fas fa-phone-alt" style="color:var(--primary)"></i> 76-19-23 (Приемная)</p>
+                <p><i class="fas fa-mobile-alt" style="color:var(--primary)"></i> 8(705)267-12-34</p>
+                <p><i class="fas fa-envelope" style="color:var(--primary)"></i> jezatk@mail.ru</p>
+                <p><i class="fab fa-instagram" style="color:var(--primary)"></i> @zhptk.kz</p>
+            </div>
+            <div class="info-card">
+                <h4>Крупные партнеры</h4>
+                <p>Мы работаем на основании меморандумов о сотрудничестве с лидерами индустрии:</p>
+                <div class="partner-tags">
+                    <span class="tag">Kazakhmys</span>
+                    <span class="tag">Tranco Express</span>
+                    <span class="tag">FlexComp</span>
+                    <span class="tag">GU "SP i ASR"</span>
+                    <span class="tag">Samға</span>
+                    <span class="tag">Nur-Karaganda</span>
                 </div>
             </div>
-        </section>
+        </div>
 
-        <section>
-            <h2 class="section-title">Наши Партнеры</h2>
-            <div class="bento-item" onclick="toggleMemos()" style="cursor:pointer; text-align:center;">
-                <h3><i class="fas fa-handshake"></i> Показать меморандумы о сотрудничестве (9+)</h3>
-                <div id="memo-list" style="display:none; text-align:left; margin-top:20px; column-count:2;">
-                    <small>• ТОО "Kazakhmys Distribution"<br>• ТОО "Tranco Express"<br>• ТОО "Самға"<br>• ТОО "FlexComp"<br>• ГУ "СП и АСР"<br>• ИП "Болдырев В.А."<br>• ТОО "Нур-Караганда"</small>
-                </div>
-            </div>
-        </section>
-
-        <div style="text-align:center; margin-top:50px;">
-            <button class="btn" style="background:transparent; border: 1px solid var(--accent); color:var(--accent)" onclick="openHonor()">ЧИТАТЬ КОДЕКС ЧЕСТИ</button>
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="https://college.smartnation.kz/kz/tko" target="_blank" class="btn-main">ПОДАТЬ ДОКУМЕНТЫ ОНЛАЙН</a>
         </div>
 
     </div>
 
-    <div class="modal" id="modalHonor">
-        <div class="modal-box">
-            <h2 style="color:var(--accent)">Кодекс Чести Студента</h2>
-            <div style="height:300px; overflow-y:auto; font-size: 0.9rem; line-height:1.8;">
-                • Стремиться стать достойным гражданином и профессионалом.<br>
-                • Сохранять честь, достоинство и репутацию колледжа.<br>
-                • Соблюдать культуру поведения и внешний вид.<br>
-                • Быть вежливым с преподавателями и студентами.<br>
-                • Беречь имущество и поддерживать порядок.<br>
-                • Вести здоровый образ жизни (без табака и алкоголя).<br>
-                • Активно участвовать в жизни студенческого самоуправления.
+    <div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <span class="btn-close" onclick="closeModal()">&times;</span>
+            <h2 id="modalTitle" style="color: var(--accent);">Специальность</h2>
+            <p id="modalDescription" style="margin: 20px 0; line-height: 1.8;">Описание специальности...</p>
+            <div style="background: rgba(255,255,255,0.05); padding: 15px; border-radius: 15px;">
+                <small>Срок обучения: от 2 лет 10 мес. до 3 лет 10 мес.</small>
             </div>
-            <button class="btn" style="margin-top:20px; width:100%" onclick="closeHonor()">ПРИНИМАЮ</button>
+            <button class="btn-main" style="width: 100%; border: none; cursor: pointer;" onclick="closeModal()">Закрыть</button>
         </div>
     </div>
 
-    <footer style="text-align:center; padding:40px; opacity:0.5; border-top: 1px solid var(--border)">
-        <p>© 2026 Жезказганский высший политехнический колледж. Создано для абитуриентов будущего.</p>
-        <div style="margin-top:10px;">
-            <a href="https://www.instagram.com/zhptk.kz" style="color:white; margin:0 10px;"><i class="fab fa-instagram"></i></a>
-            <a href="mailto:jezatk@mail.ru" style="color:white; margin:0 10px;"><i class="fas fa-envelope"></i></a>
-        </div>
+    <footer>
+        <p>© 2026 Жезказганский высший политехнический колледж</p>
+        <p style="font-size: 0.8rem;">Официальный образовательный портал. Все права защищены.</p>
     </footer>
 
     <script>
-        function toggleMemos() {
-            const list = document.getElementById('memo-list');
-            list.style.display = list.style.display === 'none' ? 'block' : 'none';
+        function showSpec(title, desc) {
+            document.getElementById('modalTitle').innerText = title;
+            document.getElementById('modalDescription').innerText = desc;
+            document.getElementById('modalOverlay').style.display = 'flex';
         }
 
-        function openHonor() {
-            document.getElementById('modalHonor').style.display = 'flex';
+        function closeModal() {
+            document.getElementById('modalOverlay').style.display = 'none';
         }
 
-        function closeHonor() {
-            document.getElementById('modalHonor').style.display = 'none';
-        }
-
-        // Плавное появление при скролле
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = 1;
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        });
-
-        document.querySelectorAll('.bento-item').forEach(el => {
-            el.style.opacity = 0;
-            el.style.transform = 'translateY(30px)';
-            observer.observe(el);
+        // Закрытие по ESC
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal();
         });
     </script>
 </body>
