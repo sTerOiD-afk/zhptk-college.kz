@@ -27,7 +27,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- АНИМИРОВАННЫЙ ФОН --- */
+        /* --- НОВЫЙ АНИМИРОВАННЫЙ ФОН --- */
         .cyber-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; 
@@ -70,6 +70,7 @@
             position: relative; overflow: hidden;
         }
 
+        /* --- ПРАВИЛА ВНУТРЕННЕГО РАСПОРЯДКА --- */
         .rules-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -117,7 +118,7 @@
         .spec-list li { padding: 12px 18px; border-radius: 15px; cursor: pointer; display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; background: rgba(255,255,255,0.02); }
         .spec-list li:hover { background: var(--primary); color: white; transform: translateX(10px); }
 
-        /* --- ДОКУМЕНТЫ --- */
+        /* --- ПОРЯДОК ДОКУМЕНТОВ --- */
         .doc-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .doc-step { background: rgba(0, 122, 255, 0.05); border: 1px solid var(--border); padding: 25px; border-radius: 25px; text-align: center; }
         .doc-num { width: 40px; height: 40px; background: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 15px; font-weight: 800; }
@@ -151,9 +152,9 @@
         /* --- CHAT BOT --- */
         #bot-trigger { position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px; background: var(--primary); border-radius: 50%; color: white; border: none; font-size: 1.8rem; cursor: pointer; z-index: 6000; box-shadow: 0 15px 40px rgba(0, 122, 255, 0.4); }
         .bot-window { position: fixed; bottom: 125px; right: 40px; width: 380px; height: 500px; background: #0a0a0a; border: 1px solid var(--border); border-radius: 30px; display: none; flex-direction: column; z-index: 6000; overflow: hidden; box-shadow: 0 30px 60px rgba(0,0,0,0.8); }
-        .bot-header { background: var(--primary); padding: 20px; font-weight: 800; display: flex; justify-content: space-between; align-items: center; }
+        .bot-header { background: var(--primary); padding: 20px; font-weight: 800; display: flex; justify-content: space-between; }
         .bot-msgs { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; font-size: 0.9rem; }
-        .msg.bot { background: var(--glass); align-self: flex-start; padding: 12px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .msg.bot { background: var(--glass); align-self: flex-start; padding: 12px; border-radius: 15px; }
         .msg.user { background: var(--primary); align-self: flex-end; padding: 12px; border-radius: 15px; }
         .bot-input { padding: 15px; border-top: 1px solid var(--border); display: flex; gap: 10px; }
         .bot-input input { background: var(--glass); border: 1px solid var(--border); color: white; padding: 12px; border-radius: 20px; flex: 1; outline: none; }
@@ -258,36 +259,86 @@
             </div>
         </section>
 
-        <section id="rules" style="margin-top: 80px;">
-            <h2 class="section-title">Правила и Кодекс</h2>
-            <div class="card-main" style="border-top: 4px solid gold;">
-                <h2 style="color: gold; text-align: center; margin-top: 0;"><i class="fas fa-shield-halved"></i> Кодекс чести студента</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; font-size: 0.9rem;">
-                    <p><i class="fas fa-star" style="color:gold"></i> Быть патриотом Казахстана.</p>
-                    <p><i class="fas fa-star" style="color:gold"></i> Академическая честность.</p>
-                    <p><i class="fas fa-star" style="color:gold"></i> Уважение к сокурсникам.</p>
-                    <p><i class="fas fa-star" style="color:gold"></i> Беречь имущество.</p>
-                </div>
+        <h2 class="section-title" style="margin-top: 80px;">Меморандумы и Партнеры</h2>
+        <div class="card-main" style="text-align: center; border-color: var(--primary);">
+            <div style="display: flex; flex-wrap: wrap; justify-content: center; gap: 10px;">
+                <div class="partner-pill">ТОО "Kazakhmys Distribution" (Тепло)</div>
+                <div class="partner-pill">ТОО "Kazakhmys Distribution" (Электро)</div>
+                <div class="partner-pill">ТОО "Tranco Express"</div>
+                <div class="partner-pill">ТОО "TrancoJezz"</div>
+                <div class="partner-pill">ГУ "СП и АСР" (МЧС РК)</div>
+                <div class="partner-pill">ТОО "Самға" (IT)</div>
+                <div class="partner-pill">ТОО "FlexComp"</div>
+                <div class="partner-pill">ТОО "Нур-Караганда"</div>
+                <div class="partner-pill">ИП "Болдырев В.А."</div>
             </div>
+        </div>
+
+        <div class="card-main" style="border-top: 4px solid gold; margin-bottom: 30px;">
+            <h2 style="color: gold; text-align: center; margin-top: 0;"><i class="fas fa-shield-halved"></i> Кодекс чести студента</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; font-size: 0.9rem;">
+                <p><i class="fas fa-star" style="color:gold"></i> Быть патриотом Казахстана и носителем культуры.</p>
+                <p><i class="fas fa-star" style="color:gold"></i> Соблюдать академическую честность (без плагиата).</p>
+                <p><i class="fas fa-star" style="color:gold"></i> Уважать честь преподавателя и сокурсника.</p>
+                <p><i class="fas fa-star" style="color:gold"></i> Беречь государственное имущество колледжа.</p>
+            </div>
+        </div>
+
+        <section id="rules">
+            <h2 class="section-title" style="margin-bottom: 20px;">Внутренний распорядок</h2>
+            <p style="text-align: center; color: #94a3b8; max-width: 800px; margin: 0 auto;">Правила определяют нормы поведения студентов и работников колледжа для успешной учебы и эффективной организации процессов. Запрещаются насилие, создание полит. и религиозных организаций, противоправные действия.</p>
             
             <div class="rules-grid">
                 <div class="rule-card">
                     <div class="rule-icon"><i class="fas fa-user-graduate"></i></div>
-                    <h3>Права</h3>
+                    <h3>Права студентов</h3>
                     <ul class="rule-list">
-                        <li>Гос. стандарты образования.</li>
-                        <li>Библиотека и спортзал.</li>
-                        <li>Проживание в общежитии.</li>
+                        <li>Получать образование по гос. стандартам.</li>
+                        <li>Пользоваться библиотекой, интернетом, спортзалом и столовой.</li>
+                        <li>Участвовать в жизни колледжа и свободно выражать мнение.</li>
+                        <li>Получать поощрения за успехи и проживать в общежитии.</li>
                     </ul>
                 </div>
+                
+                <div class="rule-card">
+                    <div class="rule-icon"><i class="fas fa-clipboard-list"></i></div>
+                    <h3>Обязанности студентов</h3>
+                    <ul class="rule-list">
+                        <li>Посещать занятия и приходить за 15 минут до начала.</li>
+                        <li>Соблюдать ТБ и беречь имущество колледжа.</li>
+                        <li>Соблюдать деловой (классический) стиль одежды.</li>
+                        <li>Предоставлять документы при пропуске занятий.</li>
+                    </ul>
+                </div>
+
                 <div class="rule-card">
                     <div class="rule-icon"><i class="fas fa-clock"></i></div>
-                    <h3>Режим</h3>
+                    <h3>Учебный процесс</h3>
                     <ul class="rule-list">
-                        <li>09:00 – 18:00.</li>
-                        <li>Приход за 15 минут.</li>
-                        <li>Занятие — 45 минут.</li>
+                        <li>Учебный год с 1 сентября (2 семестра).</li>
+                        <li>6-дневная учебная неделя, время: 09:00 – 18:00.</li>
+                        <li>Продолжительность занятия — 45 минут.</li>
+                        <li>Курение, драки и правонарушения строго запрещены.</li>
                     </ul>
+                </div>
+
+                <div class="rule-card" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
+                    <div>
+                        <h3 style="color: #10b981; margin-bottom: 15px;"><i class="fas fa-award"></i> Поощрения</h3>
+                        <ul class="rule-list">
+                            <li>Благодарность, письмо родителям.</li>
+                            <li>Именная стипендия, ценный подарок.</li>
+                            <li>Занесение на Доску почета.</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="color: #ef4444; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle"></i> Взыскания</h3>
+                        <ul class="rule-list">
+                            <li>Замечание, выговор, строгий выговор.</li>
+                            <li>Возмещение стоимости за ущерб имуществу.</li>
+                            <li>Исключение из колледжа.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </section>
@@ -299,22 +350,8 @@
                 <div><span style="opacity:0.8">ЗАОЧНОЕ ОТДЕЛЕНИЕ</span><br><b style="font-size: 3rem;">90 000 ₸</b></div>
             </div>
             <div class="req-box">
-                БИН: 990140001302 | ИИК: KZ876017171000000065
+                БИН: 990140001302 | ИИК: KZ876017171000000065 | Лицензия № KZ44LAA00025405
             </div>
-        </div>
-    </div>
-
-    <button id="bot-trigger" onclick="toggleBot()"><i class="fas fa-robot"></i></button>
-    <div class="bot-window" id="botWindow">
-        <div class="bot-header">
-            <span>Smart-Ассистент</span>
-            <span onclick="toggleBot()" style="cursor:pointer; font-size: 1.5rem;">&times;</span>
-        </div>
-        <div class="bot-msgs" id="botMsgs">
-            <div class="msg bot">Здравствуйте! Я ассистент ЖВПТК. Чем могу помочь? (Спросите про цену, адрес или документы)</div>
-        </div>
-        <div class="bot-input">
-            <input type="text" id="botInp" placeholder="Ваш вопрос..." onkeypress="if(event.key==='Enter') botSend()">
         </div>
     </div>
 
@@ -325,29 +362,45 @@
             <div style="background: var(--glass); padding: 20px; border-radius: 20px; border: 1px solid var(--primary); margin-top: 25px;">
                 <i class="fas fa-calendar-alt"></i> <b id="mTime"></b>
             </div>
-            <button style="margin-top:20px; padding:12px; border:none; background:var(--primary); color:white; border-radius:10px; width:100%; cursor:pointer;" onclick="closeM()">Закрыть</button>
+            <button class="hero-banner" style="padding: 15px; width: 100%; border: none; cursor: pointer; margin-top: 30px;" onclick="closeM()">Понятно</button>
+        </div>
+    </div>
+
+    <button id="bot-trigger" onclick="toggleBot()"><i class="fas fa-robot"></i></button>
+    <div class="bot-window" id="botWindow">
+        <div class="bot-header"><span>Smart-Ассистент</span><span onclick="toggleBot()" style="cursor:pointer">&times;</span></div>
+        <div class="bot-msgs" id="botMsgs">
+            <div class="msg bot">Здравствуйте! Я помогу с информацией о ЖВПТК. Могу подсказать список документов, историю или ссылки на наши соцсети.</div>
+        </div>
+        <div class="bot-input">
+            <input type="text" id="botInp" placeholder="Напишите вопрос..." onkeypress="if(event.key==='Enter') botSend()">
         </div>
     </div>
 
     <footer>
         <p>© 2026 Жезказганский высший политехнический колледж</p>
-        <p>Разработано студентами группы ПО-22</p>
+        <p>КГКП УО области Ұлытау | г. Жезказган, ул. Байконурова, 19 | 8(705)267-12-34 </p>
+        <p style="margin-top: 15px;"><span style="color: var(--primary); font-weight: 700;">Разработано при участии студентов группы ПО-22</span></p>
     </footer>
 
     <script>
-        // ИНТЕГРИРОВАННЫЕ КЛЮЧЕВЫЕ СЛОВА
+        // Добавлен объект keywords
         const keywords = {
             "цена": "Очное обучение: 140 000 ₸, заочное: 90 000 ₸.",
             "оплата": "Наши реквизиты: БИН 990140001302, ИИК KZ876017171000000065.",
             "адрес": "Мы находимся по адресу: г. Жезказган, ул. Байконурова, 19.",
             "одежда": "В колледже принят строгий деловой (классический) стиль одежды.",
             "время": "Занятия проходят с 09:00 до 18:00. Одна пара длится 90 минут.",
-            "группа": "Этот портал разработан при участии талантливых студентов группы ПО-22: Захарко Ильяс и Рахимбаева Назгуль!",
-            "документ": "Вам нужны: подлинник аттестата, 6 фото (3х4), справка 075-У и флюорография. Подача через SmartNation.",
-            "сайт": "Офиц. сайт: zhptk.edu.kz. Инстаграм: @zhptk.kz",
-            "кто ты": "Я официальный ИИ-ассистент колледжа ЖВПТК. Мои создатели — студенты ПО-22!"
+            "группа": "Этот портал разработан при участии талантливых студентов группы ПО-22-Захарко Ильяс и Рахимбаева Назгуль!"
         };
 
+        function openM(title, desc, time) {
+            document.getElementById('mTitle').innerText = title;
+            document.getElementById('mDesc').innerText = desc;
+            document.getElementById('mTime').innerText = "Срок обучения: " + time;
+            document.getElementById('modalSpec').style.display = 'flex';
+        }
+        function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
         function toggleBot() {
             const b = document.getElementById('botWindow');
             b.style.display = (b.style.display === 'flex') ? 'none' : 'flex';
@@ -357,22 +410,28 @@
             const inp = document.getElementById('botInp');
             const val = inp.value.toLowerCase().trim();
             if(!val) return;
-
             addM(inp.value, 'user');
             inp.value = '';
 
             setTimeout(() => {
-                let res = "Я не нашел точного ответа. Попробуйте спросить про 'цену', 'документы' или 'адрес'. Или позвоните нам: 8(705)267-12-34.";
+                let res = "Извините, я не совсем понял. Позвоните в приемную комиссию 8(705)267-12-34 или спросите про документы.";
                 
-                // Поиск по ключевым словам
+                // Проверка по объекту keywords
                 for (const key in keywords) {
                     if (val.includes(key)) {
                         res = keywords[key];
                         break;
                     }
                 }
+
+                // Предыдущие проверки
+                if(val.includes('документ')) res = "Вам нужны: подлинник аттестата, 6 фото (3х4), справка 075-У и копия УД. Подача через SmartNation.";
+                if(val.includes('история')) res = "Колледж основан в 1953 году. Прошел путь от техникума до Высшего колледжа (статус с 2021 года).";
+                if(val.includes('сайт') || val.includes('ссылк')) res = "Офиц. сайт: zhptk.edu.kz. Подача заявок: college.smartnation.kz. Наш Instagram: @zhptk.kz";
+                if(val.includes('партнер') || val.includes('казахмыс')) res = "Наши ключевые партнеры: ТОО Kazakhmys Distribution, Tranco Express и МЧС РК.";
+                
                 addM(res, 'bot');
-            }, 500);
+            }, 600);
         }
 
         function addM(txt, side) {
@@ -383,15 +442,6 @@
             box.appendChild(d);
             box.scrollTop = box.scrollHeight;
         }
-
-        function openM(title, desc, time) {
-            document.getElementById('mTitle').innerText = title;
-            document.getElementById('mDesc').innerText = desc;
-            document.getElementById('mTime').innerText = "Срок: " + time;
-            document.getElementById('modalSpec').style.display = 'flex';
-        }
-
-        function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
     </script>
 </body>
 </html>
