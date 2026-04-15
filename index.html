@@ -226,15 +226,54 @@
             </div>
         </div>
 
-        <section id="docs" style="margin-top: 100px;">
-            <h2 class="section-title">Порядок поступления</h2>
-            <div class="doc-grid">
-                <div class="doc-step"><div class="doc-num">1</div><b>Заявка</b><br><small>SmartNation Онлайн</small></div>
-                <div class="doc-step"><div class="doc-num">2</div><b>Аттестат</b><br><small>Подлинник документа</small></div>
-                <div class="doc-step"><div class="doc-num">3</div><b>Справка</b><br><small>Форма 075-У + Флюоро</small></div>
-                <div class="doc-step"><div class="doc-num">4</div><b>Фото</b><br><small>6 штук (3х4 см)</small></div>
+        <section id="auth">
+    <h2 class="section-title">Личный кабинет</h2>
+    <div class="card-main" style="max-width: 500px; margin: 0 auto; position: relative;">
+        
+        <div id="loginBlock">
+            <form id="loginForm" style="display: flex; flex-direction: column; gap: 15px;">
+                <h3 style="text-align: center; color: var(--accent);">Вход в систему</h3>
+                <input type="email" id="loginEmail" placeholder="Электронная почта" required style="padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--glass); color: white;">
+                <input type="password" id="loginPass" placeholder="Пароль" required style="padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--glass); color: white;">
+                <button type="submit" class="hero-banner" style="padding: 15px; margin: 10px 0; cursor: pointer; width: 100%;">Войти</button>
+            </form>
+            <p style="text-align: center; font-size: 0.9rem; opacity: 0.7;">
+                Нет аккаунта? <a href="javascript:void(0)" onclick="toggleAuth(true)" style="color: var(--accent); text-decoration: none; font-weight: bold;">Зарегистрироваться</a>
+            </p>
+        </div>
+
+        <div id="regBlock" style="display: none;">
+            <form id="regForm" style="display: flex; flex-direction: column; gap: 15px;">
+                <h3 style="text-align: center; color: var(--primary);">Регистрация</h3>
+                <input type="text" id="regName" placeholder="ФИО" required style="padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--glass); color: white;">
+                <input type="email" id="regEmail" placeholder="Электронная почта" required style="padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--glass); color: white;">
+                <input type="password" id="regPass" placeholder="Пароль" required style="padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--glass); color: white;">
+                <select id="regRole" style="padding: 15px; border-radius: 12px; border: 1px solid var(--border); background: var(--dark); color: white;">
+                    <option value="student">Студент</option>
+                    <option value="teacher">Учитель</option>
+                    <option value="parent">Родитель</option>
+                </select>
+                <button type="submit" class="hero-banner" style="padding: 15px; margin: 10px 0; cursor: pointer; width: 100%;">Создать аккаунт</button>
+            </form>
+            <p style="text-align: center; font-size: 0.9rem; opacity: 0.7;">
+                Уже есть аккаунт? <a href="javascript:void(0)" onclick="toggleAuth(false)" style="color: var(--primary); text-decoration: none; font-weight: bold;">Войти</a>
+            </p>
+        </div>
+
+        <div id="userProfile" style="display: none; text-align: center; animation: fadeIn 0.5s ease;">
+            <div style="width: 80px; height: 80px; background: var(--primary); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem;">
+                <i class="fas fa-user"></i>
             </div>
-        </section>
+            <h3 id="userNameDisplay" style="margin-bottom: 5px;">Пользователь</h3>
+            <p id="userRoleDisplay" style="color: var(--accent); margin-top: 0; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;"></p>
+            <div style="height: 1px; background: var(--border); margin: 20px 0;"></div>
+            <button onclick="logout()" class="hero-banner" style="padding: 12px 25px; background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #ef4444; border-radius: 15px; cursor: pointer;">
+                <i class="fas fa-sign-out-alt"></i> Выйти из системы
+            </button>
+        </div>
+
+    </div>
+</section>
 
         <h2 class="section-title" style="margin-top: 80px;">Меморандумы и Партнеры</h2>
         <div class="card-main" style="text-align: center; border-color: var(--primary);">
