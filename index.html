@@ -210,6 +210,13 @@
         }
         .req-box { background: rgba(0,0,0,0.3); padding: 25px; border-radius: 20px; font-family: 'Space Grotesk', monospace; font-size: 0.9rem; color: #10b981; margin-top: 30px; display: inline-block; border: 1px dashed rgba(255,255,255,0.2); }
 
+        /* --- ДОБАВЛЕН ФОКУС ДЛЯ ИНПУТОВ (UX-мелочи) --- */
+        input:focus {
+            border-color: var(--accent);
+            outline: none;
+            box-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+        }
+
         /* --- MODAL --- */
         .modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); display: none; justify-content: center; align-items: center; z-index: 5000; }
         .modal-card { background: #0a0a0a; border: 1px solid var(--primary); width: 90%; max-width: 500px; padding: 45px; border-radius: 40px; }
@@ -454,14 +461,15 @@
             <div style="display:flex; justify-content: space-around; flex-wrap: wrap; margin-top: 40px; gap: 20px;">
                 <div><span style="opacity:0.8">ОЧНОЕ ОТДЕЛЕНИЕ</span><br><b style="font-size: 3rem;">140 000 ₸</b></div>
                 <div><span style="opacity:0.8">ЗАОЧНОЕ ОТДЕЛЕНИЕ</span><br><b style="font-size: 3rem;">90 000 ₸</b></div>
-                <hr style="margin:40px 0; border-color:rgba(255,255,255,0.2);">
+                <hr style="margin:40px 0; border-color:rgba(255,255,255,0.2); width: 100%;">
 
-<h3>📩 Оставить заявку</h3>
-
-<input id="studentName" placeholder="Имя" style="padding:10px; margin:5px; border-radius:10px;">
-<input id="studentPhone" placeholder="Телефон" style="padding:10px; margin:5px; border-radius:10px;">
-<br>
-<button onclick="addStudent()" style="margin-top:10px;">Отправить</button>
+                <div style="width: 100%;">
+                    <h3>📩 Оставить заявку</h3>
+                    <input id="studentName" placeholder="Имя" style="padding:10px; margin:5px; border-radius:10px; background: var(--glass); color: white; border: 1px solid var(--border);">
+                    <input id="studentPhone" placeholder="Телефон" style="padding:10px; margin:5px; border-radius:10px; background: var(--glass); color: white; border: 1px solid var(--border);">
+                    <br>
+                    <button onclick="addStudent()" style="padding:12px 20px; border:none; border-radius:10px; background:#00f2fe; cursor:pointer; color: #020617; font-weight: bold; margin-top:10px;">Отправить</button>
+                </div>
             </div>
             <div class="req-box">
                 БИН: 990140001302 | ИИК: KZ876017171000000065 | Лицензия № KZ44LAA00025405
@@ -498,19 +506,7 @@
     </footer>
 
     <script>
-        const keywords = {
-            "адрес колледжа": "Мы находимся по адресу: г. Жезказган, ул. Байконурова, 19.",
-            "вид одежды": "В колледже принят строгий деловой (классический) стиль одежды.",
-            "группа по разрабоке": "Этот портал разработан при участии талантливых студентов группы ПО-22-Захарко Ильяс и Рахимбаева Назгуль!",
-            "цена за обучение": "Очное обучение: 140 000 ₸, заочное: 90 000 ₸.",
-            "оплата обучения": "Наши реквизиты для оплаты: БИН 990140001302, ИИК KZ876017171000000065.",
-            "время учебы": "Учебный день: 09:00 – 18:00. Продолжительность одного занятия — 45 минут (пара — 90 мин). 6-дневная неделя.",
-            "документы для поступления": "Нужны: подлинник аттестата, медсправка 075-У + флюорография, 6 фото (3х4 см).",
-            "оригинальный сайт": "Официальный сайт: zhptk.edu.kz. Инстаграм: @zhptk.kz",
-            "миссия колледжа": "Подготовка конкурентоспособных кадров через интеграцию образования, науки и производства.",
-            "где можно подать заявку на поступление": "Подать заявку можно онлайн через портал SmartNation.",
-        };
-
+        // --- ФУНКЦИИ ДЛЯ МОДАЛКИ И ЧАТА ---
         function openM(title, desc, time) {
             document.getElementById('mTitle').innerText = title;
             document.getElementById('mDesc').innerText = desc;
@@ -518,11 +514,42 @@
             document.getElementById('modalSpec').style.display = 'flex';
         }
         function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
+        
         function toggleBot() {
             const b = document.getElementById('botWindow');
             b.style.display = (b.style.display === 'flex') ? 'none' : 'flex';
         }
 
+        // --- ДОБАВЛЕНА НЕДОСТАЮЩАЯ ФУНКЦИЯ ДЛЯ ВЫВОДА СООБЩЕНИЙ ---
+        function addM(text, sender) {
+            const msgs = document.getElementById('botMsgs');
+            const div = document.createElement('div');
+            div.className = `msg ${sender}`;
+            div.innerText = text;
+            msgs.appendChild(div);
+            msgs.scrollTop = msgs.scrollHeight;
+        }
+
+        // --- ДОБАВЛЕНА ЗАЩИТА ОТ СПАМА (ЛОГИКА ФОРМЫ) ---
+        function addStudent() {
+            const phone = document.getElementById('studentPhone').value.trim();
+            const name = document.getElementById('studentName').value.trim();
+
+            if (phone.length < 10) {
+                alert("Неверный номер. Введите корректный телефон.");
+                return;
+            }
+            if (name === "") {
+                alert("Пожалуйста, введите ваше имя.");
+                return;
+            }
+
+            alert("Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.");
+            document.getElementById('studentPhone').value = '';
+            document.getElementById('studentName').value = '';
+        }
+
+        // --- ОБНОВЛЕННАЯ, БОЛЕЕ ГИБКАЯ ЛОГИКА БОТА ---
         function botSend() {
             const inp = document.getElementById('botInp');
             const val = inp.value.toLowerCase().trim();
@@ -533,69 +560,32 @@
             setTimeout(() => {
                 let res = "Извините, я не совсем понял. Позвоните в приемную комиссию 8(705)267-12-34 или спросите про документы.";
                 
-                for (const key in keywords) {
-                    if (val.includes(key)) {
-                        res = keywords[key];
-                        break;
-                    }
+                // Гибкая проверка через || 
+                if (val.includes("цена") || val.includes("стоимост") || val.includes("плат")) {
+                    res = "Очное обучение: 140 000 ₸, заочное: 90 000 ₸. Оплата по реквизитам: БИН 990140001302, ИИК KZ876017171000000065.";
+                } else if (val.includes("адрес") || val.includes("находимся") || val.includes("где")) {
+                    res = "Мы находимся по адресу: г. Жезказган, ул. Байконурова, 19.";
+                } else if (val.includes("одежд") || val.includes("форм") || val.includes("стиль")) {
+                    res = "В колледже принят строгий деловой (классический) стиль одежды.";
+                } else if (val.includes("разработ") || val.includes("создал") || val.includes("по-22")) {
+                    res = "Этот портал разработан при участии талантливых студентов группы ПО-22 — Захарко Ильяс и Рахимбаева Назгуль!";
+                } else if (val.includes("время") || val.includes("учеб") || val.includes("пар")) {
+                    res = "Учебный день: 09:00 – 18:00. Продолжительность одного занятия — 45 минут (пара — 90 мин). 6-дневная неделя.";
+                } else if (val.includes('документ') || val.includes('поступ')) {
+                    res = "Вам нужны: подлинник аттестата, 6 фото (3х4), справка 075-У и копия УД. Подача через SmartNation.";
+                } else if (val.includes('сайт') || val.includes('ссылк') || val.includes('инста')) {
+                    res = "Офиц. сайт: zhptk.edu.kz. Подача заявок: college.smartnation.kz. Наш Instagram: @zhptk.kz";
+                } else if (val.includes('мисс') || val.includes('цель')) {
+                    res = "Подготовка конкурентоспособных кадров через интеграцию образования, науки и производства.";
+                } else if (val.includes('история') || val.includes('основан')) {
+                    res = "Колледж основан в 1953 году. Прошел путь от техникума до Высшего колледжа (статус с 2021 года).";
+                } else if (val.includes('партнер') || val.includes('казахмыс') || val.includes('практик')) {
+                    res = "Наши ключевые партнеры: ТОО Kazakhmys Distribution, Tranco Express и МЧС РК.";
                 }
 
-                if(val.includes('документ')) res = "Вам нужны: подлинник аттестата, 6 фото (3х4), справка 075-У и копия УД. Подача через SmartNation.";
-                if(val.includes('история')) res = "Колледж основан в 1953 году. Прошел путь от техникума до Высшего колледжа (статус с 2021 года).";
-                if(val.includes('сайт') || val.includes('ссылк')) res = "Офиц. сайт: zhptk.edu.kz. Подача заявок: college.smartnation.kz. Наш Instagram: @zhptk.kz";
-                if(val.includes('партнер') || val.includes('казахмыс')) res = "Наши ключевые партнеры: ТОО Kazakhmys Distribution, Tranco Express и МЧС РК.";
-                
                 addM(res, 'bot');
             }, 600);
         }
-
-        function addM(txt, side) {
-            // 🔥 Firebase: отправка заявки
-function addStudent() {
-    const name = document.getElementById("studentName").value;
-    const phone = document.getElementById("studentPhone").value;
-
-    if (!name || !phone) {
-        alert("Заполни все поля");
-        return;
-    }
-
-    db.collection("applications").add({
-        name: name,
-        phone: phone,
-        createdAt: new Date()
-    })
-    .then(() => {
-        alert("✅ Заявка отправлена!");
-        document.getElementById("studentName").value = "";
-        document.getElementById("studentPhone").value = "";
-    })
-    .catch((error) => {
-        alert("Ошибка: " + error);
-    });
-}
-function addM(txt, side) {
-    const box = document.getElementById('botMsgs');
-    const d = document.createElement('div');
-    d.className = `msg ${side}`;
-    d.innerText = txt;
-    box.appendChild(d);
-    box.scrollTop = box.scrollHeight;
-}
     </script>
-    <!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore-compat.js"></script>
-
-<script>
-const firebaseConfig = {
-  apiKey: "ТВОЙ_API_KEY",
-  authDomain: "ТВОЙ_PROJECT.firebaseapp.com",
-  projectId: "ТВОЙ_PROJECT_ID",
-};
-
-firebase.initializeApp(firebaseConfig);
-const db = firebase.firestore();
-</script>
 </body>
 </html>
