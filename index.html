@@ -27,7 +27,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- НОВЫЙ АНИМИРОВАННЫЙ ФОН --- */
+        /* --- АНИМИРОВАННЫЙ ФОН --- */
         .cyber-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             z-index: -1; 
@@ -70,35 +70,10 @@
             position: relative; overflow: hidden;
         }
 
-        /* --- ПРАВИЛА ВНУТРЕННЕГО РАСПОРЯДКА --- */
-        .rules-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 25px;
-            margin-top: 30px;
-        }
-        .rule-card {
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 25px;
-            padding: 30px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        .rule-card:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            background: rgba(0, 122, 255, 0.05);
-        }
-        .rule-icon {
-            width: 50px; height: 50px;
-            background: var(--glass);
-            border-radius: 15px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; color: var(--accent);
-            margin-bottom: 10px;
-        }
+        .rules-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; margin-top: 30px; }
+        .rule-card { background: rgba(0, 0, 0, 0.4); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 25px; padding: 30px; display: flex; flex-direction: column; gap: 15px; }
+        .rule-card:hover { border-color: var(--primary); transform: translateY(-5px); background: rgba(0, 122, 255, 0.05); }
+        .rule-icon { width: 50px; height: 50px; background: var(--glass); border-radius: 15px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: var(--accent); margin-bottom: 10px; }
         .rule-card h3 { margin: 0; color: #fff; font-size: 1.3rem; }
         .rule-list { list-style: none; padding: 0; margin: 0; font-size: 0.9rem; color: #cbd5e1; }
         .rule-list li { margin-bottom: 10px; padding-left: 25px; position: relative; line-height: 1.5; }
@@ -142,6 +117,7 @@
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border-radius: 40px; padding: 60px; text-align: center; margin: 80px 0;
             box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+            color: white; border: none; font-weight: 700;
         }
         .req-box { background: rgba(0,0,0,0.3); padding: 25px; border-radius: 20px; font-family: 'Space Grotesk', monospace; font-size: 0.9rem; color: #10b981; margin-top: 30px; display: inline-block; border: 1px dashed rgba(255,255,255,0.2); }
 
@@ -279,7 +255,7 @@
             <h2 style="color: gold; text-align: center; margin-top: 0;"><i class="fas fa-shield-halved"></i> Кодекс чести студента</h2>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; font-size: 0.9rem;">
                 <p><i class="fas fa-star" style="color:gold"></i> Быть патриотом Казахстана и носителем культуры.</p>
-                <p><i class="fas fa-star" style="color:gold"></i> Соблюдать академическую честность (без плагиата).</p>
+                <p><i class="fas fa-star" style="color:gold"></i> Соблюдать академическую честность.</p>
                 <p><i class="fas fa-star" style="color:gold"></i> Уважать честь преподавателя и сокурсника.</p>
                 <p><i class="fas fa-star" style="color:gold"></i> Беречь государственное имущество колледжа.</p>
             </div>
@@ -287,59 +263,25 @@
 
         <section id="rules">
             <h2 class="section-title" style="margin-bottom: 20px;">Внутренний распорядок</h2>
-            <p style="text-align: center; color: #94a3b8; max-width: 800px; margin: 0 auto;">Правила определяют нормы поведения студентов и работников колледжа для успешной учебы и эффективной организации процессов. Запрещаются насилие, создание полит. и религиозных организаций, противоправные действия.</p>
-            
             <div class="rules-grid">
                 <div class="rule-card">
                     <div class="rule-icon"><i class="fas fa-user-graduate"></i></div>
                     <h3>Права студентов</h3>
                     <ul class="rule-list">
                         <li>Получать образование по гос. стандартам.</li>
-                        <li>Пользоваться библиотекой, интернетом, спортзалом и столовой.</li>
-                        <li>Участвовать в жизни колледжа и свободно выражать мнение.</li>
-                        <li>Получать поощрения за успехи и проживать в общежитии.</li>
+                        <li>Пользоваться библиотекой, интернетом, спортзалом.</li>
+                        <li>Участвовать в жизни колледжа.</li>
                     </ul>
                 </div>
                 
                 <div class="rule-card">
                     <div class="rule-icon"><i class="fas fa-clipboard-list"></i></div>
-                    <h3>Обязанности студентов</h3>
+                    <h3>Обязанности</h3>
                     <ul class="rule-list">
-                        <li>Посещать занятия и приходить за 15 минут до начала.</li>
-                        <li>Соблюдать ТБ и беречь имущество колледжа.</li>
-                        <li>Соблюдать деловой (классический) стиль одежды.</li>
-                        <li>Предоставлять документы при пропуске занятий.</li>
+                        <li>Посещать занятия вовремя.</li>
+                        <li>Соблюдать ТБ и беречь имущество.</li>
+                        <li>Соблюдать деловой стиль одежды.</li>
                     </ul>
-                </div>
-
-                <div class="rule-card">
-                    <div class="rule-icon"><i class="fas fa-clock"></i></div>
-                    <h3>Учебный процесс</h3>
-                    <ul class="rule-list">
-                        <li>Учебный год с 1 сентября (2 семестра).</li>
-                        <li>6-дневная учебная неделя, время: 09:00 – 18:00.</li>
-                        <li>Продолжительность занятия — 45 минут.</li>
-                        <li>Курение, драки и правонарушения строго запрещены.</li>
-                    </ul>
-                </div>
-
-                <div class="rule-card" style="grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px;">
-                    <div>
-                        <h3 style="color: #10b981; margin-bottom: 15px;"><i class="fas fa-award"></i> Поощрения</h3>
-                        <ul class="rule-list">
-                            <li>Благодарность, письмо родителям.</li>
-                            <li>Именная стипендия, ценный подарок.</li>
-                            <li>Занесение на Доску почета.</li>
-                        </ul>
-                    </div>
-                    <div>
-                        <h3 style="color: #ef4444; margin-bottom: 15px;"><i class="fas fa-exclamation-triangle"></i> Взыскания</h3>
-                        <ul class="rule-list">
-                            <li>Замечание, выговор, строгий выговор.</li>
-                            <li>Возмещение стоимости за ущерб имуществу.</li>
-                            <li>Исключение из колледжа.</li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </section>
@@ -351,7 +293,7 @@
                 <div><span style="opacity:0.8">ЗАОЧНОЕ ОТДЕЛЕНИЕ</span><br><b style="font-size: 3rem;">90 000 ₸</b></div>
             </div>
             <div class="req-box">
-                БИН: 990140001302 | ИИК: KZ876017171000000065 | Лицензия № KZ44LAA00025405
+                БИН: 990140001302 | ИИК: KZ876017171000000065
             </div>
         </div>
 
@@ -369,13 +311,12 @@
                         <option value="parent">Родитель</option>
                     </select>
                     
-                    <button type="submit" class="hero-banner" style="padding: 15px; margin: 20px 0 0 0; border: none; cursor: pointer; width: 100%;">
+                    <button type="submit" class="hero-banner" style="padding: 15px; margin: 20px 0 0 0; cursor: pointer; width: 100%;">
                         Зарегистрироваться
                     </button>
                 </form>
             </div>
         </section>
-
     </div>
 
     <div class="modal" id="modalSpec" onclick="closeM()">
@@ -385,7 +326,7 @@
             <div style="background: var(--glass); padding: 20px; border-radius: 20px; border: 1px solid var(--primary); margin-top: 25px;">
                 <i class="fas fa-calendar-alt"></i> <b id="mTime"></b>
             </div>
-            <button class="hero-banner" style="padding: 15px; width: 100%; border: none; cursor: pointer; margin-top: 30px;" onclick="closeM()">Понятно</button>
+            <button class="hero-banner" style="padding: 15px; width: 100%; margin-top: 30px;" onclick="closeM()">Понятно</button>
         </div>
     </div>
 
@@ -393,7 +334,7 @@
     <div class="bot-window" id="botWindow">
         <div class="bot-header"><span>Smart-Ассистент</span><span onclick="toggleBot()" style="cursor:pointer">&times;</span></div>
         <div class="bot-msgs" id="botMsgs">
-            <div class="msg bot">Здравствуйте! Я помогу с информацией о ЖВПТК. Могу подсказать список документов, историю или ссылки на наши соцсети.</div>
+            <div class="msg bot">Здравствуйте! Я помогу с информацией о ЖВПТК. Могу подсказать список документов, историю или ссылки.</div>
         </div>
         <div class="bot-input">
             <input type="text" id="botInp" placeholder="Напишите вопрос..." onkeypress="if(event.key==='Enter') botSend()">
@@ -402,39 +343,91 @@
 
     <footer>
         <p>© 2026 Жезказганский высший политехнический колледж</p>
-        <p>КГКП УО области Ұлытау | г. Жезказган, ул. Байконурова, 19 | 8(705)267-12-34 </p>
+        <p>г. Жезказган, ул. Байконурова, 19 | 8(705)267-12-34 </p>
         <p style="margin-top: 15px;"><span style="color: var(--primary); font-weight: 700;">Разработано при участии студентов группы ПО-22</span></p>
     </footer>
 
-    <script>
-        function openM(title, desc, time) {
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyDhLDLZgBRJcDZ5faXIHb1efV0bwR5NxIQ",
+            authDomain: "zhvptk-2026.firebaseapp.com",
+            projectId: "zhvptk-2026",
+            storageBucket: "zhvptk-2026.firebasestorage.app",
+            messagingSenderId: "911542827209",
+            appId: "1:911542827209:web:7ae5f9e98bfdca4572f518",
+            measurementId: "G-NM1CQZNBFY"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // ЛОГИКА РЕГИСТРАЦИИ
+        const regForm = document.getElementById('regForm');
+        if (regForm) {
+            regForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                
+                const submitBtn = regForm.querySelector('button[type="submit"]');
+                const originalText = submitBtn.innerText;
+                submitBtn.disabled = true;
+                submitBtn.innerText = "Сохранение...";
+
+                const userData = {
+                    name: document.getElementById('regName').value,
+                    email: document.getElementById('regEmail').value,
+                    password: document.getElementById('regPass').value,
+                    role: document.getElementById('regRole').value,
+                    createdAt: new Date()
+                };
+
+                try {
+                    const docRef = await addDoc(collection(db, "users"), userData);
+                    alert("Регистрация успешна! Ваш ID: " + docRef.id);
+                    regForm.reset();
+                } catch (error) {
+                    console.error("Ошибка Firebase: ", error);
+                    alert("Ошибка при сохранении.");
+                } finally {
+                    submitBtn.disabled = false;
+                    submitBtn.innerText = originalText;
+                }
+            });
+        }
+
+        // ГЛОБАЛЬНЫЕ ФУНКЦИИ (ПРИВЯЗКА К WINDOW)
+        window.openM = (title, desc, time) => {
             document.getElementById('mTitle').innerText = title;
             document.getElementById('mDesc').innerText = desc;
             document.getElementById('mTime').innerText = "Срок обучения: " + time;
             document.getElementById('modalSpec').style.display = 'flex';
-        }
-        function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
-        function toggleBot() {
+        };
+
+        window.closeM = () => { document.getElementById('modalSpec').style.display = 'none'; };
+
+        window.toggleBot = () => {
             const b = document.getElementById('botWindow');
             b.style.display = (b.style.display === 'flex') ? 'none' : 'flex';
-        }
+        };
 
-        function botSend() {
+        window.botSend = () => {
             const inp = document.getElementById('botInp');
             const val = inp.value.toLowerCase().trim();
             if(!val) return;
+            
             addM(inp.value, 'user');
             inp.value = '';
 
             setTimeout(() => {
-                let res = "Извините, я не совсем понял. Позвоните в приемную комиссию 8(705)267-12-34 или спросите про документы.";
-                if(val.includes('документ')) res = "Вам нужны: подлинник аттестата, 6 фото (3х4), справка 075-У и копия УД. Подача через SmartNation.";
-                if(val.includes('история')) res = "Колледж основан в 1953 году. Прошел путь от техникума до Высшего колледжа (статус с 2021 года).";
-                if(val.includes('сайт') || val.includes('ссылк')) res = "Офиц. сайт: zhptk.edu.kz. Подача заявок: college.smartnation.kz. Наш Instagram: @zhptk.kz";
-                if(val.includes('партнер') || val.includes('казахмыс')) res = "Наши ключевые партнеры: ТОО Kazakhmys Distribution, Tranco Express и МЧС РК.";
+                let res = "Я учусь! Спросите про документы, историю или сайт.";
+                if(val.includes('документ')) res = "Нужны: аттестат, 6 фото (3х4), справка 075-У и копия УД.";
+                if(val.includes('история')) res = "Колледж основан в 1953 году, статус Высшего получен в 2021.";
+                if(val.includes('сайт')) res = "Наш адрес: zhptk.edu.kz";
                 addM(res, 'bot');
             }, 600);
-        }
+        };
 
         function addM(txt, side) {
             const box = document.getElementById('botMsgs');
