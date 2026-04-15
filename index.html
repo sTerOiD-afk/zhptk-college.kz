@@ -506,87 +506,96 @@
     </footer>
 
     <script>
-        // --- ФУНКЦИИ ДЛЯ МОДАЛКИ И ЧАТА ---
-        function openM(title, desc, time) {
-            document.getElementById('mTitle').innerText = title;
-            document.getElementById('mDesc').innerText = desc;
-            document.getElementById('mTime').innerText = "Срок обучения: " + time;
-            document.getElementById('modalSpec').style.display = 'flex';
+        <script>
+    // --- ФУНКЦИИ ДЛЯ МОДАЛКИ И ЧАТА ---
+    function openM(title, desc, time) {
+        document.getElementById('mTitle').innerText = title;
+        document.getElementById('mDesc').innerText = desc;
+        document.getElementById('mTime').innerText = "Срок обучения: " + time;
+        document.getElementById('modalSpec').style.display = 'flex';
+    }
+    function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
+    
+    function toggleBot() {
+        const b = document.getElementById('botWindow');
+        b.style.display = (b.style.display === 'flex') ? 'none' : 'flex';
+    }
+
+    function addM(text, sender) {
+        const msgs = document.getElementById('botMsgs');
+        const div = document.createElement('div');
+        div.className = `msg ${sender}`;
+        div.innerText = text;
+        msgs.appendChild(div);
+        msgs.scrollTop = msgs.scrollHeight;
+    }
+
+    // --- ОБНОВЛЕННАЯ ФУНКЦИЯ addStudent (ШАГ 4) ---
+    async function addStudent() {
+        const phone = document.getElementById('studentPhone').value.trim();
+        const name = document.getElementById('studentName').value.trim();
+
+        // Валидация номера телефона (регулярное выражение)
+        if (!/^\+?[0-9]{10,15}$/.test(phone)) {
+            alert("Введите корректный номер телефона (от 10 цифр)");
+            return;
         }
-        function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
+        if (name === "") {
+            alert("Введите имя");
+            return;
+        }
+
+        // Элемент кнопки (через event.target или поиск)
+        const btn = document.querySelector('#admission button');
+        const originalText = btn.innerText;
         
-        function toggleBot() {
-            const b = document.getElementById('botWindow');
-            b.style.display = (b.style.display === 'flex') ? 'none' : 'flex';
-        }
+        btn.innerText = "Отправка...";
+        btn.disabled = true;
 
-        // --- ДОБАВЛЕНА НЕДОСТАЮЩАЯ ФУНКЦИЯ ДЛЯ ВЫВОДА СООБЩЕНИЙ ---
-        function addM(text, sender) {
-            const msgs = document.getElementById('botMsgs');
-            const div = document.createElement('div');
-            div.className = `msg ${sender}`;
-            div.innerText = text;
-            msgs.appendChild(div);
-            msgs.scrollTop = msgs.scrollHeight;
-        }
+        try {
+            // Вызов внешней функции сохранения (например, в Firebase или API)
+            const success = await window.saveStudent(name, phone);
 
-        // --- ДОБАВЛЕНА ЗАЩИТА ОТ СПАМА (ЛОГИКА ФОРМЫ) ---
-        function addStudent() {
-            const phone = document.getElementById('studentPhone').value.trim();
-            const name = document.getElementById('studentName').value.trim();
-
-            if (phone.length < 10) {
-                alert("Неверный номер. Введите корректный телефон.");
-                return;
+            if (success) {
+                alert("Заявка успешно отправлена!");
+                document.getElementById('studentPhone').value = '';
+                document.getElementById('studentName').value = '';
+            } else {
+                alert("Ошибка отправки. Проверьте соединение с базой данных.");
             }
-            if (name === "") {
-                alert("Пожалуйста, введите ваше имя.");
-                return;
-            }
-
-            alert("Заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.");
-            document.getElementById('studentPhone').value = '';
-            document.getElementById('studentName').value = '';
+        } catch (error) {
+            console.error("Ошибка:", error);
+            alert("Произошла критическая ошибка.");
+        } finally {
+            // Возвращаем кнопку в исходное состояние в любом случае
+            btn.innerText = originalText;
+            btn.disabled = false;
         }
+    }
 
-        // --- ОБНОВЛЕННАЯ, БОЛЕЕ ГИБКАЯ ЛОГИКА БОТА ---
-        function botSend() {
-            const inp = document.getElementById('botInp');
-            const val = inp.value.toLowerCase().trim();
-            if(!val) return;
-            addM(inp.value, 'user');
-            inp.value = '';
-
-            setTimeout(() => {
-                let res = "Извините, я не совсем понял. Позвоните в приемную комиссию 8(705)267-12-34 или спросите про документы.";
-                
-                // Гибкая проверка через || 
-                if (val.includes("цена") || val.includes("стоимост") || val.includes("плат")) {
-                    res = "Очное обучение: 140 000 ₸, заочное: 90 000 ₸. Оплата по реквизитам: БИН 990140001302, ИИК KZ876017171000000065.";
-                } else if (val.includes("адрес") || val.includes("находимся") || val.includes("где")) {
-                    res = "Мы находимся по адресу: г. Жезказган, ул. Байконурова, 19.";
-                } else if (val.includes("одежд") || val.includes("форм") || val.includes("стиль")) {
-                    res = "В колледже принят строгий деловой (классический) стиль одежды.";
-                } else if (val.includes("разработ") || val.includes("создал") || val.includes("по-22")) {
-                    res = "Этот портал разработан при участии талантливых студентов группы ПО-22 — Захарко Ильяс и Рахимбаева Назгуль!";
-                } else if (val.includes("время") || val.includes("учеб") || val.includes("пар")) {
-                    res = "Учебный день: 09:00 – 18:00. Продолжительность одного занятия — 45 минут (пара — 90 мин). 6-дневная неделя.";
-                } else if (val.includes('документ') || val.includes('поступ')) {
-                    res = "Вам нужны: подлинник аттестата, 6 фото (3х4), справка 075-У и копия УД. Подача через SmartNation.";
-                } else if (val.includes('сайт') || val.includes('ссылк') || val.includes('инста')) {
-                    res = "Офиц. сайт: zhptk.edu.kz. Подача заявок: college.smartnation.kz. Наш Instagram: @zhptk.kz";
-                } else if (val.includes('мисс') || val.includes('цель')) {
-                    res = "Подготовка конкурентоспособных кадров через интеграцию образования, науки и производства.";
-                } else if (val.includes('история') || val.includes('основан')) {
-                    res = "Колледж основан в 1953 году. Прошел путь от техникума до Высшего колледжа (статус с 2021 года).";
-                } else if (val.includes('партнер') || val.includes('казахмыс') || val.includes('практик')) {
-                    res = "Наши ключевые партнеры: ТОО Kazakhmys Distribution, Tranco Express и МЧС РК.";
-                }
-
-                addM(res, 'bot');
-            }, 600);
+    // --- ЛОГИКА БОТА ---
+    function botSend() {
+        const inp = document.getElementById('botInp');
+        const val = inp.value.toLowerCase().trim();
+        if(!val) return;
+        addM(inp.value, 'user');
+        
+        let response = "Извините, я не совсем понял вопрос. Попробуйте спросить про 'цену', 'документы' или 'адрес'.";
+        
+        if (val.includes("цена") || val.includes("оплата") || val.includes("стоимость")) {
+            response = "Очное обучение: 140 000 ₸ в год. Заочное: 90 000 ₸.";
+        } else if (val.includes("адрес") || val.includes("где находится")) {
+            response = "Мы находимся по адресу: г. Жезказган, ул. Байконурова, 19.";
+        } else if (val.includes("документы")) {
+            response = "Нужны: аттестат (подлинник), справка 075-У, 6 фото 3х4 и удостоверение личности.";
+        } else if (val.includes("группа")) {
+            response = "Этот портал разработан при активном участии студентов группы ПО-22.";
         }
-    </script>
+        
+        setTimeout(() => addM(response, 'bot'), 600);
+        inp.value = '';
+    }
+</script>
     <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
