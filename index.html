@@ -550,6 +550,30 @@
         }
 
         function addM(txt, side) {
+            // 🔥 Firebase: отправка заявки
+function addStudent() {
+    const name = document.getElementById("studentName").value;
+    const phone = document.getElementById("studentPhone").value;
+
+    if (!name || !phone) {
+        alert("Заполни все поля");
+        return;
+    }
+
+    db.collection("applications").add({
+        name: name,
+        phone: phone,
+        createdAt: new Date()
+    })
+    .then(() => {
+        alert("✅ Заявка отправлена!");
+        document.getElementById("studentName").value = "";
+        document.getElementById("studentPhone").value = "";
+    })
+    .catch((error) => {
+        alert("Ошибка: " + error);
+    });
+}
             const box = document.getElementById('botMsgs');
             const d = document.createElement('div');
             d.className = `msg ${side}`;
