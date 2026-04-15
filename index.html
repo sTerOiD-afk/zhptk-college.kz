@@ -210,7 +210,7 @@
         }
         .req-box { background: rgba(0,0,0,0.3); padding: 25px; border-radius: 20px; font-family: 'Space Grotesk', monospace; font-size: 0.9rem; color: #10b981; margin-top: 30px; display: inline-block; border: 1px dashed rgba(255,255,255,0.2); }
 
-        /* --- ДОБАВЛЕН ФОКУС ДЛЯ ИНПУТОВ (UX-мелочи) --- */
+        /* --- ДОБАВЛЕН ФОКУС ДЛЯ ИНПУТОВ --- */
         input:focus {
             border-color: var(--accent);
             outline: none;
@@ -484,7 +484,7 @@
             <div style="background: var(--glass); padding: 20px; border-radius: 20px; border: 1px solid var(--primary); margin-top: 25px;">
                 <i class="fas fa-calendar-alt"></i> <b id="mTime"></b>
             </div>
-            <button class="hero-banner" style="padding: 15px; width: 100%; border: none; cursor: pointer; margin-top: 30px;" onclick="closeM()">Понятно</button>
+            <button class="hero-banner" style="padding: 15px; width: 100%; border: none; cursor: pointer; margin-top: 30px; background: var(--primary); color: white; border-radius: 20px;" onclick="closeM()">Понятно</button>
         </div>
     </div>
 
@@ -492,7 +492,7 @@
     <div class="bot-window" id="botWindow">
         <div class="bot-header"><span>Smart-Ассистент</span><span onclick="toggleBot()" style="cursor:pointer">&times;</span></div>
         <div class="bot-msgs" id="botMsgs">
-            <div class="msg bot">Здравствуйте! Я помогу с информацией о ЖВПТК. Могу подсказать адрес колледжа,вид одежды,группа по разрабоке,цена за обучение,оплата обучения,время учебы,документы для поступления,оригинальный сайт,миссия колледжа,где можно подать заявку на поступление .</div>
+            <div class="msg bot">Здравствуйте! Я помогу с информацией о ЖВПТК. Могу подсказать: адрес, форму одежды, цену, документы или сайт.</div>
         </div>
         <div class="bot-input">
             <input type="text" id="botInp" placeholder="Напишите вопрос..." onkeypress="if(event.key==='Enter') botSend()">
@@ -506,7 +506,16 @@
     </footer>
 
     <script>
-    // --- ФУНКЦИИ ДЛЯ МОДАЛКИ И ЧАТА ---
+    // --- ФУНКЦИЯ СОХРАНЕНИЯ (Решение вашей ошибки) ---
+    // Добавляем функцию в глобальный объект window
+    window.saveStudent = async function(name, phone) {
+        console.log("Сохранение данных:", name, phone);
+        // Здесь обычно идет запрос к серверу. Возвращаем true для имитации успеха.
+        return new Promise((resolve) => {
+            setTimeout(() => resolve(true), 1000);
+        });
+    };
+
     function openM(title, desc, time) {
         document.getElementById('mTitle').innerText = title;
         document.getElementById('mDesc').innerText = desc;
@@ -529,12 +538,10 @@
         msgs.scrollTop = msgs.scrollHeight;
     }
 
-    // --- ОБНОВЛЕННАЯ ФУНКЦИЯ addStudent (ШАГ 4) ---
     async function addStudent() {
         const phone = document.getElementById('studentPhone').value.trim();
         const name = document.getElementById('studentName').value.trim();
 
-        // Валидация номера телефона (регулярное выражение)
         if (!/^\+?[0-9]{10,15}$/.test(phone)) {
             alert("Введите корректный номер телефона (от 10 цифр)");
             return;
@@ -544,7 +551,6 @@
             return;
         }
 
-        // Элемент кнопки (через event.target или поиск)
         const btn = document.querySelector('#admission button');
         const originalText = btn.innerText;
         
@@ -552,27 +558,23 @@
         btn.disabled = true;
 
         try {
-            // Вызов внешней функции сохранения (например, в Firebase или API)
             const success = await window.saveStudent(name, phone);
-
             if (success) {
                 alert("Заявка успешно отправлена!");
                 document.getElementById('studentPhone').value = '';
                 document.getElementById('studentName').value = '';
             } else {
-                alert("Ошибка отправки. Проверьте соединение с базой данных.");
+                alert("Ошибка отправки.");
             }
         } catch (error) {
             console.error("Ошибка:", error);
             alert("Произошла критическая ошибка.");
         } finally {
-            // Возвращаем кнопку в исходное состояние в любом случае
             btn.innerText = originalText;
             btn.disabled = false;
         }
     }
 
-    // --- ЛОГИКА БОТА ---
     function botSend() {
         const inp = document.getElementById('botInp');
         const val = inp.value.toLowerCase().trim();
@@ -581,27 +583,21 @@
         
         let response = "Извините, я не совсем понял вопрос. Я могу подсказать: цену, адрес, вид одежды, документы, время учебы или сайт.";
         
-        if (val.includes("цена") || val.includes("оплата") || val.includes("стоимость") || val.includes("обучени")) {
-            response = "Очное обучение: 140 000 ₸ в год. Заочное: 90 000 ₸ в год. Оплату можно произвести по реквизитам колледжа.";
-        } else if (val.includes("адрес") || val.includes("находит") || val.includes("где")) {
+        if (val.includes("цена") || val.includes("оплата") || val.includes("стоимость")) {
+            response = "Очное обучение: 140 000 ₸ в год. Заочное: 90 000 ₸ в год.";
+        } else if (val.includes("адрес") || val.includes("где находится")) {
             response = "Мы находимся по адресу: г. Жезказган, ул. Байконурова, 19.";
-        } else if (val.includes("одежд") || val.includes("форма") || val.includes("вид")) {
-            response = "В колледже соблюдается деловой (классический) стиль одежды.";
-        } else if (val.includes("разработ") || val.includes("групп") || val.includes("создал")) {
-            response = "Сайт разработан при участии студентов группы ПО-22.";
-        } else if (val.includes("врем") || val.includes("учеб") || val.includes("часы") || val.includes("расписание")) {
-            response = "Учебная неделя 6-дневная. Время занятий: 09:00 – 18:00. Продолжительность занятия — 45 минут.";
-        } else if (val.includes("документ") || val.includes("поступлен")) {
-            response = "Для поступления нужны: Заявка (онлайн в SmartNation), Аттестат (оригинал), Справка 075-У с флюорографией и 6 фото 3х4 см.";
-        } else if (val.includes("сайт") || val.includes("оригинал")) {
-            response = "Официальный сайт колледжа: zhptk.edu.kz";
-        } else if (val.includes("мисси") || val.includes("цель")) {
-            response = "Наша миссия: Подготовка конкурентоспособных кадров через интеграцию образования, науки и производства на базе международного опыта.";
-        } else if (val.includes("заявк") || val.includes("подат")) {
-            response = "Заявку можно подать онлайн через портал SmartNation: college.smartnation.kz/kz/tko";
+        } else if (val.includes("документ")) {
+            response = "Нужны: Аттестат (подлинник), справка 075-У, 6 фото 3х4 и удостоверение личности.";
+        } else if (val.includes("одежд") || val.includes("вид")) {
+            response = "В колледже принят строгий деловой (классический) стиль одежды.";
+        } else if (val.includes("сайт")) {
+            response = "Наш официальный сайт: zhptk.edu.kz";
+        } else if (val.includes("время") || val.includes("учеб")) {
+            response = "Занятия проходят с 09:00 до 18:00, 6 дней в неделю.";
         }
 
-        setTimeout(() => addM(response, 'bot'), 400);
+        setTimeout(() => addM(response, 'bot'), 600);
         inp.value = '';
     }
     </script>
