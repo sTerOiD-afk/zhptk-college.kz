@@ -574,13 +574,14 @@ function addStudent() {
         alert("Ошибка: " + error);
     });
 }
-            const box = document.getElementById('botMsgs');
-            const d = document.createElement('div');
-            d.className = `msg ${side}`;
-            d.innerText = txt;
-            box.appendChild(d);
-            box.scrollTop = box.scrollHeight;
-        }
+function addM(txt, side) {
+    const box = document.getElementById('botMsgs');
+    const d = document.createElement('div');
+    d.className = `msg ${side}`;
+    d.innerText = txt;
+    box.appendChild(d);
+    box.scrollTop = box.scrollHeight;
+}
     </script>
     <!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
