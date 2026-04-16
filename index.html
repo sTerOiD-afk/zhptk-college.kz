@@ -15,11 +15,14 @@
     <div class="cyber-bg"><div class="aurora"></div></div>
 
     <nav>
-        <a href="#about" class="nav-link">О колледже</a>
-        <a href="#specialties" class="nav-link">Специальности</a>
-        <a href="#admission" class="nav-link">Поступление</a>
-        <a href="#" onclick="openAuthModal()" id="navAuthBtn" class="auth-btn"><i class="fas fa-user"></i> Войти</a>
-    </nav>
+    <a href="#about" class="nav-link">О колледже</a>
+    <a href="#specialties" class="nav-link">Специальности</a>
+    <a href="#admission" class="nav-link">Поступление</a>
+    <a href="#contacts" class="nav-link">Контакты</a>
+    <a href="#" onclick="openAuthModal()" id="navAuthBtn" class="auth-btn">
+        <i class="fas fa-user"></i> Войти
+    </a>
+</nav>
 
     <div id="landing-content">
         <header class="welcome-screen">
@@ -192,5 +195,23 @@
     </div>
     
     <script type="module" src="script.js"></script>
+
+    <section id="contacts" style="margin-top: 80px;">
+    <div class="card-main">
+        <h2 class="section-title">Контакты</h2>
+        
+        <div style="line-height: 2; font-size: 1.1rem;">
+            <p><i class="fas fa-map-marker-alt"></i> г. Жезказган, ул. Байконурова, 19</p>
+            <p><i class="fas fa-phone"></i> Тел: 8 (705) 267-12-34</p>
+            <p><i class="fas fa-envelope"></i> Email: jezatk@mail.ru</p>
+        </div>
+
+        <div style="margin-top: 25px; display: flex; flex-wrap: wrap; gap: 15px;">
+            <a href="https://zhptk.edu.kz/" target="_blank" class="auth-btn">🌐 Официальный сайт</a>
+            <a href="https://www.instagram.com/zhptk.kz/" target="_blank" class="auth-btn">📸 Instagram</a>
+            <a href="https://college.smartnation.kz/kz/tko" target="_blank" class="auth-btn">📝 Подать заявление онлайн</a>
+        </div>
+    </div>
+</section>
 </body>
 </html>
