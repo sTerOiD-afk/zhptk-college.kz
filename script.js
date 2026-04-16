@@ -108,8 +108,9 @@ window.botSend = function() {
     if(val.includes("док")) res = "Нужны: Аттестат (оригинал), копия удостоверения, медсправка 075-У, 4 фото 3х4.";
     if(val.includes("реквизит")) res = "БИН 990140001302, ИИК KZ876017171000000065, АО 'Народный Банк Казахстана'.";
     if(val.includes("кодекс") || val.includes("чест")) res = "Студенты обязаны соблюдать дисциплину, деловой стиль одежды, уважать преподавателей и вести ЗОЖ.";
-    if(val.includes("адрес") || val.includes("где")) res = "Область Ұлытау, г. Жезказган. Подробности на zhptk.edu.kz.";
-
+    if(val.includes("адрес") || val.includes("где")) 
+    res = "г. Жезказган, ул. Байконурова, 19. Тел: 8 (705) 267-12-34. Сайт: zhptk.edu.kz";
+    
     setTimeout(() => {
         const bDiv = document.createElement('div'); bDiv.className = 'msg bot'; bDiv.innerText = res;
         msgs.appendChild(bDiv); msgs.scrollTop = msgs.scrollHeight;
