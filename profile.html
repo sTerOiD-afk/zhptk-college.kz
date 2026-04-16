@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Личный кабинет</title>
+
+<link rel="stylesheet" href="style.css">
+
+<style>
+body {
+    font-family: Arial;
+    background: #020617;
+    color: white;
+}
+
+.profile-container {
+    max-width: 700px;
+    margin: 80px auto;
+    background: rgba(255,255,255,0.05);
+    padding: 40px;
+    border-radius: 20px;
+}
+
+h1 {
+    color: #00f2fe;
+}
+
+.info {
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.label {
+    color: #00f2fe;
+    font-weight: bold;
+}
+</style>
+</head>
+
+<body>
+
+<div class="profile-container">
+
+<h1>Личный кабинет</h1>
+
+<div class="info">
+<p><span class="label">ФИО:</span> <span id="name">Загрузка...</span></p>
+<p><span class="label">Email:</span> <span id="email">Загрузка...</span></p>
+<p><span class="label">Группа:</span> <span id="group">ПОВТ-22-1</span></p>
+<p><span class="label">Статус:</span> <span id="status">Студент</span></p>
+<p><span class="label">Специальность:</span> <span id="spec">Программное обеспечение</span></p>
+</div>
+
+<button onclick="logoutUser()">
+Выйти из аккаунта
+</button>
+
+</div>
+
+<script type="module">
+
+import {
+initializeApp
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+
+import {
+getFirestore,
+doc,
+getDoc
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+
+import {
+getAuth,
+onAuthStateChanged,
+signOut
+} from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyAMaUx0GGxmQKuPCSlIBow0V2iFudAZrPc",
+authDomain: "zhptk-portal-2026.firebaseapp.com",
+projectId: "zhptk-portal-2026",
+
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+const auth = getAuth(app);
+
+onAuthStateChanged(auth, async (user) => {
+
+if (!user) {
+
+alert("Вы не авторизованы");
+
+window.location.href = "index.html";
+
+return;
+
+}
+
+document.getElementById("email").innerText = user.email;
+
+const docSnap = await getDoc(
+doc(db, "users", user.uid)
+);
+
+if (docSnap.exists()) {
+
+const data = docSnap.data();
+
+document.getElementById("name").innerText =
+data.name || "Студент";
+
+document.getElementById("group").innerText =
+data.group || "Не указана";
+
+document.getElementById("status").innerText =
+data.role || "Студент";
+
+document.getElementById("spec").innerText =
+data.spec || "Не указана";
+
+}
+
+});
+
+window.logoutUser = function () {
+
+signOut(auth);
+
+window.location.href = "index.html";
+
+};
+
+</script>
+
+</body>
+</html>
