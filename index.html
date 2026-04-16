@@ -209,16 +209,32 @@
     </div>
 </section>
 
-            <h2 class="section-title" id="specialties">Направления и Сроки</h2>
-            <div class="grid-3">
-                <div class="spec-box">
-                    <h3><i class="fas fa-code-branch"></i> IT и Энергия</h3>
-                    <ul class="spec-list">
-                        <li onclick="openM('IT-системы', 'Программирование.', '3г. 10м.')">Программирование <i class="fas fa-chevron-right"></i></li>
-                        <li onclick="openM('Инфо-безопасность', 'Кибер-аудит.', '3г. 10м.')">Кибербезопасность <i class="fas fa-chevron-right"></i></li>
-                    </ul>
-                </div>
-            </div>
+            <h2 class="section-title" id="specialties">Направления подготовки</h2>
+<div class="grid-3">
+    <div class="spec-box">
+        <h3><i class="fas fa-shield-alt"></i> IT-технологии</h3>
+        <ul class="spec-list">
+            <li onclick="openM('Программное обеспечение', 'Разработка ПО, администрирование баз данных.', '3г. 10м.')">ПО (по видам) <i class="fas fa-chevron-right"></i></li>
+            <li onclick="openM('Инфо-безопасность', 'Защита информационных сетей и кибер-аудит.', '3г. 10м.')">Информационная безопасность <i class="fas fa-chevron-right"></i></li>
+        </ul>
+    </div>
+
+    <div class="spec-box">
+        <h3><i class="fas fa-city"></i> Строительство</h3>
+        <ul class="spec-list">
+            <li onclick="openM('Строительство зданий', 'Монтаж и эксплуатация зданий и сооружений.', '3г. 10м.')">Строительство зданий <i class="fas fa-chevron-right"></i></li>
+            <li onclick="openM('Архитектура', 'Проектирование и дизайн городской среды.', '3г. 10м.')">Архитектура <i class="fas fa-chevron-right"></i></li>
+        </ul>
+    </div>
+
+    <div class="spec-box">
+        <h3><i class="fas fa-bolt"></i> Техника и Транспорт</h3>
+        <ul class="spec-list">
+            <li onclick="openM('Автотранспорт', 'Техническое обслуживание и ремонт автомобилей.', '3г. 10м.')">Автомобильный транспорт <i class="fas fa-chevron-right"></i></li>
+            <li onclick="openM('Теплоэнергетика', 'Монтаж и эксплуатация теплотехнического оборудования.', '3г. 10м.')">Теплоэнергетика <i class="fas fa-chevron-right"></i></li>
+        </ul>
+    </div>
+</div>
 
             <div id="admission" class="hero-banner">
                 <h2 style="font-size: 3rem; margin:0; font-family: 'Space Grotesk';">Приемная кампания 2026</h2>
@@ -396,20 +412,31 @@
         }
 
         function botSend() {
-            const inp = document.getElementById('botInp'); const val = inp.value.toLowerCase().trim();
-            if(!val) return; const msgs = document.getElementById('botMsgs');
-            const uDiv = document.createElement('div'); uDiv.className = 'msg user'; uDiv.innerText = inp.value; msgs.appendChild(uDiv);
-            let res = "Извините, я пока не знаю ответа. Спросите про 'цену', 'документы' или 'адрес'.";
-            if(val.includes("цена") || val.includes("стоим")) res = "Очное: 140 000 ₸. Заочное: 90 000 ₸.";
-            if(val.includes("док")) res = "Нужны: Аттестат, справка 075-У, флюорография и 6 фото 3х4.";
-            if(val.includes("адрес") || val.includes("где")) res = "г. Жезказган. Подробности на zhptk.edu.kz.";
-            if(val.includes("одежд")) res = "Принят классический деловой стиль.";
-            setTimeout(() => {
-                const bDiv = document.createElement('div'); bDiv.className = 'msg bot'; bDiv.innerText = res;
-                msgs.appendChild(bDiv); msgs.scrollTop = msgs.scrollHeight;
-            }, 600);
-            inp.value = '';
-        }
+    const inp = document.getElementById('botInp'); const val = inp.value.toLowerCase().trim();
+    if(!val) return; const msgs = document.getElementById('botMsgs');
+    const uDiv = document.createElement('div'); uDiv.className = 'msg user'; uDiv.innerText = inp.value; msgs.appendChild(uDiv);
+    
+    let res = "Извините, я пока не знаю ответа. Спросите про 'цену', 'документы' или 'адрес'.";
+    
+    if(val.includes("цена") || val.includes("стоим")) {
+        res = "Очное обучение: 140 000 ₸ в год. Заочное: 90 000 ₸ в год.";
+    }
+    if(val.includes("док")) {
+        res = "Необходимы: 1) Удостоверение личности, 2) Подлинник аттестата/диплома, 3) Медсправка 075-У, 4) 4 фото (3х4), 5) Скоросшиватель.";
+    }
+    if(val.includes("адрес") || val.includes("где")) {
+        res = "Область Ұлытау, г. Жезказган, ул. О. Байконурова, 19. Тел: 8 (7102) 76-19-23.";
+    }
+    if(val.includes("реквизит") || val.includes("оплат")) {
+        res = "БИН: 990140001302, ИИК: KZ876017171000000065 в АО 'Народный Банк Казахстана'.";
+    }
+
+    setTimeout(() => {
+        const bDiv = document.createElement('div'); bDiv.className = 'msg bot'; bDiv.innerText = res;
+        msgs.appendChild(bDiv); msgs.scrollTop = msgs.scrollHeight;
+    }, 600);
+    inp.value = '';
+}
     </script>
 </body>
 </html>
