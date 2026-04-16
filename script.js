@@ -20,7 +20,10 @@ onAuthStateChanged(auth, async (user) => {
     const dash = document.getElementById('dashboard-section');
     
     if (user) {
-        window.closeAuthModal();
+        // Проверяем существование функции перед вызовом, чтобы избежать ошибки при быстрой загрузке
+        if (typeof window.closeAuthModal === 'function') {
+            window.closeAuthModal();
+        }
         navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Кабинет';
         // Указываем ссылку на новую страницу кабинета
         navBtn.href = "cabinet.html"; 
@@ -38,6 +41,7 @@ onAuthStateChanged(auth, async (user) => {
         if (dash) dash.style.display = 'none';
     }
 });
+
 // Глобальные функции для Firebase
 window.botSend = function() {
     const inp = document.getElementById('botInp');
@@ -136,26 +140,23 @@ window.botSend = function() {
     }, 500);
 
     inp.value = '';
-    
-window.botSend = function() {
-   // код бота
-};
+}; // Закрывающая скобка добавлена сюда
 
 window.openAuthModal = function() {
-   document.getElementById('authModal').style.display = 'flex';
+    document.getElementById('authModal').style.display = 'flex';
 };
 
 window.closeAuthModal = function() {
-   document.getElementById('authModal').style.display = 'none';
+    document.getElementById('authModal').style.display = 'none';
 };
 
 window.toggleBot = function() {
-   const bot = document.getElementById('botWindow');
-   const inp = document.getElementById('botInp');
+    const bot = document.getElementById('botWindow');
+    const inp = document.getElementById('botInp');
 
-   bot.style.display = (bot.style.display === 'flex') ? 'none' : 'flex';
+    bot.style.display = (bot.style.display === 'flex') ? 'none' : 'flex';
 
-   if (bot.style.display === 'flex') {
-       setTimeout(() => inp.focus(), 200);
-   }
+    if (bot.style.display === 'flex') {
+        setTimeout(() => inp.focus(), 200);
+    }
 };
