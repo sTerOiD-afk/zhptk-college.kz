@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+м<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -498,128 +498,122 @@
             <input type="text" id="botInp" placeholder="Напишите вопрос..." onkeypress="if(event.key==='Enter') botSend()">
         </div>
     </div>
-    <script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-
-  // Ваша конфигурация (из консоли Firebase)
-  const firebaseConfig = {
-    apiKey: "AIzaSy...", // Вставьте ваш API Key здесь (был на скриншоте)
-    authDomain: "zhptk-portal-2026.firebaseapp.com",
-    projectId: "zhptk-portal-2026",
-    storageBucket: "zhptk-portal-2026.appspot.com",
-    messagingSenderId: "494504818041",
-    appId: "1:494504818041:web:..." // Вставьте ваш App ID
-  };
-
-  // Инициализация
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  // Глобальная функция сохранения (теперь реальная)
-  window.saveStudent = async function(name, phone) {
-    try {
-      // Ссылка на коллекцию "applications" (создастся автоматически)
-      const docRef = await addDoc(collection(db, "applications"), {
-        studentName: name,
-        studentPhone: phone,
-        timestamp: serverTimestamp() // Добавит время заявки
-      });
-      console.log("Документ записан с ID: ", docRef.id);
-      return true;
-    } catch (e) {
-      console.error("Ошибка добавления документа: ", e);
-      throw e; // Пробрасываем ошибку для catch в addStudent()
-    }
-  };
-</script>
-
-<script>
-    function openM(title, desc, time) {
-        document.getElementById('mTitle').innerText = title;
-        document.getElementById('mDesc').innerText = desc;
-        document.getElementById('mTime').innerText = "Срок обучения: " + time;
-        document.getElementById('modalSpec').style.display = 'flex';
-    }
-    function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
     
-    function toggleBot() {
-        const b = document.getElementById('botWindow');
-        b.style.display = (b.style.display === 'flex') ? 'none' : 'flex';
-    }
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
 
-    async function addStudent() {
-        const phone = document.getElementById('studentPhone').value.trim();
-        const name = document.getElementById('studentName').value.trim();
+        // Ваша конфигурация (из консоли Firebase)
+        const firebaseConfig = {
+            apiKey: "AIzaSy...", // Вставьте ваш API Key здесь
+            authDomain: "zhptk-portal-2026.firebaseapp.com",
+            projectId: "zhptk-portal-2026",
+            storageBucket: "zhptk-portal-2026.appspot.com",
+            messagingSenderId: "494504818041",
+            appId: "1:494504818041:web:..." // Вставьте ваш App ID
+        };
 
-        if (!/^\+?[0-9]{10,15}$/.test(phone)) {
-            alert("Введите корректный номер телефона");
-            return;
-        }
-        if (name === "") {
-            alert("Введите имя");
-            return;
-        }
+        // Инициализация
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
 
-        const btn = document.querySelector('#admission button');
-        btn.innerText = "Отправка...";
-        btn.disabled = true;
-
-        try {
-            // Теперь это вызовет реальный Firebase из модуля выше
-            const success = await window.saveStudent(name, phone);
-            if (success) {
-                alert("Заявка успешно принята! Мы свяжемся с вами.");
-                document.getElementById('studentPhone').value = '';
-                document.getElementById('studentName').value = '';
+        // Глобальная функция сохранения (теперь реальная)
+        window.saveStudent = async function(name, phone) {
+            try {
+                // Ссылка на коллекцию "applications" (создастся автоматически)
+                const docRef = await addDoc(collection(db, "applications"), {
+                    studentName: name,
+                    studentPhone: phone,
+                    timestamp: serverTimestamp() // Добавит время заявки
+                });
+                console.log("Документ записан с ID: ", docRef.id);
+                return true;
+            } catch (e) {
+                console.error("Ошибка добавления документа: ", e);
+                throw e; // Пробрасываем ошибку для catch в addStudent()
             }
-        } catch (error) {
-            alert("Критическая ошибка: " + error.message);
-        } finally {
-            btn.innerText = "Отправить";
-            btn.disabled = false;
+        };
+    </script>
+
+    <script>
+        function openM(title, desc, time) {
+            document.getElementById('mTitle').innerText = title;
+            document.getElementById('mDesc').innerText = desc;
+            document.getElementById('mTime').innerText = "Срок обучения: " + time;
+            document.getElementById('modalSpec').style.display = 'flex';
         }
-    }
-
-    // Логика бота (оставляем вашу, она работает хорошо)
-   function botSend() {
-        const inp = document.getElementById('botInp');
-        const val = inp.value.trim();
-        if(!val) return;
-        
-        const msgs = document.getElementById('botMsgs');
+        function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
         
-        // Сообщение пользователя
-        const uDiv = document.createElement('div');
-        uDiv.className = 'msg user';
-        uDiv.innerText = val;
-        msgs.appendChild(uDiv);
-        
-        // Очистка инпута
-        inp.value = '';
+        function toggleBot() {
+            const b = document.getElementById('botWindow');
+            b.style.display = (b.style.display === 'flex') ? 'none' : 'flex';
+        }
 
-        // Имитация "думающего" бота и простой ответ
-        setTimeout(() => {
-            const bDiv = document.createElement('div');
-            bDiv.className = 'msg bot';
-            
-            // Простая логика ответов (в будущем сюда идеально впишется API Gemini)
-            if (val.toLowerCase().includes('цен') || val.toLowerCase().includes('стоимост')) {
-                bDiv.innerText = 'Стоимость обучения: Очное - 140 000 ₸, Заочное - 90 000 ₸.';
-            } else if (val.toLowerCase().includes('документ')) {
-                bDiv.innerText = 'Нужны: Заявка онлайн, аттестат, справка 075-У, 6 фото 3х4.';
-            } else {
-                bDiv.innerText = 'Я пока работаю в тестовом режиме. Пожалуйста, оставьте заявку в форме выше, и мы с вами свяжемся!';
+        async function addStudent() {
+            const phone = document.getElementById('studentPhone').value.trim();
+            const name = document.getElementById('studentName').value.trim();
+
+            if (!/^\+?[0-9]{10,15}$/.test(phone)) {
+                alert("Введите корректный номер телефона");
+                return;
             }
-            
-            msgs.appendChild(bDiv);
-            // Автоматический скролл вниз
-            msgs.scrollTop = msgs.scrollHeight;
-        }, 600);
+            if (name === "") {
+                alert("Введите имя");
+                return;
+            }
 
-        // Автоматический скролл вниз после сообщения пользователя
-        msgs.scrollTop = msgs.scrollHeight;
-    }
-</script>
+            const btn = document.querySelector('#admission button');
+            btn.innerText = "Отправка...";
+            btn.disabled = true;
+
+            try {
+                // Теперь это вызовет реальный Firebase из модуля выше
+                const success = await window.saveStudent(name, phone);
+                if (success) {
+                    alert("Заявка успешно принята! Мы свяжемся с вами.");
+                    document.getElementById('studentPhone').value = '';
+                    document.getElementById('studentName').value = '';
+                }
+            } catch (error) {
+                alert("Критическая ошибка: " + error.message);
+            } finally {
+                btn.innerText = "Отправить";
+                btn.disabled = false;
+            }
+        }
+
+        // Логика бота интегрирована и завершена
+        function botSend() {
+            const inp = document.getElementById('botInp');
+            const val = inp.value.toLowerCase().trim();
+            if(!val) return;
+            
+            const msgs = document.getElementById('botMsgs');
+            
+            // Сообщение пользователя
+            const uDiv = document.createElement('div');
+            uDiv.className = 'msg user';
+            uDiv.innerText = inp.value;
+            msgs.appendChild(uDiv);
+            
+            let response = "Извините, я пока не знаю ответа на этот вопрос. Попробуйте спросить про 'цену', 'документы' или 'адрес'.";
+            
+            if(val.includes("цена") || val.includes("стоимость")) response = "Очное обучение: 140 000 ₸. Заочное: 90 000 ₸.";
+            if(val.includes("документ")) response = "Нужны: Аттестат (подлинник), справка 075-У, флюорография и 6 фото 3х4.";
+            if(val.includes("адрес") || val.includes("где")) response = "Мы находимся в г. Жезказган. Подробную карту можно найти на официальном сайте zhptk.edu.kz.";
+            if(val.includes("дресс") || val.includes("одежд")) response = "В колледже принят классический (деловой) стиль одежды.";
+
+            // Задержка ответа бота для реалистичности
+            setTimeout(() => {
+                const bDiv = document.createElement('div');
+                bDiv.className = 'msg bot';
+                bDiv.innerText = response;
+                msgs.appendChild(bDiv);
+                msgs.scrollTop = msgs.scrollHeight;
+            }, 600);
+
+            inp.value = '';
+        }
+    </script>
 </body>
 </html>
