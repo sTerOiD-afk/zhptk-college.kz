@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет — ЖВПТК 2026</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Manrope:wght@300;500;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .cabinet-container { max-width: 900px; margin: 120px auto 60px; padding: 20px; }
+        .cabinet-card { background: var(--glass); border: 1px solid var(--primary); border-radius: 40px; padding: 50px; backdrop-filter: blur(25px); position: relative; }
+        .cabinet-header { display: flex; align-items: center; gap: 30px; margin-bottom: 40px; border-bottom: 1px solid var(--border); padding-bottom: 30px; flex-wrap: wrap; }
+        .cabinet-avatar { width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 3rem; color: #fff; }
+        .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .info-box { background: rgba(255,255,255,0.02); padding: 25px; border-radius: 20px; border: 1px solid var(--border); transition: 0.3s; }
+        .info-box:hover { border-color: var(--accent); background: rgba(0, 242, 254, 0.05); transform: translateY(-5px); }
+        .info-box h4 { color: var(--accent); margin-top: 0; margin-bottom: 10px; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; }
+        .info-box p { font-size: 1.2rem; font-weight: 600; margin: 0; color: #fff; }
+        .status-badge { display: inline-block; padding: 8px 20px; background: rgba(16, 185, 129, 0.2); color: #10b981; border-radius: 20px; font-size: 0.95rem; font-weight: bold; margin-top: 10px; }
+        #loadingMsg { text-align: center; font-size: 1.5rem; margin-top: 100px; color: var(--accent); }
+    </style>
+</head>
+<body>
+
+    <div class="cyber-bg"><div class="aurora"></div></div>
+
+    <nav>
+        <a href="index.html" class="nav-link"><i class="fas fa-arrow-left"></i> На главную</a>
+    </nav>
+
+    <div class="cabinet-container">
+        <div id="loadingMsg"><i class="fas fa-spinner fa-spin"></i> Синхронизация данных...</div>
+
+        <div class="cabinet-card" id="cabinetContent" style="display: none;">
+            <div class="cabinet-header">
+                <div class="cabinet-avatar"><i class="fas fa-user-graduate"></i></div>
+                <div>
+                    <h1 id="cabName" style="margin: 0; font-family: 'Space Grotesk'; font-size: 2.2rem; color: #fff;">Загрузка...</h1>
+                    <div class="status-badge"><i class="fas fa-check-circle"></i> Статус: <span id="cabStatus">Абитуриент</span></div>
+                </div>
+            </div>
+
+            <h2 class="section-title" style="font-size: 1.8rem; text-align: left; margin-bottom: 25px;">Детали профиля</h2>
+            
+            <div class="info-grid">
+                <div class="info-box">
+                    <h4><i class="fas fa-envelope"></i> Email</h4>
+                    <p id="cabEmail">Загрузка...</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-users"></i> Учебная группа</h4>
+                    <p id="cabGroup">Не назначена</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-laptop-code"></i> Специальность</h4>
+                    <p id="cabSpec">В процессе выбора</p>
+                </div>
+                <div class="info-box">
+                    <h4><i class="fas fa-calendar-check"></i> Дата регистрации</h4>
+                    <p id="cabDate">--.--.----</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 40px; display: flex; justify-content: flex-end;">
+                <button class="btn-danger" style="padding: 15px 30px; font-size: 1rem;" onclick="logoutAndRedirect()">
+                    <i class="fas fa-sign-out-alt"></i> Выйти из системы
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+
+        // Используем те же настройки Firebase, что и на главной
+        const firebaseConfig = {
+            apiKey : "AIzaSyAMaUx0GGxmQKuPCSlIBow0V2iFudAZrPc", 
+            authDomain : "zhptk-portal-2026.firebaseapp.com", 
+            projectId : "zhptk-portal-2026", 
+            storageBucket : "zhptk-portal-2026.firebasestorage.app", 
+            messagingSenderId : "49450481804", 
+            appId : "1:49450481804:web:557ce5ecf2a2f8c68163a9" 
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                // Пользователь авторизован, получаем его данные из базы
+                const docSnap = await getDoc(doc(db, "users", user.uid));
+                
+                if (docSnap.exists()) {
+                    const data = docSnap.data();
+                    
+                    document.getElementById('cabName').innerText = data.name || "Студент";
+                    
+                    // Если в базе есть эти поля, выводим их. Иначе дефолтные значения.
+                    document.getElementById('cabStatus').innerText = data.status || "Абитуриент";
+                    document.getElementById('cabGroup').innerText = data.group || "Не назначена";
+                    document.getElementById('cabSpec').innerText = data.specialty || "Не выбрана";
+                    
+                    if (data.createdAt) {
+                        const date = data.createdAt.toDate();
+                        document.getElementById('cabDate').innerText = date.toLocaleDateString('ru-RU');
+                    }
+                } else {
+                    document.getElementById('cabName').innerText = "Новый пользователь";
+                }
+                
+                document.getElementById('cabEmail').innerText = user.email;
+                
+                // Скрываем лоадер и показываем контент
+                document.getElementById('loadingMsg').style.display = 'none';
+                document.getElementById('cabinetContent').style.display = 'block';
+            } else {
+                // Если сессии нет, перекидываем обратно на главную
+                window.location.href = "index.html"; 
+            }
+        });
+
+        // Функция выхода
+        window.logoutAndRedirect = function() {
+            signOut(auth).then(() => {
+                window.location.href = "index.html";
+            });
+        };
+    </script>
+</body>
+</html>
