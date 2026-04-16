@@ -32,6 +32,12 @@ body {
     top: -25%; left: -25%; animation: rotate 40s linear infinite;
 }
 
+.auth-btn {
+    text-decoration: none;
+    padding: 10px 20px;
+    display: inline-block;
+}
+
 @keyframes gradientBG {
     0% { background-position: 0% 50%; }
     50% { background-position: 100% 50%; }
