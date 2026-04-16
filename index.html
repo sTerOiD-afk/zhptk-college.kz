@@ -18,22 +18,7 @@
         <a href="#about" class="nav-link">О колледже</a>
         <a href="#specialties" class="nav-link">Специальности</a>
         <a href="#admission" class="nav-link">Поступление</a>
-        
-        <a href="https://zhptk.edu.kz/" target="_blank" class="nav-link">
-            <i class="fas fa-globe"></i> Сайт
-        </a>
-        <a href="https://www.instagram.com/zhptk.kz" target="_blank" class="nav-link">
-            <i class="fab fa-instagram"></i> Instagram
-        </a>
-
-        <a href="https://college.smartnation.kz/kz/tko" target="_blank" class="nav-btn-apply">
-            <i class="fas fa-paper-plane"></i> Подать заявление
-        </a>
-
-        <a href="#" onclick="openAuthModal()" id="navAuthBtn" class="auth-btn">
-            <i class="fas fa-user"></i> Войти
-        </a>
-    </nav>
+        <a href="#" onclick="openAuthModal()" id="navAuthBtn" class="auth-btn"><i class="fas fa-user"></i> Войти</a>
     </nav>
 
     <div id="landing-content">
@@ -207,58 +192,5 @@
     </div>
     
     <script type="module" src="script.js"></script>
-    
-    <div class="modal" id="profileModal" onclick="closeProfile()">
-    <div class="modal-card profile-card" onclick="event.stopPropagation()">
-        <span class="close-modal" onclick="closeProfile()">&times;</span>
-        
-        <div class="profile-header">
-            <div class="profile-avatar">
-                <i class="fas fa-user-graduate"></i>
-            </div>
-            <div class="profile-main-info">
-                <h2 id="profName">Загрузка...</h2>
-                <span class="badge" id="profStatus">Студент</span>
-            </div>
-        </div>
-
-        <div class="profile-grid">
-            <div class="p-info-item">
-                <i class="fas fa-users"></i>
-                <div>
-                    <label>Группа</label>
-                    <p id="profGroup">ПОВТ-22-1</p>
-                </div>
-            </div>
-            <div class="p-info-item">
-                <i class="fas fa-briefcase"></i>
-                <div>
-                    <label>Специальность</label>
-                    <p id="profSpec">Программное обеспечение</p>
-                </div>
-            </div>
-            <div class="p-info-item">
-                <i class="fas fa-graduation-cap"></i>
-                <div>
-                    <label>Квалификация</label>
-                    <p id="profQual">Разработчик ПО</p>
-                </div>
-            </div>
-            <div class="p-info-item">
-                <i class="fas fa-envelope"></i>
-                <div>
-                    <label>Email</label>
-                    <p id="profEmail">student@zhptk.kz</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="profile-footer">
-            <button class="btn-danger" onclick="logoutUser()">
-                <i class="fas fa-sign-out-alt"></i> Выйти из системы
-            </button>
-        </div>
-    </div>
-</div>
 </body>
 </html>
