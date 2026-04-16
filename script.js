@@ -137,10 +137,25 @@ window.botSend = function() {
 
     inp.value = '';
     
+window.botSend = function() {
+   // код бота
+};
+
+window.openAuthModal = function() {
+   document.getElementById('authModal').style.display = 'flex';
+};
+
+window.closeAuthModal = function() {
+   document.getElementById('authModal').style.display = 'none';
+};
+
 window.toggleBot = function() {
-    const bot = document.getElementById('botWindow');
+   const bot = document.getElementById('botWindow');
+   const inp = document.getElementById('botInp');
 
-    if (!bot) return;
+   bot.style.display = (bot.style.display === 'flex') ? 'none' : 'flex';
 
-    bot.style.display = (bot.style.display === 'flex') ? 'none' : 'flex';
+   if (bot.style.display === 'flex') {
+       setTimeout(() => inp.focus(), 200);
+   }
 };
