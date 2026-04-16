@@ -39,81 +39,101 @@ onAuthStateChanged(auth, async (user) => {
     }
 });
 // Глобальные функции для Firebase
-window.registerUser = async function() {
-    const name = document.getElementById('regName').value;
-    const email = document.getElementById('regEmail').value;
-    const pass = document.getElementById('regPass').value;
-    try {
-        const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-        await setDoc(doc(db, "users", userCredential.user.uid), { name, email, role: "student", createdAt: serverTimestamp() });
-    } catch (e) { alert(e.message); }
-};
-
-window.loginUser = async function() {
-    const email = document.getElementById('loginEmail').value;
-    const pass = document.getElementById('loginPass').value;
-    try { await signInWithEmailAndPassword(auth, email, pass); } catch (e) { alert("Ошибка входа"); }
-};
-
-window.logoutUser = function() { signOut(auth); };
-window.saveStudent = async function(name, phone) {
-    await addDoc(collection(db, "applications"), { studentName: name, studentPhone: phone, timestamp: serverTimestamp() });
-};
-
-// Глобальные UI-функции (привязка к window необходима, так как скрипт подключен как module)
-window.openM = function(title, desc, time) {
-    document.getElementById('mTitle').innerText = title; document.getElementById('mDesc').innerText = desc;
-    document.getElementById('mTime').innerText = "Срок обучения: " + time; document.getElementById('modalSpec').style.display = 'flex';
-};
-
-window.closeM = function() { 
-    document.getElementById('modalSpec').style.display = 'none'; 
-};
-
-window.openAuthModal = function() { 
-    document.getElementById('authModal').style.display = 'flex'; 
-};
-
-window.closeAuthModal = function() { 
-    document.getElementById('authModal').style.display = 'none'; 
-};
-
-window.switchAuthTab = function(tab) {
-    const fL = document.getElementById('formLogin'), fR = document.getElementById('formReg');
-    const tL = document.getElementById('tabLogin'), tR = document.getElementById('tabReg');
-    if(tab === 'login') { fL.style.display = 'flex'; fR.style.display = 'none'; tL.classList.add('active'); tR.classList.remove('active'); }
-    else { fR.style.display = 'flex'; fL.style.display = 'none'; tR.classList.add('active'); tL.classList.remove('active'); }
-};
-
-window.toggleBot = function() {
-    const b = document.getElementById('botWindow');
-    b.style.display = (b.style.display === 'flex') ? 'none' : 'flex';
-};
-
-window.addStudent = async function() {
-    const name = document.getElementById('studentName').value;
-    const phone = document.getElementById('studentPhone').value;
-    if(!name || !phone) { alert("Заполните поля"); return; }
-    try { await window.saveStudent(name, phone); alert("Заявка принята!"); } catch(e) { alert("Ошибка"); }
-};
-
 window.botSend = function() {
-    const inp = document.getElementById('botInp'); const val = inp.value.toLowerCase();
-    if(!val) return;
+    const inp = document.getElementById('botInp');
+    const val = inp.value.toLowerCase().trim();
+    if (!val) return;
+
     const msgs = document.getElementById('botMsgs');
-    const uDiv = document.createElement('div'); uDiv.className = 'msg user'; uDiv.innerText = inp.value; msgs.appendChild(uDiv);
-    
-    let res = "Не понял вопрос. Попробуйте: 'цена', 'документы', 'реквизиты' или 'кодекс'.";
-    if(val.includes("цена") || val.includes("сколько")) res = "Очное: 140 000 ₸, Заочное: 90 000 ₸. Предоплата 50% до 10 сентября.";
-    if(val.includes("док")) res = "Нужны: Аттестат (оригинал), копия удостоверения, медсправка 075-У, 4 фото 3х4.";
-    if(val.includes("реквизит")) res = "БИН 990140001302, ИИК KZ876017171000000065, АО 'Народный Банк Казахстана'.";
-    if(val.includes("кодекс") || val.includes("чест")) res = "Студенты обязаны соблюдать дисциплину, деловой стиль одежды, уважать преподавателей и вести ЗОЖ.";
-    if(val.includes("адрес") || val.includes("где")) 
-    res = "г. Жезказган, ул. Байконурова, 19. Тел: 8 (705) 267-12-34. Сайт: zhptk.edu.kz";
-    
+
+    // сообщение пользователя
+    const uDiv = document.createElement('div');
+    uDiv.className = 'msg user';
+    uDiv.innerText = inp.value;
+    msgs.appendChild(uDiv);
+
+    let res = "Не понял вопрос 🤔 Попробуйте: цена, документы, адрес, специальности, сроки.";
+
+    // ===== ОТВЕТЫ =====
+
+    // 💰 Цена
+    if (val.match(/цена|стоимость|сколько|плат/i)) {
+        res = "💰 Очное: 140 000 ₸\n💰 Заочное: 90 000 ₸\nПредоплата 50% до 10 сентября.";
+    }
+
+    // 📄 Документы
+    else if (val.match(/документ|что нужно|поступить|поступлен/i)) {
+        res = "📄 Нужно:\n• Аттестат\n• Удостоверение личности\n• Медсправка 075-У\n• 4 фото 3x4";
+    }
+
+    // 📍 Адрес
+    else if (val.match(/адрес|где|находит/i)) {
+        res = "📍 г. Жезказган, ул. Байконурова, 19\n📞 8 (705) 267-12-34";
+    }
+
+    // 🎓 Специальности
+    else if (val.match(/специальност|професси|направлен/i)) {
+        res = "🎓 Специальности:\n• Программное обеспечение\n• Электроснабжение\n• Строительство\n• Автотранспорт\n• ЧС";
+    }
+
+    // ⏳ Срок обучения
+    else if (val.match(/срок|учиться|сколько лет/i)) {
+        res = "⏳ Срок обучения: 3 года 10 месяцев.";
+    }
+
+    // 📅 Сроки поступления
+    else if (val.match(/когда поступ|сроки|дедлайн/i)) {
+        res = "📅 Прием документов:\nОчное: 20 июня – 25 августа\nЗаочное: до 20 сентября";
+    }
+
+    // 💳 Оплата
+    else if (val.match(/оплата|рассрочка|платеж/i)) {
+        res = "💳 Можно оплатить в 2 этапа:\n50% до 10 сентября\n50% до 10 января.";
+    }
+
+    // 🏦 Реквизиты
+    else if (val.match(/реквизит|банк|бин/i)) {
+        res = "🏦 БИН: 990140001302\nИИК: KZ876017171000000065\nБанк: Halyk Bank";
+    }
+
+    // 🌐 Сайт
+    else if (val.match(/сайт|официальный/i)) {
+        res = "🌐 https://zhptk.edu.kz/";
+    }
+
+    // 📸 Instagram
+    else if (val.match(/инст|instagram/i)) {
+        res = "📸 https://www.instagram.com/zhptk.kz/";
+    }
+
+    // 📝 Онлайн заявка
+    else if (val.match(/заявк|онлайн|подать/i)) {
+        res = "📝 Подать онлайн:\nhttps://college.smartnation.kz/kz/tko";
+    }
+
+    // 👨‍🏫 Преподаватели
+    else if (val.match(/преподавател|учител/i)) {
+        res = "👨‍🏫 В колледже работают более 50 преподавателей, включая магистров и специалистов высшей категории.";
+    }
+
+    // 🏫 Общежитие
+    else if (val.match(/общежити|жилье/i)) {
+        res = "🏫 Информацию об общежитии уточняйте в приемной комиссии.";
+    }
+
+    // 📞 Контакты
+    else if (val.match(/телефон|номер|связ/i)) {
+        res = "📞 Телефон: 8 (705) 267-12-34\n📧 Email: jezatk@mail.ru";
+    }
+
+    // ===== ВЫВОД =====
     setTimeout(() => {
-        const bDiv = document.createElement('div'); bDiv.className = 'msg bot'; bDiv.innerText = res;
-        msgs.appendChild(bDiv); msgs.scrollTop = msgs.scrollHeight;
-    }, 600);
+        const bDiv = document.createElement('div');
+        bDiv.className = 'msg bot';
+        bDiv.innerText = res;
+        msgs.appendChild(bDiv);
+        msgs.scrollTop = msgs.scrollHeight;
+    }, 500);
+
     inp.value = '';
 };
