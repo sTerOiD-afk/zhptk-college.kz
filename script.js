@@ -17,22 +17,19 @@ const auth = getAuth(app);
 
 onAuthStateChanged(auth, async (user) => {
     const navBtn = document.getElementById('navAuthBtn');
-    // Скрываем старый встроенный дашборд (или можешь вообще удалить блок #dashboard-section из index.html)
-    const dash = document.getElementById('dashboard-section'); 
-    
+    const dash = document.getElementById('dashboard-section');
     if (user) {
         window.closeAuthModal();
         navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Кабинет';
-        navBtn.onclick = null; 
-        navBtn.href = "cabinet.html"; // Ссылка на новую страницу
-        navBtn.target = "_blank";     // Открываем в новой вкладке
-        if(dash) dash.style.display = 'none';
+        navBtn.onclick = null; navBtn.href = "#dashboard-section"; 
+        dash.style.display = 'block';
+        const docSnap = await getDoc(doc(db, "users", user.uid));
+        document.getElementById('dashName').innerText = docSnap.exists() ? docSnap.data().name : "Абитуриент";
+        document.getElementById('dashEmail').innerText = user.email;
     } else {
         navBtn.innerHTML = '<i class="fas fa-user"></i> Войти';
-        navBtn.onclick = window.openAuthModal; 
-        navBtn.href = "#";
-        navBtn.target = "_self";
-        if(dash) dash.style.display = 'none';
+        navBtn.onclick = window.openAuthModal; navBtn.href = "#";
+        dash.style.display = 'none';
     }
 });
 
