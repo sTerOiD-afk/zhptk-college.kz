@@ -18,179 +18,320 @@
         <a href="#about" class="nav-link">О колледже</a>
         <a href="#specialties" class="nav-link">Специальности</a>
         <a href="#admission" class="nav-link">Поступление</a>
-        <a href="#" onclick="openAuthModal()" id="navAuthBtn" class="auth-btn"><i class="fas fa-user"></i> Войти</a>
+        <a href="#" onclick="openAuthModal()" id="navAuthBtn" class="auth-btn">
+            <i class="fas fa-user"></i> Войти
+        </a>
     </nav>
 
     <div id="landing-content">
+
         <header class="welcome-screen">
-            <h1 class="welcome-title">ЖВПТК <span style="color: var(--accent)">2026</span></h1>
-            <p class="welcome-subtitle">ZHEZKAZGAN HIGHER POLYTECHNIC COLLEGE</p>
-            <a href="#info-menu" class="scroll-down"><i class="fas fa-chevron-down"></i></a>
+            <h1 class="welcome-title">
+                ЖВПТК <span style="color: var(--accent)">2026</span>
+            </h1>
+            <p class="welcome-subtitle">
+                ZHEZKAZGAN HIGHER POLYTECHNIC COLLEGE
+            </p>
+            <a href="#info-menu" class="scroll-down">
+                <i class="fas fa-chevron-down"></i>
+            </a>
         </header>
 
         <div class="container" id="info-menu">
+
             <div class="info-menu-grid">
-                <a href="#about" class="info-menu-card"><i class="fas fa-university"></i><h3>О колледже</h3></a>
-                <a href="#specialties" class="info-menu-card"><i class="fas fa-graduation-cap"></i><h3>Специальности</h3></a>
-                <a href="#admission" class="info-menu-card"><i class="fas fa-file-invoice"></i><h3>Поступление</h3></a>
-                <a href="#honor-section" class="info-menu-card"><i class="fas fa-scroll"></i><h3>Кодекс чести</h3></a>
+                <a href="#about" class="info-menu-card">
+                    <i class="fas fa-university"></i>
+                    <h3>О колледже</h3>
+                </a>
+
+                <a href="#specialties" class="info-menu-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h3>Специальности</h3>
+                </a>
+
+                <a href="#admission" class="info-menu-card">
+                    <i class="fas fa-file-invoice"></i>
+                    <h3>Поступление</h3>
+                </a>
+
+                <a href="#honor-section" class="info-menu-card">
+                    <i class="fas fa-scroll"></i>
+                    <h3>Кодекс чести</h3>
+                </a>
             </div>
 
-            <section id="dashboard-section">
-                <h2 class="section-title">Личный кабинет</h2>
+            <!-- ЛИЧНЫЙ КАБИНЕТ -->
+
+            <section id="dashboard-section"
+            style="
+            display:none;
+            padding-top:120px;
+            min-height:100vh;
+            ">
+
+                <h2 class="section-title">
+                    Личный кабинет
+                </h2>
+
                 <div class="dashboard-card">
-                    <div class="user-avatar"><i class="fas fa-user-graduate"></i></div>
+
+                    <div class="user-avatar">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+
                     <div class="user-info">
-                        <h3 id="dashName">Загрузка...</h3>
-                        <p id="dashEmail">student@email.com</p>
-                        <div style="margin-top: 15px; display: inline-block; padding: 5px 15px; background: rgba(16, 185, 129, 0.2); color: #10b981; border-radius: 20px; font-size: 0.9rem;">
-                            <i class="fas fa-check-circle"></i> Статус: Абитуриент
+
+                        <h3 id="dashName">
+                            Загрузка...
+                        </h3>
+
+                        <p id="dashEmail">
+                            student@email.com
+                        </p>
+
+                        <div style="
+                            margin-top: 15px;
+                            display: inline-block;
+                            padding: 5px 15px;
+                            background: rgba(16, 185, 129, 0.2);
+                            color: #10b981;
+                            border-radius: 20px;
+                            font-size: 0.9rem;
+                        ">
+                            <i class="fas fa-check-circle"></i>
+                            Статус: Абитуриент
                         </div>
+
                     </div>
+
                     <div style="margin-top: 40px;">
-                        <button class="btn-danger" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Выйти из аккаунта</button>
+
+                        <button class="btn-danger"
+                        onclick="logoutUser()">
+
+                            <i class="fas fa-sign-out-alt"></i>
+                            Выйти из аккаунта
+
+                        </button>
+
                     </div>
+
                 </div>
+
             </section>
+
+            <!-- О КОЛЛЕДЖЕ -->
 
             <section id="about">
                 <div class="card-main">
-                    <h2 class="section-title" style="text-align: left; margin-bottom: 20px;">История и статус</h2>
-                    <p style="line-height: 1.8; color: #cbd5e1;">
-                        КГКП «Жезказганский высший политехнический колледж» свыше 65 лет функционирует в области предоставления образовательных услуг. 
-                        В ведомственном отношении колледж относится к Министерству просвещения РК. Общий стаж деятельности — 69 лет, произведено более 60 выпусков. 
-                        Учебный процесс обеспечивают 59 преподавателей (37 высшей и первой категории, 6 магистров).
+
+                    <h2 class="section-title"
+                    style="text-align: left; margin-bottom: 20px;">
+                        История и статус
+                    </h2>
+
+                    <p style="
+                    line-height: 1.8;
+                    color: #cbd5e1;
+                    ">
+                        КГКП «Жезказганский высший политехнический колледж»
+                        свыше 65 лет функционирует в области предоставления
+                        образовательных услуг.
                     </p>
-                    
-                    <div class="timeline">
-                        <div class="t-item"><b>1953</b> <span>Основан Джезказганский вечерний строительный техникум.</span></div>
-                        <div class="t-item"><b>1997</b> <span>Создание аграрно-технического колледжа (слияние 3-х учебных заведений).</span></div>
-                        <div class="t-item"><b>2005</b> <span>Переименован в Жезказганский политехнический колледж.</span></div>
-                        <div class="t-item"><b>2021</b> <span>Присвоен статус Высшего политехнического колледжа.</span></div>
-                    </div>
+
                 </div>
             </section>
 
-            <section id="honor-section" style="margin-bottom: 80px;">
-                <h2 class="section-title">Кодекс чести студента</h2>
-                <div class="honor-grid">
-                    <div class="honor-item"><i class="fas fa-star"></i>Стать достойным гражданином и профессионалом.</div>
-                    <div class="honor-item"><i class="fas fa-shield-alt"></i>Сохранять честь и достоинство колледжа.</div>
-                    <div class="honor-item"><i class="fas fa-users"></i>Уважать преподавателей и избегать конфликтов.</div>
-                    <div class="honor-item"><i class="fas fa-tshirt"></i>Соблюдать культуру общения и деловой стиль.</div>
-                    <div class="honor-item"><i class="fas fa-clock"></i>Соблюдать дисциплину и не мешать занятиям.</div>
-                    <div class="honor-item"><i class="fas fa-heart"></i>Участвовать в общественной жизни и инициативах.</div>
-                    <div class="honor-item"><i class="fas fa-running"></i>ЗОЖ: без алкоголя, наркотиков и табака.</div>
-                </div>
-            </section>
-
-            <h2 class="section-title" id="specialties">Направления обучения</h2>
-            <div class="grid-3">
-                <div class="spec-box">
-                    <h3><i class="fas fa-laptop-code"></i> IT и Энергетика</h3>
-                    <ul class="spec-list">
-                        <li onclick="openM('06130100 Программное обеспечение', 'Разработка программ, сайтов и работа с компьютерными системами.', '3г. 10м.')">Программное обеспечение <i class="fas fa-chevron-right"></i></li>
-                        <li onclick="openM('07130200 Электроснабжение', 'Обслуживание электрических сетей, подстанций и энергосистем.', '3г. 10м.')">Электроснабжение <i class="fas fa-chevron-right"></i></li>
-                        <li onclick="openM('07130400 Теплотехническое оборудование', 'Обслуживание котельных, тепловых сетей и систем отопления.', '3г. 10м.')">Теплотехнические системы <i class="fas fa-chevron-right"></i></li>
-                    </ul>
-                </div>
-                <div class="spec-box">
-                    <h3><i class="fas fa-truck"></i> Транспорт и ЧС</h3>
-                    <ul class="spec-list">
-                        <li onclick="openM('07161300 Автомобильный транспорт', 'Диагностика, ремонт и эксплуатация автомобилей.', '3г. 10м.')">Тех. обслуживание авто <i class="fas fa-chevron-right"></i></li>
-                        <li onclick="openM('10410200 Ж/Д Транспорт', 'Управление движением поездов и организация перевозок на ЖД.', '3г. 10м.')">Организация перевозок (ЖД) <i class="fas fa-chevron-right"></i></li>
-                        <li onclick="openM('10320200 Защита в ЧС', 'Действия при пожарах, авариях и обеспечение безопасности.', '3г. 10м.')">Защита в ЧС <i class="fas fa-chevron-right"></i></li>
-                    </ul>
-                </div>
-                <div class="spec-box">
-                    <h3><i class="fas fa-tools"></i> Строительство и Газ</h3>
-                    <ul class="spec-list">
-                        <li onclick="openM('07320100 Строительство', 'Строительство, ремонт и эксплуатация зданий и сооружений.', '3г. 10м.')">Строительство зданий <i class="fas fa-chevron-right"></i></li>
-                        <li onclick="openM('07321200 Газоснабжение', 'Монтаж и эксплуатация систем газоснабжения.', '3г. 10м.')">Системы газоснабжения <i class="fas fa-chevron-right"></i></li>
-                        <li onclick="openM('1202000 Автоперевозки', 'Управление движением на автомобильном транспорте.', '3г. 10м.')">Логистика автотранспорта <i class="fas fa-chevron-right"></i></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div id="admission" class="card-main" style="margin-top: 80px;">
-                <h2 class="section-title">Приемная кампания 2026</h2>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; text-align: left;">
-                    <div>
-                        <h3 style="color: var(--accent);"><i class="fas fa-file-alt"></i> Документы:</h3>
-                        <ul style="line-height: 2; color: #94a3b8;">
-                            <li>• Аттестат или диплом (оригинал)</li>
-                            <li>• Удостоверение личности (копия)</li>
-                            <li>• Медсправка (086-У или 075-У)</li>
-                            <li>• 4 фотографии (3×4)</li>
-                            <li>• Сертификат ЕНТ (при наличии)</li>
-                        </ul>
-                        <p style="color: var(--primary); font-weight: bold;">Сроки: Очное (20.06 - 25.08), Заочное (до 20.09)</p>
-                    </div>
-                    <div>
-                        <h3 style="color: var(--accent);"><i class="fas fa-tenge"></i> Стоимость и оплата:</h3>
-                        <p>Очное: <b>140 000 ₸</b> / Заочное: <b>90 000 ₸</b></p>
-                        <p style="font-size: 0.9rem; color: #94a3b8;">* Предоплата 50% до 10 сентября, остаток до 10 января.</p>
-                        <div class="requisites-box">
-                            БИН: 990140001302<br>
-                            ИИК: KZ876017171000000065<br>
-                            БИК: HSBKKZKX<br>
-                            Банк: АО «Народный Банк Казахстана»
-                        </div>
-                    </div>
-                </div>
-
-                <div class="hero-banner" style="margin-top: 50px; padding: 40px;">
-                    <h3>Оставить быструю заявку</h3>
-                    <input id="studentName" placeholder="ФИО" style="padding:12px; margin:5px; border-radius:10px; background: var(--glass); color: white; border: 1px solid var(--border); width: 250px;">
-                    <input id="studentPhone" placeholder="Телефон" style="padding:12px; margin:5px; border-radius:10px; background: var(--glass); color: white; border: 1px solid var(--border); width: 250px;">
-                    <button onclick="addStudent()" style="padding:12px 30px; border:none; border-radius:10px; background:var(--accent); cursor:pointer; color: #020617; font-weight: bold;">Отправить</button>
-                </div>
-            </div>
         </div>
+
     </div>
 
-    <div class="modal" id="modalSpec" onclick="closeM()">
-        <div class="modal-card" onclick="event.stopPropagation()">
-            <h2 id="mTitle" style="color: var(--accent); margin-top: 0;"></h2>
-            <p id="mDesc" style="line-height: 1.8;"></p>
-            <div style="background: var(--glass); padding: 20px; border-radius: 20px; border: 1px solid var(--primary); margin-top: 25px;"><b id="mTime"></b></div>
-            <button style="padding: 15px; width: 100%; border: none; cursor: pointer; margin-top: 30px; border-radius: 15px; background: var(--primary); color: white;" onclick="closeM()">Закрыть</button>
+    <!-- МОДАЛКА СПЕЦИАЛЬНОСТИ -->
+
+    <div class="modal"
+    id="modalSpec"
+    onclick="closeM()">
+
+        <div class="modal-card"
+        onclick="event.stopPropagation()">
+
+            <h2 id="mTitle"
+            style="color: var(--accent); margin-top: 0;">
+            </h2>
+
+            <p id="mDesc"
+            style="line-height: 1.8;">
+            </p>
+
+            <div style="
+            background: var(--glass);
+            padding: 20px;
+            border-radius: 20px;
+            border: 1px solid var(--primary);
+            margin-top: 25px;
+            ">
+
+                <b id="mTime"></b>
+
+            </div>
+
+            <button
+            style="
+            padding: 15px;
+            width: 100%;
+            border: none;
+            cursor: pointer;
+            margin-top: 30px;
+            border-radius: 15px;
+            background: var(--primary);
+            color: white;
+            "
+            onclick="closeM()">
+
+                Закрыть
+
+            </button>
+
         </div>
+
     </div>
 
-    <div class="modal" id="authModal" onclick="closeAuthModal()">
-        <div class="modal-card" onclick="event.stopPropagation()">
-            <span class="close-modal" onclick="closeAuthModal()">&times;</span>
+    <!-- МОДАЛКА АВТОРИЗАЦИИ -->
+
+    <div class="modal"
+    id="authModal"
+    onclick="closeAuthModal()">
+
+        <div class="modal-card"
+        onclick="event.stopPropagation()">
+
+            <span class="close-modal"
+            onclick="closeAuthModal()">
+                &times;
+            </span>
+
             <div class="auth-tabs">
-                <div class="auth-tab active" id="tabLogin" onclick="switchAuthTab('login')">Вход</div>
-                <div class="auth-tab" id="tabReg" onclick="switchAuthTab('reg')">Регистрация</div>
+
+                <div class="auth-tab active"
+                id="tabLogin"
+                onclick="switchAuthTab('login')">
+
+                    Вход
+
+                </div>
+
+                <div class="auth-tab"
+                id="tabReg"
+                onclick="switchAuthTab('reg')">
+
+                    Регистрация
+
+                </div>
+
             </div>
-            <div id="formLogin" class="auth-form">
-                <input type="email" id="loginEmail" placeholder="Email">
-                <input type="password" id="loginPass" placeholder="Пароль">
-                <button onclick="loginUser()">Войти</button>
-                <p id="loginErr" style="color: #ef4444; font-size: 0.8rem; display: none;"></p>
+
+            <div id="formLogin"
+            class="auth-form">
+
+                <input type="email"
+                id="loginEmail"
+                placeholder="Email">
+
+                <input type="password"
+                id="loginPass"
+                placeholder="Пароль">
+
+                <button onclick="loginUser()">
+                    Войти
+                </button>
+
+                <p id="loginErr"
+                style="
+                color: #ef4444;
+                font-size: 0.8rem;
+                display: none;
+                ">
+                </p>
+
             </div>
-            <div id="formReg" class="auth-form" style="display: none;">
-                <input type="text" id="regName" placeholder="ФИО">
-                <input type="email" id="regEmail" placeholder="Email">
-                <input type="password" id="regPass" placeholder="Пароль">
-                <button onclick="registerUser()">Создать аккаунт</button>
+
+            <div id="formReg"
+            class="auth-form"
+            style="display: none;">
+
+                <input type="text"
+                id="regName"
+                placeholder="ФИО">
+
+                <input type="email"
+                id="regEmail"
+                placeholder="Email">
+
+                <input type="password"
+                id="regPass"
+                placeholder="Пароль">
+
+                <button onclick="registerUser()">
+                    Создать аккаунт
+                </button>
+
             </div>
+
         </div>
+
     </div>
 
-    <button id="bot-trigger" onclick="toggleBot()"><i class="fas fa-robot"></i></button>
-    <div class="bot-window" id="botWindow">
-        <div class="bot-header"><span>Smart-Ассистент</span><span onclick="toggleBot()" style="cursor:pointer">&times;</span></div>
-        <div class="bot-msgs" id="botMsgs">
-            <div class="msg bot">Здравствуйте! Спросите меня про стоимость, документы, кодекс чести или реквизиты.</div>
+    <!-- БОТ -->
+
+    <button id="bot-trigger"
+    onclick="toggleBot()">
+
+        <i class="fas fa-robot"></i>
+
+    </button>
+
+    <div class="bot-window"
+    id="botWindow">
+
+        <div class="bot-header">
+
+            <span>
+                Smart-Ассистент
+            </span>
+
+            <span onclick="toggleBot()"
+            style="cursor:pointer">
+
+                &times;
+
+            </span>
+
         </div>
+
+        <div class="bot-msgs"
+        id="botMsgs">
+
+            <div class="msg bot">
+                Здравствуйте! Спросите меня про стоимость,
+                документы, кодекс чести или реквизиты.
+            </div>
+
+        </div>
+
         <div class="bot-input">
-            <input type="text" id="botInp" placeholder="Напишите вопрос..." onkeypress="if(event.key==='Enter') botSend()">
+
+            <input type="text"
+            id="botInp"
+            placeholder="Напишите вопрос..."
+            onkeypress="if(event.key==='Enter') botSend()">
+
         </div>
+
     </div>
-    
-    <script type="module" src="script.js"></script>
+
+    <script type="module"
+    src="script.js"></script>
+
 </body>
 </html>
