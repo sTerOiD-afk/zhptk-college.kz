@@ -582,32 +582,44 @@
     }
 
     // Логика бота (оставляем вашу, она работает хорошо)
-    function botSend() {
-        const inp = document.getElementById('botInp');
-        const val = inp.value.toLowerCase().trim();
-        if(!val) return;
+   function botSend() {
+        const inp = document.getElementById('botInp');
+        const val = inp.value.trim();
+        if(!val) return;
+        
+        const msgs = document.getElementById('botMsgs');
         
-        const msgs = document.getElementById('botMsgs');
-        const uDiv = document.createElement('div');
-        uDiv.className = 'msg user';
-        uDiv.innerText = inp.value;
-        msgs.appendChild(uDiv);
+        // Сообщение пользователя
+        const uDiv = document.createElement('div');
+        uDiv.className = 'msg user';
+        uDiv.innerText = val;
+        msgs.appendChild(uDiv);
         
-        let resp = "Я могу подсказать: цену, адрес, документы или сайт.";
-        if (val.includes("цена")) resp = "Очное: 140 000 ₸. Заочное: 90 000 ₸.";
-        if (val.includes("адрес")) resp = "Жезказган, ул. Байконурова, 19.";
-        if (val.includes("сайт")) resp = "Наш сайт: zhptk.edu.kz";
-        
+        // Очистка инпута
+        inp.value = '';
+
+        // Имитация "думающего" бота и простой ответ
         setTimeout(() => {
             const bDiv = document.createElement('div');
             bDiv.className = 'msg bot';
-            bDiv.innerText = resp;
+            
+            // Простая логика ответов (в будущем сюда идеально впишется API Gemini)
+            if (val.toLowerCase().includes('цен') || val.toLowerCase().includes('стоимост')) {
+                bDiv.innerText = 'Стоимость обучения: Очное - 140 000 ₸, Заочное - 90 000 ₸.';
+            } else if (val.toLowerCase().includes('документ')) {
+                bDiv.innerText = 'Нужны: Заявка онлайн, аттестат, справка 075-У, 6 фото 3х4.';
+            } else {
+                bDiv.innerText = 'Я пока работаю в тестовом режиме. Пожалуйста, оставьте заявку в форме выше, и мы с вами свяжемся!';
+            }
+            
             msgs.appendChild(bDiv);
+            // Автоматический скролл вниз
             msgs.scrollTop = msgs.scrollHeight;
         }, 600);
-        
-        inp.value = '';
-    }
+
+        // Автоматический скролл вниз после сообщения пользователя
+        msgs.scrollTop = msgs.scrollHeight;
+    }
 </script>
 </body>
 </html>
