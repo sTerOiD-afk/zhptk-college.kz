@@ -18,29 +18,23 @@ const auth = getAuth(app);
 
 // Проверка сессии при загрузке кабинета
 onAuthStateChanged(auth, async (user) => {
+    const navBtn = document.getElementById('navAuthBtn');
+    // Скрываем старый встроенный дашборд (или можешь вообще удалить блок #dashboard-section из index.html)
+    const dash = document.getElementById('dashboard-section'); 
+    
     if (user) {
-        // Получаем документ пользователя из БД
-        const docSnap = await getDoc(doc(db, "users", user.uid));
-        
-        if(docSnap.exists()) {
-            const data = docSnap.data();
-            document.getElementById('cabName').innerText = data.name || "Студент";
-            
-            // Если в Firestore добавлены эти поля, они заменят дефолтный текст. 
-            // Если полей нет, останется красивый плейсхолдер из HTML.
-            if(data.group) document.getElementById('cabGroup').innerText = data.group;
-            if(data.specialty) document.getElementById('cabSpec').innerText = data.specialty;
-            if(data.course) document.getElementById('cabCourse').innerText = data.course;
-            if(data.gpa) document.getElementById('cabGPA').innerText = data.gpa;
-        } else {
-            document.getElementById('cabName').innerText = "Новый Абитуриент";
-            document.getElementById('cabStatus').innerText = "Обработка документов";
-        }
-        
-        document.getElementById('cabEmail').innerText = user.email;
+        window.closeAuthModal();
+        navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Кабинет';
+        navBtn.onclick = null; 
+        navBtn.href = "cabinet.html"; // Ссылка на новую страницу
+        navBtn.target = "_blank";     // Открываем в новой вкладке
+        if(dash) dash.style.display = 'none';
     } else {
-        // Если кто-то попытается зайти по прямой ссылке без авторизации — редирект
-        window.location.href = "index.html";
+        navBtn.innerHTML = '<i class="fas fa-user"></i> Войти';
+        navBtn.onclick = window.openAuthModal; 
+        navBtn.href = "#";
+        navBtn.target = "_self";
+        if(dash) dash.style.display = 'none';
     }
 });
 
