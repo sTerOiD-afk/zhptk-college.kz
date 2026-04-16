@@ -18,26 +18,21 @@ const auth = getAuth(app);
 onAuthStateChanged(auth, async (user) => {
     const navBtn = document.getElementById('navAuthBtn');
     const dash = document.getElementById('dashboard-section');
-    
     if (user) {
         window.closeAuthModal();
         navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Кабинет';
-        // Указываем ссылку на новую страницу кабинета
-        navBtn.href = "cabinet.html"; 
-        // Заставляем открываться в новом окне/вкладке
-        navBtn.target = "_blank"; 
-        navBtn.onclick = null; 
-        
-        // Скрываем старый дэшборд на главной странице (если он еще остался)
-        if (dash) dash.style.display = 'none';
+        navBtn.onclick = null; navBtn.href = "#dashboard-section"; 
+        dash.style.display = 'block';
+        const docSnap = await getDoc(doc(db, "users", user.uid));
+        document.getElementById('dashName').innerText = docSnap.exists() ? docSnap.data().name : "Абитуриент";
+        document.getElementById('dashEmail').innerText = user.email;
     } else {
         navBtn.innerHTML = '<i class="fas fa-user"></i> Войти';
-        navBtn.onclick = window.openAuthModal; 
-        navBtn.href = "#";
-        navBtn.target = "_self";
-        if (dash) dash.style.display = 'none';
+        navBtn.onclick = window.openAuthModal; navBtn.href = "#";
+        dash.style.display = 'none';
     }
 });
+
 // Глобальные функции для Firebase
 window.registerUser = async function() {
     const name = document.getElementById('regName').value;
