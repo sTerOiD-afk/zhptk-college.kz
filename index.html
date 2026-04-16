@@ -77,8 +77,12 @@
         .container { max-width: 1200px; margin: auto; padding: 60px 20px; }
         .section-title { font-size: 2.8rem; text-align: center; margin-bottom: 50px; font-weight: 800; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; font-family: 'Space Grotesk'; }
 
-        /* --- ЛИЧНЫЙ КАБИНЕТ (НОВОЕ) --- */
-        #dashboard-section { display: none; padding-top: 100px; }
+        /* --- ЛИЧНЫЙ КАБИНЕТ (ИНТЕГРИРОВАННЫЙ) --- */
+        #dashboard-section { 
+            display: none; 
+            padding-top: 120px; /* Отступ чтобы не перекрывал хедер */
+            margin-bottom: 80px;
+        }
         .dashboard-card { background: var(--glass); border: 1px solid var(--primary); border-radius: 40px; padding: 50px; backdrop-filter: blur(25px); position: relative; }
         .user-avatar { width: 80px; height: 80px; background: linear-gradient(135deg, var(--primary), var(--accent)); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; color: #fff; margin-bottom: 20px; }
         .user-info { margin-bottom: 30px; }
@@ -150,7 +154,7 @@
         <a href="#about" class="nav-link">О колледже</a>
         <a href="#specialties" class="nav-link">Направления</a>
         <a href="#admission" class="nav-link">Поступление</a>
-        <a onclick="openAuthModal()" id="navAuthBtn" class="auth-btn"><i class="fas fa-user"></i> Войти</a>
+        <a href="#" onclick="openAuthModal()" id="navAuthBtn" class="auth-btn"><i class="fas fa-user"></i> Войти</a>
     </nav>
 
     <div id="landing-content">
@@ -165,6 +169,29 @@
                 <a href="#about" class="info-menu-card"><i class="fas fa-bullseye"></i><h3>Миссия и Видение</h3></a>
                 <a href="#specialties" class="info-menu-card"><i class="fas fa-laptop-code"></i><h3>Направления и Сроки</h3></a>
             </div>
+
+            <section id="dashboard-section">
+                <h2 class="section-title">Личный кабинет</h2>
+                <div class="dashboard-card">
+                    <div class="user-avatar"><i class="fas fa-user-graduate"></i></div>
+                    <div class="user-info">
+                        <h3 id="dashName">Загрузка...</h3>
+                        <p id="dashEmail">student@email.com</p>
+                        <div style="margin-top: 15px; display: inline-block; padding: 5px 15px; background: rgba(16, 185, 129, 0.2); color: #10b981; border-radius: 20px; font-size: 0.9rem;">
+                            <i class="fas fa-check-circle"></i> Статус: Абитуриент
+                        </div>
+                    </div>
+                    
+                    <div style="border-top: 1px solid var(--border); padding-top: 30px; margin-top: 20px;">
+                        <h4 style="color: var(--accent); margin-top: 0;">Мои заявки</h4>
+                        <p style="color: #94a3b8; font-size: 0.9rem;">У вас пока нет активных заявлений на поступление.</p>
+                    </div>
+
+                    <div style="margin-top: 40px;">
+                        <button class="btn-danger" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Выйти из аккаунта</button>
+                    </div>
+                </div>
+            </section>
 
             <section id="about">
                 <div class="card-main">
@@ -197,29 +224,6 @@
             </div>
         </div>
     </div>
-
-    <section id="dashboard-section" class="container">
-        <h2 class="section-title">Личный кабинет</h2>
-        <div class="dashboard-card">
-            <div class="user-avatar"><i class="fas fa-user-graduate"></i></div>
-            <div class="user-info">
-                <h3 id="dashName">Загрузка...</h3>
-                <p id="dashEmail">student@email.com</p>
-                <div style="margin-top: 15px; display: inline-block; padding: 5px 15px; background: rgba(16, 185, 129, 0.2); color: #10b981; border-radius: 20px; font-size: 0.9rem;">
-                    <i class="fas fa-check-circle"></i> Статус: Абитуриент
-                </div>
-            </div>
-            
-            <div style="border-top: 1px solid var(--border); padding-top: 30px; margin-top: 20px;">
-                <h4 style="color: var(--accent); margin-top: 0;">Мои заявки</h4>
-                <p style="color: #94a3b8; font-size: 0.9rem;">У вас пока нет активных заявлений на поступление.</p>
-            </div>
-
-            <div style="margin-top: 40px;">
-                <button class="btn-danger" onclick="logoutUser()"><i class="fas fa-sign-out-alt"></i> Выйти из аккаунта</button>
-            </div>
-        </div>
-    </section>
 
     <div class="modal" id="modalSpec" onclick="closeM()">
         <div class="modal-card" onclick="event.stopPropagation()">
@@ -271,41 +275,33 @@
         import { getFirestore, collection, addDoc, doc, setDoc, getDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
         import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
-        // ВАШ КОНФИГ FIREBASE
-       // Найдите этот блок и вставьте свои данные между кавычками
-const firebaseConfig = {
-  apiKey : "AIzaSyAMaUx0GGxmQKuPCSlIBow0V2iFudAZrPc" , 
-  authDomain : "zhptk-portal-2026.firebaseapp.com" , 
-  projectId : "zhptk-portal-2026" , 
-  storageBucket : "zhptk-portal-2026.firebasestorage.app" , 
-  messagingSenderId : "49450481804" , 
-  appId : "1:49450481804:web:557ce5ecf2a2f8c68163a9" 
-};
+        const firebaseConfig = {
+            apiKey : "AIzaSyAMaUx0GGxmQKuPCSlIBow0V2iFudAZrPc", 
+            authDomain : "zhptk-portal-2026.firebaseapp.com", 
+            projectId : "zhptk-portal-2026", 
+            storageBucket : "zhptk-portal-2026.firebasestorage.app", 
+            messagingSenderId : "49450481804", 
+            appId : "1:49450481804:web:557ce5ecf2a2f8c68163a9" 
+        };
+
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
         const auth = getAuth(app);
 
         // --- ЛОГИКА АВТОРИЗАЦИИ И КАБИНЕТА ---
-        
-        // Отслеживание состояния пользователя
         onAuthStateChanged(auth, async (user) => {
             const navBtn = document.getElementById('navAuthBtn');
-            const landing = document.getElementById('landing-content');
             const dash = document.getElementById('dashboard-section');
-            const navLinks = document.querySelectorAll('.nav-link');
 
             if (user) {
-                // Пользователь ВОШЕЛ
                 closeAuthModal();
+                // Меняем кнопку входа на кнопку Кабинета со скроллом
                 navBtn.innerHTML = '<i class="fas fa-user-circle"></i> Кабинет';
-                navBtn.onclick = () => { window.scrollTo(0, 0); }; // Скролл наверх в кабинет
+                navBtn.onclick = null; 
+                navBtn.href = "#dashboard-section"; 
                 
-                // Скрываем лендинг, показываем кабинет
-                landing.style.display = 'none';
-                dash.style.display = 'block';
-                navLinks.forEach(l => l.style.display = 'none'); // Скрываем лишние ссылки меню
+                dash.style.display = 'block'; // Показываем кабинет
 
-                // Получаем данные пользователя из БД
                 const docSnap = await getDoc(doc(db, "users", user.uid));
                 if (docSnap.exists()) {
                     document.getElementById('dashName').innerText = docSnap.data().name;
@@ -315,65 +311,38 @@ const firebaseConfig = {
                 document.getElementById('dashEmail').innerText = user.email;
 
             } else {
-                // Пользователь ВЫШЕЛ
                 navBtn.innerHTML = '<i class="fas fa-user"></i> Войти';
                 navBtn.onclick = openAuthModal;
-                
-                landing.style.display = 'block';
-                dash.style.display = 'none';
-                navLinks.forEach(l => l.style.display = 'block');
+                navBtn.href = "#";
+                dash.style.display = 'none'; // Скрываем кабинет при выходе
             }
         });
 
-        // Регистрация
+        // Функции для экспорта в window
         window.registerUser = async function() {
             const name = document.getElementById('regName').value.trim();
             const email = document.getElementById('regEmail').value.trim();
             const pass = document.getElementById('regPass').value;
             const err = document.getElementById('regErr');
-            
             if(!name || !email || !pass) { err.innerText = "Заполните все поля"; err.style.display = "block"; return; }
-            
             try {
                 const userCredential = await createUserWithEmailAndPassword(auth, email, pass);
-                const user = userCredential.user;
-                // Сохраняем имя в Firestore
-                await setDoc(doc(db, "users", user.uid), {
-                    name: name,
-                    email: email,
-                    role: "student",
-                    createdAt: serverTimestamp()
+                await setDoc(doc(db, "users", userCredential.user.uid), {
+                    name: name, email: email, role: "student", createdAt: serverTimestamp()
                 });
                 err.style.display = "none";
-            } catch (error) {
-                err.innerText = "Ошибка: " + error.message;
-                err.style.display = "block";
-            }
+            } catch (error) { err.innerText = "Ошибка: " + error.message; err.style.display = "block"; }
         };
 
-        // Вход
         window.loginUser = async function() {
             const email = document.getElementById('loginEmail').value.trim();
             const pass = document.getElementById('loginPass').value;
             const err = document.getElementById('loginErr');
-            
-            if(!email || !pass) { err.innerText = "Введите Email и Пароль"; err.style.display = "block"; return; }
-            
-            try {
-                await signInWithEmailAndPassword(auth, email, pass);
-                err.style.display = "none";
-            } catch (error) {
-                err.innerText = "Неверный логин или пароль";
-                err.style.display = "block";
-            }
+            try { await signInWithEmailAndPassword(auth, email, pass); err.style.display = "none"; }
+            catch (error) { err.innerText = "Неверный логин или пароль"; err.style.display = "block"; }
         };
 
-        // Выход
-        window.logoutUser = function() {
-            signOut(auth);
-        };
-
-        // Сохранение заявки
+        window.logoutUser = function() { signOut(auth); };
         window.saveStudent = async function(name, phone) {
             await addDoc(collection(db, "applications"), { studentName: name, studentPhone: phone, timestamp: serverTimestamp() });
             return true;
@@ -387,21 +356,18 @@ const firebaseConfig = {
             document.getElementById('mTime').innerText = "Срок обучения: " + time; document.getElementById('modalSpec').style.display = 'flex';
         }
         function closeM() { document.getElementById('modalSpec').style.display = 'none'; }
-        
         function openAuthModal() { document.getElementById('authModal').style.display = 'flex'; }
         function closeAuthModal() { document.getElementById('authModal').style.display = 'none'; }
         
         function switchAuthTab(tab) {
+            const tL = document.getElementById('tabLogin'), tR = document.getElementById('tabReg');
+            const fL = document.getElementById('formLogin'), fR = document.getElementById('formReg');
             if(tab === 'login') {
-                document.getElementById('tabLogin').classList.add('active');
-                document.getElementById('tabReg').classList.remove('active');
-                document.getElementById('formLogin').style.display = 'flex';
-                document.getElementById('formReg').style.display = 'none';
+                tL.classList.add('active'); tR.classList.remove('active');
+                fL.style.display = 'flex'; fR.style.display = 'none';
             } else {
-                document.getElementById('tabReg').classList.add('active');
-                document.getElementById('tabLogin').classList.remove('active');
-                document.getElementById('formReg').style.display = 'flex';
-                document.getElementById('formLogin').style.display = 'none';
+                tR.classList.add('active'); tL.classList.remove('active');
+                fR.style.display = 'flex'; fL.style.display = 'none';
             }
         }
 
@@ -414,7 +380,6 @@ const firebaseConfig = {
             const phone = document.getElementById('studentPhone').value.trim();
             const name = document.getElementById('studentName').value.trim();
             if (!/^\+?[0-9]{10,15}$/.test(phone) || name === "") { alert("Проверьте введенные данные"); return; }
-            
             const btn = document.querySelector('#admission button'); btn.innerText = "Отправка..."; btn.disabled = true;
             try {
                 await window.saveStudent(name, phone);
@@ -424,21 +389,17 @@ const firebaseConfig = {
             finally { btn.innerText = "Отправить"; btn.disabled = false; }
         }
 
-        // ЛОГИКА БОТА НЕ ИЗМЕНЕНА
         function botSend() {
             const inp = document.getElementById('botInp'); const val = inp.value.toLowerCase().trim();
             if(!val) return; const msgs = document.getElementById('botMsgs');
-            
             const uDiv = document.createElement('div'); uDiv.className = 'msg user'; uDiv.innerText = inp.value; msgs.appendChild(uDiv);
-            
-            let response = "Извините, я пока не знаю ответа на этот вопрос. Попробуйте спросить про 'цену', 'документы' или 'адрес'.";
-            if(val.includes("цена") || val.includes("стоим")) response = "Очное обучение: 140 000 ₸. Заочное: 90 000 ₸.";
-            if(val.includes("док")) response = "Нужны: Аттестат (подлинник), справка 075-У, флюорография и 6 фото 3х4.";
-            if(val.includes("адрес") || val.includes("где")) response = "Мы находимся в г. Жезказган. Подробную карту можно найти на сайте zhptk.edu.kz.";
-            if(val.includes("дресс") || val.includes("одежд")) response = "В колледже принят классический (деловой) стиль одежды.";
-
+            let res = "Извините, я пока не знаю ответа. Спросите про 'цену', 'документы' или 'адрес'.";
+            if(val.includes("цена") || val.includes("стоим")) res = "Очное: 140 000 ₸. Заочное: 90 000 ₸.";
+            if(val.includes("док")) res = "Нужны: Аттестат, справка 075-У, флюорография и 6 фото 3х4.";
+            if(val.includes("адрес") || val.includes("где")) res = "г. Жезказган. Подробности на zhptk.edu.kz.";
+            if(val.includes("одежд")) res = "Принят классический деловой стиль.";
             setTimeout(() => {
-                const bDiv = document.createElement('div'); bDiv.className = 'msg bot'; bDiv.innerText = response;
+                const bDiv = document.createElement('div'); bDiv.className = 'msg bot'; bDiv.innerText = res;
                 msgs.appendChild(bDiv); msgs.scrollTop = msgs.scrollHeight;
             }, 600);
             inp.value = '';
