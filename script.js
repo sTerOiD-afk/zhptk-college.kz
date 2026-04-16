@@ -136,4 +136,11 @@ window.botSend = function() {
     }, 500);
 
     inp.value = '';
+    
+window.toggleBot = function() {
+    const bot = document.getElementById('botWindow');
+
+    if (!bot) return;
+
+    bot.style.display = (bot.style.display === 'flex') ? 'none' : 'flex';
 };
