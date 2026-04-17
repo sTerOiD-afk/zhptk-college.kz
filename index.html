@@ -3,272 +3,196 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ЖВПТК 2026 — Портал</title>
+<title>ЖВПТК 2026 — Премиальный портал</title>
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;500;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Manrope:wght@300;500;800&display=swap" rel="stylesheet">
 
 <style>
-body{
-    font-family: Manrope, sans-serif;
-    background:#020617;
-    color:white;
-    margin:0;
+:root{
+--primary:#007aff;
+--secondary:#6366f1;
+--accent:#00f2fe;
+--dark:#020617;
+--glass:rgba(255,255,255,0.03);
+--border:rgba(255,255,255,0.1);
 }
+
+*{box-sizing:border-box;transition:.3s}
+body{margin:0;font-family:Manrope;background:var(--dark);color:#e2e8f0}
+
 nav{
-    position:fixed;
-    top:0;
-    width:100%;
-    height:70px;
-    background:#020617;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:20px;
-    z-index:1000;
+position:fixed;top:0;width:100%;height:70px;
+display:flex;justify-content:center;align-items:center;
+gap:15px;background:rgba(2,6,23,.8);
+backdrop-filter:blur(15px);z-index:1000;
 }
-nav a{
-    color:#94a3b8;
-    text-decoration:none;
-    font-weight:bold;
-}
+
+nav a{color:#94a3b8;text-decoration:none;font-weight:700;font-size:12px}
+nav a:hover{color:var(--accent)}
+
 .auth-btn{
-    background:#007aff;
-    padding:10px 20px;
-    border-radius:20px;
-    color:white !important;
+background:var(--primary);
+padding:8px 15px;border-radius:20px;color:white!important;
 }
-.container{
-    max-width:1100px;
-    margin:auto;
-    padding-top:120px;
-}
+
+.welcome{height:100vh;display:flex;flex-direction:column;
+justify-content:center;align-items:center;text-align:center}
+
+.welcome h1{font-size:60px;margin:0}
+.welcome span{color:var(--accent)}
+
+.container{max-width:1100px;margin:auto;padding:40px 20px}
+
+.card{background:var(--glass);border:1px solid var(--border);
+padding:30px;border-radius:20px;margin:20px 0}
+
+button{cursor:pointer}
+
 .modal{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.9);
-    display:none;
-    justify-content:center;
-    align-items:center;
+position:fixed;inset:0;background:rgba(0,0,0,.8);
+display:none;justify-content:center;align-items:center
 }
-.modal-card{
-    background:#0f172a;
-    padding:30px;
-    border-radius:20px;
-    width:90%;
-    max-width:400px;
+
+.modal-box{
+background:#0a0a0a;padding:30px;border-radius:20px;
+width:90%;max-width:400px
 }
-.auth-form{
-    display:flex;
-    flex-direction:column;
-    gap:10px;
+
+input{
+width:100%;padding:12px;margin:5px 0;
+border-radius:10px;border:1px solid var(--border);
+background:rgba(255,255,255,0.05);color:white
 }
-.auth-form input{
-    padding:12px;
-    border-radius:10px;
-    border:1px solid #334155;
-    background:#020617;
-    color:white;
+
+.bot{
+position:fixed;right:20px;bottom:20px;
+width:60px;height:60px;border-radius:50%;
+background:var(--primary);border:none;color:white;font-size:20px
 }
-.auth-form button{
-    padding:12px;
-    border:none;
-    border-radius:10px;
-    background:#00f2fe;
-    font-weight:bold;
-    cursor:pointer;
+
+.bot-window{
+position:fixed;right:20px;bottom:90px;width:300px;height:400px;
+background:#0a0a0a;border:1px solid var(--border);
+display:none;flex-direction:column;border-radius:15px
 }
+
+.msgs{flex:1;overflow:auto;padding:10px;font-size:13px}
+
+.msg{margin:5px 0;padding:8px;border-radius:10px}
+
+.user{background:var(--primary);align-self:flex-end}
+.botmsg{background:var(--glass)}
+
 </style>
 </head>
 
 <body>
 
 <nav>
-<a href="#">Главная</a>
-<a href="#">Специальности</a>
-<a href="#">Контакты</a>
-<a href="#" onclick="openAuthModal()" id="navAuthBtn" class="auth-btn">
-<i class="fas fa-user"></i> Войти
-</a>
+<a href="#about">О колледже</a>
+<a href="#spec">Специальности</a>
+<a href="#admission">Поступление</a>
+<a href="#" onclick="openAuth()">Войти</a>
 </nav>
 
+<div class="welcome">
+<h1>ЖВПТК <span>2026</span></h1>
+<p>Портал колледжа</p>
+</div>
+
 <div class="container">
-<h1>ЖВПТК 2026</h1>
-<p>Портал абитуриента</p>
 
-<input id="studentName" placeholder="ФИО" style="padding:10px">
-<input id="studentPhone" placeholder="Телефон" style="padding:10px">
-<button onclick="addStudent()">Отправить заявку</button>
+<div id="about" class="card">
+<h2>О колледже</h2>
+<p>Жезказганский высший политехнический колледж</p>
 </div>
 
-<div class="modal" id="authModal" onclick="closeAuthModal()">
-<div class="modal-card" onclick="event.stopPropagation()">
+<div id="spec" class="card">
+<h2>Специальности</h2>
+<ul>
+<li>IT и программирование</li>
+<li>Энергетика</li>
+<li>Строительство</li>
+<li>Транспорт</li>
+</ul>
+</div>
 
-<div class="auth-form">
-<h3>Вход</h3>
-<input type="email" id="loginEmail" placeholder="Email">
-<input type="password" id="loginPass" placeholder="Пароль">
-<button onclick="loginUser()">Войти</button>
-<p id="loginErr" style="color:red;display:none"></p>
-
-<hr>
-
-<h3>Регистрация</h3>
-<input type="text" id="regName" placeholder="ФИО">
-<input type="email" id="regEmail" placeholder="Email">
-<input type="password" id="regPass" placeholder="Пароль">
-<button onclick="registerUser()">Создать аккаунт</button>
-
+<div id="admission" class="card">
+<h2>Поступление</h2>
+<p>Документы: аттестат, удостоверение, фото</p>
 </div>
 
 </div>
+
+<!-- AUTH -->
+<div class="modal" id="auth">
+<div class="modal-box">
+<h3>Авторизация</h3>
+
+<input id="email" placeholder="Email">
+<input id="pass" type="password" placeholder="Пароль">
+
+<button onclick="login()">Войти</button>
+<button onclick="register()">Регистрация</button>
+
+<br><br>
+<button onclick="closeAuth()">Закрыть</button>
+</div>
 </div>
 
-<script type="module">
+<!-- BOT -->
+<button class="bot" onclick="toggleBot()">
+<i class="fas fa-robot"></i>
+</button>
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getFirestore, collection, addDoc, doc, setDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+<div class="bot-window" id="bot">
+<div class="msgs" id="msgs">
+<div class="msg botmsg">Привет! Я бот колледжа.</div>
+</div>
+<input id="inp" placeholder="Напиши..." onkeypress="if(event.key==='Enter') send()">
+</div>
 
-const firebaseConfig = {
-apiKey: "AIzaSyAMaUx0GGxmQKuPCSlIBow0V2iFudAZrPc",
-authDomain: "zhptk-portal-2026.firebaseapp.com",
-projectId: "zhptk-portal-2026",
-
-/* ИСПРАВЛЕНО */
-storageBucket: "zhptk-portal-2026.appspot.com",
-
-messagingSenderId: "49450481804",
-appId: "1:49450481804:web:557ce5ecf2a2f8c68163a9"
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
-
-console.log("Firebase подключен");
-
-onAuthStateChanged(auth, (user)=>{
-const navBtn = document.getElementById("navAuthBtn");
-
-if(user){
-navBtn.innerHTML = "<i class='fas fa-user-circle'></i> Кабинет";
+<script>
+function openAuth(){
+document.getElementById('auth').style.display='flex';
 }
-else{
-navBtn.innerHTML = "<i class='fas fa-user'></i> Войти";
-}
-});
-
-window.registerUser = async function(){
-
-try{
-
-const name = document.getElementById("regName").value.trim();
-const email = document.getElementById("regEmail").value.trim();
-const pass = document.getElementById("regPass").value.trim();
-
-if(!name || !email || !pass){
-alert("Заполните все поля");
-return;
+function closeAuth(){
+document.getElementById('auth').style.display='none';
 }
 
-if(pass.length < 6){
-alert("Пароль минимум 6 символов");
-return;
+function login(){
+alert("Вход выполнен (заглушка)");
+closeAuth();
 }
 
-const userCredential = await createUserWithEmailAndPassword(auth,email,pass);
-const user = userCredential.user;
-
-await setDoc(doc(db,"users",user.uid),{
-fio:name,
-email:email,
-role:"Абитуриент",
-createdAt:serverTimestamp()
-});
-
-alert("Регистрация успешна");
-closeAuthModal();
-
-}
-catch(error){
-
-console.error(error);
-
-if(error.code === "auth/email-already-in-use")
-alert("Email уже используется");
-else if(error.code === "auth/invalid-email")
-alert("Неверный email");
-else if(error.code === "auth/weak-password")
-alert("Слабый пароль");
-else
-alert("Ошибка регистрации");
-
-}
-};
-
-window.loginUser = async function(){
-
-try{
-
-const email = document.getElementById("loginEmail").value;
-const pass = document.getElementById("loginPass").value;
-
-await signInWithEmailAndPassword(auth,email,pass);
-
-closeAuthModal();
-
-}
-catch(error){
-
-console.error(error);
-
-const err = document.getElementById("loginErr");
-err.innerText = "Неверный email или пароль";
-err.style.display = "block";
-
-}
-};
-
-window.logoutUser = async function(){
-await signOut(auth);
-alert("Вы вышли из аккаунта");
-};
-
-window.addStudent = async function(){
-
-const name = document.getElementById("studentName").value;
-const phone = document.getElementById("studentPhone").value;
-
-if(!name || !phone){
-alert("Введите данные");
-return;
+function register(){
+alert("Регистрация выполнена (заглушка)");
+closeAuth();
 }
 
-await addDoc(collection(db,"applications"),{
-name:name,
-phone:phone,
-createdAt:serverTimestamp()
-});
+function toggleBot(){
+let b=document.getElementById('bot');
+b.style.display=b.style.display==='flex'?'none':'flex';
+}
 
-alert("Заявка отправлена");
+function send(){
+let inp=document.getElementById('inp');
+let msgs=document.getElementById('msgs');
 
-document.getElementById("studentName").value="";
-document.getElementById("studentPhone").value="";
+let u=document.createElement('div');
+u.className='msg user';
+u.textContent=inp.value;
+msgs.appendChild(u);
 
-};
+let r=document.createElement('div');
+r.className='msg botmsg';
+r.textContent="Ответ: " + inp.value;
+msgs.appendChild(r);
 
-window.openAuthModal = function(){
-document.getElementById("authModal").style.display="flex";
-};
-
-window.closeAuthModal = function(){
-document.getElementById("authModal").style.display="none";
-};
-
+inp.value='';
+msgs.scrollTop=msgs.scrollHeight;
+}
 </script>
 
 </body>
