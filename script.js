@@ -3,12 +3,12 @@ import { getFirestore, collection, addDoc, doc, setDoc, getDoc, serverTimestamp 
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 
 const firebaseConfig = {
-    apiKey : "AIzaSyAMaUx0GGxmQKuPCSlIBow0V2iFudAZrPc", 
-    authDomain : "zhptk-portal-2026.firebaseapp.com", 
-    projectId : "zhptk-portal-2026", 
-    storageBucket : "zhptk-portal-2026.firebasestorage.app", 
-    messagingSenderId : "49450481804", 
-    appId : "1:49450481804:web:557ce5ecf2a2f8c68163a9" 
+  apiKey: "AIzaSyAMaUx0GGxmQKuPCSlIBow0V2iFudAZrPc",
+  authDomain: "zhptk-portal-2026.firebaseapp.com",
+  projectId: "zhptk-portal-2026",
+  storageBucket: "zhptk-portal-2026.firebasestorage.app",
+  messagingSenderId: "49450481804",
+  appId: "1:49450481804:web:557ce5ecf2a2f8c68163a9"
 };
 
 const app = initializeApp(firebaseConfig);
